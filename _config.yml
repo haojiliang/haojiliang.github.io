@@ -80,4 +80,4 @@ theme: indigo
 deploy:
   type: git
   repo: https://github.com/haojiliang/haojiliang.github.io.git
-  branch: public
+  branch: master
