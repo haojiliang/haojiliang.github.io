@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: haojiliang
-subtitle: ssssssssssss
+title: HaoXuxu's Blog
+subtitle: 一个有理想（可能是活在梦里）的程序猿
 description: qwqq是
 keywords: haojiliang
 author: 郝继亮
@@ -13,7 +13,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://haojiliang.github.io
+url: https://blog.iaiot.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
