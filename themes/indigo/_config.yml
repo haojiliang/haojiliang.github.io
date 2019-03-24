@@ -15,9 +15,6 @@ menu:
     url: /archives
   tags:
     url: /tags
-  th-list:
-    text: Categories
-    url: /categories
   github:
     url: https://github.com/haojiliang
     target: _blank
@@ -153,14 +150,14 @@ since_year: 1994
 about: 一个有理想（可能是活在梦里）的程序猿
 
 # “不蒜子”访问量统计，详见 http://ibruce.info/2015/04/04/busuanzi/
-visit_counter:
-  site_uv: 站点总访客数：
-  site_pv: 站点总访问量：
+#visit_counter:
+#  site_uv: 站点总访客数：
+#  site_pv: 站点总访问量：
 
 # 动态定义title
-title_change:
-  normal: (つェ⊂)咦!又好了!
-  leave: 死鬼去哪里了！
+#title_change:
+#  normal: (つェ⊂)咦!又好了!
+#  leave: 死鬼去哪里了！
 
 # 设置为 true 发布后将使用 unpkg cdn 最新的主题样式
 # 如果想让你的自定义样式生效，把此项设为 false
