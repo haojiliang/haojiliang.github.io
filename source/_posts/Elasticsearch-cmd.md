@@ -2,7 +2,7 @@
 post_url: Elasticsearch-cmd
 title: Elasticsearch常用命令整理
 date: 2018-01-24 15:16:04
-tags: Elasticsearch
+tags: elasticsearch
 ---
 在命令行查看Elasticsearch信息及数据，另有es head插件（可以自己安装，另外在谷歌浏览器扩展程序里也有），可以直接在网页中可视化操作Elasticsearch
 ![](/images/20180927081010321.png)

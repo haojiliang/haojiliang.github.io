@@ -2,7 +2,7 @@
 post_url: es-nostop-up-mapping
 title: Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）
 date: 2018-10-08 22:18:04
-tags: Elasticsearch
+tags: elasticsearch
 ---
 官方地址：https://www.elastic.co/cn/blog/changing-mapping-with-zero-downtime
 ## 官方原文

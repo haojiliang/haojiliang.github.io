@@ -2,7 +2,7 @@
 post_url: Elasticsearch-metrics
 title: 通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值
 date: 2017-12-27 10:43:07
-tags: Elasticsearch
+tags: elasticsearch
 ---
 Elasticsearch 的 metrics（度量）包含 count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）
 

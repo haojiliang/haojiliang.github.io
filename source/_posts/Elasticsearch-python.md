@@ -2,7 +2,7 @@
 post_url: Elasticsearch-python
 title: 通过python使用游标查询Elasticsearch数据并写入文件
 date: 2018-02-06 10:36:35
-tags: [Elasticsearch, python]
+tags: [elasticsearch, python]
 ---
 ```python
 import json

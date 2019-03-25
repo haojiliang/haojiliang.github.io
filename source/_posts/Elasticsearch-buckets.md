@@ -2,7 +2,7 @@
 post_url: Elasticsearch-buckets
 title: 通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 buckets 桶
 date: 2017-12-28 18:08:58
-tags: Elasticsearch
+tags: elasticsearch
 ---
 Elasticsearch 的 buckets（桶）包含 Histogram、Date Histogram、Range、Date Range、Terms、IPv4 Range、Significant Terms 等；
 
