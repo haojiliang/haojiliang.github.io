@@ -2,7 +2,7 @@
 post-url: k8s-6443-was-refused
 title: Mac Kubernetes 报 The connection to the server localhost:6443 was refused
 date: 2018-12-22 22:11:22
-tags: k8s-6443-was-refused
+tags: kubernetes
 ---
 原文：https://github.com/kubernetes/kubernetes/issues/23726
 

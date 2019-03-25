@@ -2,7 +2,7 @@
 post_url: docker-v-inode
 title: 修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume
 date: 2018-11-24 10:29:40
-tags: docker
+tags: [docker, linux]
 ---
 原文地址：https://lrita.github.io/2017/08/18/mount-volume-to-docker-and-modify-from-host/
 

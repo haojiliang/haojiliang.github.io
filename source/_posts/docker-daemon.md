@@ -2,7 +2,7 @@
 post_url: docker-daemon
 title: docker daemon（dockerd） 配置文件 daemon.json
 date: 2018-12-01 23:26:55
-tags: docker daemon
+tags: docker
 ---
 原文：https://docs.docker.com/engine/reference/commandline/dockerd/
 ```

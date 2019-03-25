@@ -2,7 +2,7 @@
 post_url: pyspark-spark-shell-sparkDriver-failed
 title: pyspark spark-shell无法指定被请求的地址:Service 'sparkDriver' failed after 16 retries (on a random free port)
 date: 2018-12-23 22:32:25
-tags: sparkDriver-failed
+tags: spark
 ---
 原文：https://stackoverflow.com/questions/49654050/could-not-bind-on-a-random-free-port-error-while-trying-to-connect-to-spark-mast
 

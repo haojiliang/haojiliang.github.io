@@ -2,7 +2,7 @@
 post_url: Jmeter-webSocket
 title: Jmeter 发送 webSocket 请求
 date: 2018-12-25 20:56:51
-tags: Jmeter webSocket
+tags: [jmeter, webSocket]
 ---
 下载 Jmeter 插件管理插件：http://search.maven.org/remotecontent?filepath=kg/apc/jmeter-plugins-manager/1.3/jmeter-plugins-manager-1.3.jar
 

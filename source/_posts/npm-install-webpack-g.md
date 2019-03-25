@@ -2,7 +2,7 @@
 post_url: npm-install-webpack-g
 title: npm install webpack -g 和 npm install --global vue-cli 失败报错 Unexpected end of JSON input while parsi
 date: 2018-08-18 11:07:25
-tags:
+tags: [node, vue]
 ---
 npm install webpack -g 和 npm install --global vue-cli 失败报错如下：
 

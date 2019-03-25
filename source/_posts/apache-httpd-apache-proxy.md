@@ -2,7 +2,7 @@
 post_url: apache-httpd-apache-proxy
 title: apache httpd 服务实现转发后如偶尔出现 apache proxy 错误
 date: 2018-08-13 15:05:51
-tags: apache-httpd
+tags: [apache, httpd]
 ---
 启动服务 service httpd start
 

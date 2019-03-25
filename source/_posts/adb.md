@@ -2,7 +2,7 @@
 post_url: adb
 title: adb 无线连接安卓设备调试程序方法
 date: 2018-08-18 22:52:03
-tags: [adb, android]
+tags: [android, adb]
 ---
 1. 在安卓手机端下载 终端模拟器 app 并安装
 

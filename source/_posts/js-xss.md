@@ -2,7 +2,7 @@
 title: 页面输出时用js转义替换字符串中的script标签，防止XSS
 post_url: js-xss
 date: 2018-02-06 09:54:06
-tags: xss
+tags: [xss, js]
 ---
 ```js
   function stringEncode(str){

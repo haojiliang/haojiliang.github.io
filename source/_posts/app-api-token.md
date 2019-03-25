@@ -2,7 +2,7 @@
 post_url: app-api-token
 title: App开放接口api安全性—Token签名sign的设计与实现
 date: 2018-08-14 18:58:00
-tags:
+tags: 项目
 ---
 原文地址：https://blog.csdn.net/fengshizty/article/details/48754609
 前言

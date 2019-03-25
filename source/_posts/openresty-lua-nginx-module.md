@@ -2,7 +2,7 @@
 title: openresty（Nginx+lua-nginx-module）中各个阶段执行的指令解释及其执行顺序
 post_url: openresty-lua-nginx-module
 date: 2019-01-12 15:36:34
-tags: [openresty, lua-nginx-module]
+tags: openresty
 ---
 
 ## 执行顺序

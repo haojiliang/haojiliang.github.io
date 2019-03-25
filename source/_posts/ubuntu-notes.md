@@ -2,7 +2,7 @@
 title: ubuntu 笔记
 post_url: ubuntu-notes
 date: 2019-01-12 17:07:28
-tags: ubuntu 笔记
+tags: linux
 ---
 1. 设置 root 密码：sudo passwd root
 

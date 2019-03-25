@@ -2,7 +2,7 @@
 title: webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket
 post_url: websocket-400-302-spring-resin-nginx
 date: 2019-03-22 17:15:58
-tags: [spring-websocket, resin-websocket, nginx-websocket]
+tags: [websocket, resin, socket]
 ---
 
 ## webSocket 400

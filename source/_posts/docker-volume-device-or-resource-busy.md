@@ -2,7 +2,7 @@
 title: docker volume 挂载文件后，容器内更新此文件，就报 Device or resource busy 不能保存文件
 post_url: docker-volume-device-or-resource-busy
 date: 2019-01-04 17:52:08
-tags: docker volume Device or resource busy
+tags: docker
 ---
 
 ## 问题

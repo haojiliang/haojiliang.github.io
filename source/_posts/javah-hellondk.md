@@ -2,7 +2,7 @@
 post_url: javah-hellondk
 title: 用javah导出类的头文件，Not a valid class name或者错误:找不到 HelloNDK 的类文件
 date: 2016-08-28 14:50:33
-tags:
+tags: [android, ndk]
 ---
 1. Exception in thread "main" java.lang.IllegalArgumentException: Not a valid class name: HelloNDK.class
 

@@ -2,7 +2,7 @@
 post_url: log-example
 title: Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例
 date: 2018-11-14 10:55:07
-tags: log
+tags: [nginx, apache, tomcat, resin, IIS, jboss, wildfly, weblogic]
 ---
 ## Nginx
 ```

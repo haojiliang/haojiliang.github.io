@@ -2,7 +2,7 @@
 title: docker-compose 迁移部署 wordpress 站点、创建自定义网络、设置容器为静态 ip
 post_url: docker-compose-move-wordpress
 date: 2018-12-02 20:46:12
-tags: [docker-compose, wordpress]
+tags: [docker, wordpress]
 ---
 附：nginx1.15.7 + php7.0.33 + php-fpm + alpine3.7 镜像已完成：https://blog.csdn.net/iaiot/article/details/8481419
 

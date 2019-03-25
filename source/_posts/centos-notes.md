@@ -2,7 +2,7 @@
 post_url: centos-notes
 title: CentOS 防火墙、端口、端口转发、selinux、Windows 端口
 date: 2018-11-20 21:28:30
-tags: centos
+tags: linux
 ---
 ## 防火墙基础操作
 1) 重启后生效 

@@ -2,7 +2,7 @@
 post_url: docker-compose-custom-network
 title: docker-compose 配置自定义网络和静态 ip 示例
 date: 2018-12-13 23:29:18
-tags: [docker-compose 配置自定义网络, docker-compose 配置静态 ip]
+tags: docker
 ---
 
 

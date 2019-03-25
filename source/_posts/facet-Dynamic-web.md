@@ -2,7 +2,7 @@
 post_url: facet-Dynamic-web
 title: 解决Cannot change version of project facet Dynamic web module to 3.0
 date: 2017-06-18 15:58:52
-tags:
+tags: java
 ---
 问题：Cannot change version of project facet Dynamic web module to 3.0
 

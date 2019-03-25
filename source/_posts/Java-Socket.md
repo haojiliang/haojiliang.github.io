@@ -2,7 +2,7 @@
 post_url: Java-Socket
 title: Java 使用 Socket 判断某服务能否连通
 date: 2018-08-09 17:57:30
-tags: Java-Socket
+tags: [java, socket]
 ---
 如下只是通过判断端口通不通来大体了解服务的状态，并不能用这个准确判断某服务的实际运行状态。
 ```java

@@ -2,7 +2,7 @@
 title: CentOS 和 Windows 服务相关操作，配置开机自动启动等，Windows 脚本获取路径语法
 post_url: linux-widows-service
 date: 2018-11-20 20:49:59
-tags:
+tags: [linux, windows]
 ---
 ## CentOS  服务（https://www.jianshu.com/p/7bd61fc1de4b）：
 chkconfig  --add  xxx     //  把服务添加到  chkconfig  列表

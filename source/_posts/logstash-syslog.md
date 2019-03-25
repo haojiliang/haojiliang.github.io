@@ -2,7 +2,7 @@
 post_url: logstash-syslog
 title: logstash 接收 syslog 消息调试
 date: 2019-02-22 16:03:50
-tags: logstash-syslog
+tags: [logstash, syslog]
 ---
 
 linux logger、rsyslog：

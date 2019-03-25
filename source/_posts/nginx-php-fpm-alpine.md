@@ -2,7 +2,7 @@
 post_url: nginx-php-fpm-alpine
 title: nginx-php 的 docker 镜像 nginx1.15.7 php7.0.33 php-fpm alpine3.7，测试 wordpress 完美运行
 date: 2018-12-05 08:10:19
-tags: nginx-php-fpm-alpine
+tags: [nginx, php, docker, wordpress]
 ---
 获取镜像：docker pull haojiliang/nginx-php-fpm-alpine:v1.15.7
 

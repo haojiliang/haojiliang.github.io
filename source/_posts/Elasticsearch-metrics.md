@@ -241,7 +241,7 @@ ES原生查询语句如下：
   }
 }
 ```
-Histogram、Date Histogram、Range、Date Range、Terms、IPv4 Range、Significant Terms 等各种 buckets 桶查询：https://blog.csdn.net/iaiot/article/details/78924841
+Histogram、Date Histogram、Range、Date Range、Terms、IPv4 Range、Significant Terms 等各种 buckets 桶查询：https://blog.iaiot.com/20171228/Elasticsearch-buckets.html
 
 附 elasticsearch-sql 的 GitHub 地址：https://github.com/NLPchina/elasticsearch-sql
 Elasticsearch 官方文档（中文版）地址：https://www.elastic.co/guide/cn/elasticsearch/guide/cn/aggregations.html

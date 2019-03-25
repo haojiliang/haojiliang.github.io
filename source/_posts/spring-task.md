@@ -2,7 +2,7 @@
 post_url: spring-task
 title: java spring 定时任务
 date: 2019-02-18 11:07:34
-tags: spring-task
+tags: spring
 ---
 ## xml 配置
 ```xml

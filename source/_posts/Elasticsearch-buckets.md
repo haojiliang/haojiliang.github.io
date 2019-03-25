@@ -167,7 +167,7 @@ ES 原生查询语句如下：
   }
 }
 ```
-count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）等各种 metrics 度量值查询：https://blog.csdn.net/iaiot/article/details/78909615
+count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）等各种 metrics 度量值查询：https://blog.iaiot.com/20171227/Elasticsearch-metrics.html
 
 
 附 elasticsearch-sql 的 GitHub 地址：https://github.com/NLPchina/elasticsearch-sql

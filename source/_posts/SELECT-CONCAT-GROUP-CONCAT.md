@@ -2,7 +2,7 @@
 post_url: SELECT-CONCAT-GROUP_CONCAT
 title: MySQL 查询结果返回数组或 JSON XML 等自定义格式 SELECT CONCAT GROUP_CONCAT
 date: 2018-12-22 17:52:16
-tags: [SELECT CONCAT GROUP_CONCAT, MySQL 返回 JSON 等自定义格式]
+tags: mysql
 ---
 
 ```sql

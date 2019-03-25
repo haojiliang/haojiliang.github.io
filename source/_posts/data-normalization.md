@@ -2,7 +2,7 @@
 post_url: data-normalization
 title: 矩阵数据归一化 java 实现
 date: 2018-08-07 11:42:43
-tags: 归一化
+tags: [算法, java]
 ---
 概念参考：https://blog.csdn.net/zbc1090549839/article/details/44103801
 

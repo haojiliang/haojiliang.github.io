@@ -2,7 +2,7 @@
 post_url: linux-arm9
 title: 把电脑虚拟机linux下编译的程序烧写到ARM9开发板的linux系统里面的具体操作步骤
 date: 2015-12-31 16:52:08
-tags:
+tags: [linux, 物联网]
 ---
 ## 首先在Linux虚拟机下操作的：
 

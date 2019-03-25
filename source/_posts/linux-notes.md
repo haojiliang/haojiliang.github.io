@@ -2,7 +2,7 @@
 post_url: linux-notes
 title: Linux、CentOS、Windows、零散笔记
 date: 2017-09-18 17:48:19
-tags: 笔记
+tags: [linux, windows]
 ---
 一、Linux相关(以下均在CentOS中操作)
 1.安装sz/rz：yum install lrzsz

@@ -2,7 +2,7 @@
 post_url: Windows-PowerShell-ExecutionPolicy
 title: Windows PowerShell 执行策略 ExecutionPolicy
 date: 2018-12-03 15:53:49
-tags: ExecutionPolicy
+tags: windows
 ---
 获取当前执行策略：Get-ExecutionPolicy
 

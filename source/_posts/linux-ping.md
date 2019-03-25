@@ -2,7 +2,7 @@
 post_url: linux-ping
 title: 嵌入式Linux系统连不上外网，也ping不通外网解决办法
 date: 2016-01-04 12:40:43
-tags:
+tags: linux
 ---
 ①、不仅要设置系统的ip地址和子网掩码（命令如下）：
 

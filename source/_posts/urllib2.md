@@ -2,7 +2,7 @@
 post_url: urllib2
 title: python网络请求报urllib2.HTTPError:HTTP Error 405:Not Allowed
 date: 2017-12-01 10:28:52
-tags: [urllib2, python]
+tags: python
 ---
 报错信息：
 ```

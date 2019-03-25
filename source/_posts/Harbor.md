@@ -2,7 +2,7 @@
 post_url: Harbor
 title: Centos7 安装 docker 私有仓库 Harbor
 date: 2018-11-08 14:43:07
-tags: Harbor
+tags: [harbor, docker]
 ---
 
 ```

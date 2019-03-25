@@ -2,7 +2,7 @@
 post_url: could-NOT-be-bound
 title: Angular4配置host后执行ng serve报Provided host a.api.***.com could NOT be bound...
 date: 2017-12-06 15:31:10
-tags: Angular
+tags: angular
 ---
 问题：Angular4在schema.json中配置host后执行ng serve报
 

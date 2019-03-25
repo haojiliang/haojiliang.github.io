@@ -2,7 +2,7 @@
 post_url: resin-tomcat-spring-task
 title: resin、tomcat 中添加 host 配置后 spring 定时任务执行多次
 date: 2019-02-15 17:16:38
-tags: [tomcat spring task, resin spring task]
+tags: [tomcat, resin, spring]
 ---
 
 ## tomcat

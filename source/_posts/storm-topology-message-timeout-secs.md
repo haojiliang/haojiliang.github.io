@@ -2,7 +2,7 @@
 post_url: storm-topology-message-timeout-secs
 title: storm topology.message.timeout.secs 和 topology.max.spout.pending
 date: 2018-08-01 17:33:52
-tags:
+tags: storm
 ---
 storm 
 
