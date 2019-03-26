@@ -2,7 +2,7 @@
 post_url: Mac-Shuttle-sshpass-xshell
 title: Mac 上使用 Shuttle + sshpass 替代 xshell
 date: 2018-11-18 11:07:02
-tags: mac
+tags: Mac
 ---
 终于在 Mac 上找到相对好用又简洁的 xhsell 替代工具：Shuttle + sshpass
 

@@ -2,7 +2,7 @@
 post_url: FastDFS-cmd
 title: FastDFS 常用命令
 date: 2018-11-20 22:27:17
-tags: fastDFS
+tags: FastDFS
 ---
 启动 Tracker：service fdfs_trackerd start  或者 /etc/init.d/fdfs_trackerd start
 
