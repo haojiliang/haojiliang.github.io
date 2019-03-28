@@ -31,6 +31,9 @@ git push origin master:dev
 
 删除远程 dev 分支：git push origin :dev
 
+切换分支：git checkout dev（这条命令做了两件事。它把 HEAD 指针移回到 dev 分支，并把工作目录中的文件换成了 dev 分支所指向的快照内容）
+参考：https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E4%BD%95%E8%B0%93%E5%88%86%E6%94%AF
+
 *******************
 
 To https://github.com/haojiliang/haojiliang.github.io.git
