@@ -45,6 +45,11 @@ day of month (1 - 31)
 month (1 - 12)
 day of week (0 - 6) (Sunday=0 or 7)
 
+8.查看前后几行
+前后5行：cat access.log | grep -5 "Exception"
+前后5行：cat access.log | grep -C 5 "Exception"
+后5行：cat access.log | grep -A 5 "Exception"
+前5行：cat access.log | grep -B 5 "Exception"
 
 10.查找文件：find / -name *my.cnf*
 
