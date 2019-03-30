@@ -1,0 +1,1 @@
+https://www.travis-ci.org/haojiliang/haojiliang.github.io.svg?branch=dev
