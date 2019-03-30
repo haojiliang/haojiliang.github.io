@@ -1,1 +1,1 @@
-https://www.travis-ci.org/haojiliang/haojiliang.github.io.svg?branch=dev
+[![Build Status](https://www.travis-ci.org/haojiliang/haojiliang.github.io.svg?branch=dev)](https://www.travis-ci.org/haojiliang/haojiliang.github.io)
