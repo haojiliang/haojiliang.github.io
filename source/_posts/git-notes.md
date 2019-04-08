@@ -29,11 +29,13 @@ git commit -m "fix bugs"
 
 git push origin master:dev
 
+本地serverfix跟踪远程serverfix分支：git checkout -b serverfix origin/serverfix
+
 切换分支：git checkout dev（这条命令做了两件事。它把 HEAD 指针移回到 dev 分支，并把工作目录中的文件换成了 dev 分支所指向的快照内容）
 参考：https://git-scm.com/book/zh/v1/Git-分支-何谓分支
 
-删除远程 dev 分支：git push origin :dev
 *******************
+删除远程 dev 分支：git push origin :dev
 
 To https://github.com/haojiliang/haojiliang.github.io.git
 
