@@ -5,6 +5,9 @@ date: 2017-09-18 17:48:19
 tags: [linux, windows]
 ---
 一、Linux相关(以下均在CentOS中操作)
+0.shell中引号的区别
+![](/images/shell.jpg) 
+
 1.安装sz/rz：yum install lrzsz
 
 2.新建的.sh文件不能执行：chmod +x a.sh
