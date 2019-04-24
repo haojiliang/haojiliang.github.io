@@ -6,23 +6,23 @@ tags: [docker]
 ---
 
 # 生成证书
-openssl genrsa -aes256 -out ca-key.pem 4096  
-openssl req -new -x509 -days 365 -key ca-key.pem -sha256 -out ca.pem  
+$ openssl genrsa -aes256 -out ca-key.pem 4096  
+$ openssl req -new -x509 -days 365 -key ca-key.pem -sha256 -out ca.pem  
 
-openssl genrsa -out server-key.pem 4096  
-openssl req -subj "/CN=docker-server" -sha256 -new -key server-key.pem -out server.csr  
+$ openssl genrsa -out server-key.pem 4096  
+$ openssl req -subj "/CN=docker-server" -sha256 -new -key server-key.pem -out server.csr  
 
-echo subjectAltName = DNS:docker-server,IP:127.0.0.1 >> extfile.cnf  
-echo extendedKeyUsage = serverAuth >> extfile.cnf  
-openssl x509 -req -days 365 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile extfile.cnf  
+$ echo subjectAltName = DNS:docker-server,IP:127.0.0.1 >> extfile.cnf  
+$ echo extendedKeyUsage = serverAuth >> extfile.cnf  
+$ openssl x509 -req -days 365 -sha256 -in server.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem -extfile extfile.cnf  
 
-openssl genrsa -out key.pem 4096  
-openssl req -subj '/CN=client' -new -key key.pem -out client.csr  
+$ openssl genrsa -out key.pem 4096  
+$ openssl req -subj '/CN=client' -new -key key.pem -out client.csr  
 
-echo extendedKeyUsage = clientAuth > extfile-client.cnf  
-openssl x509 -req -days 365 -sha256 -in client.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem -extfile extfile-client.cnf  
+$ echo extendedKeyUsage = clientAuth > extfile-client.cnf  
+$ openssl x509 -req -days 365 -sha256 -in client.csr -CA ca.pem -CAkey ca-key.pem -CAcreateserial -out cert.pem -extfile extfile-client.cnf  
 
-rm -v client.csr server.csr extfile.cnf extfile-client.cnf  
+$ rm -v client.csr server.csr extfile.cnf extfile-client.cnf  
 参考：https://docs.docker.com/engine/security/https/
 
 其中 docker-server 为访问 docker api 用的域名   
