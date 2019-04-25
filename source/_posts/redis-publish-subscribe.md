@@ -1,5 +1,5 @@
 ---
-title: redis 消息的订阅发布 Java 实现 消息生产者 消息消费者
+title: redis 实现消息的发布订阅（Java）
 post_url: redis-publish-subscribe
 date: 2019-03-22 17:28:33
 tags: redis
