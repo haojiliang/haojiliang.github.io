@@ -154,7 +154,7 @@ install_clean_tasks(){
 # The task of regularly cleaning esdatas
 #
 # chkconfig: 2345 85 15
-# description: www.anbai.com
+# description: www.iaiot.com
 echo "开始清理${days}天以前的数据..."
 curl -X POST -u elastic:changeme "${eshost}/_all/_delete_by_query" -H 'Content-Type: application/json' -d"
           {
