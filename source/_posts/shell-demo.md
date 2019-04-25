@@ -4,6 +4,21 @@ title: elasticsearch 数据维护脚本 shell
 date: 2019-04-25 13:06:33
 tags: [shell, elasticsearch]
 ---
+# 需求：
+定期清理 elasticsearch 中 n 天以前的数据
+
+# 实现：
+通过shell脚本实现：
+选择功能模块（
+1.清理日志
+2.添加清理任务
+3.删除清理任务
+）
+清理日志：手动清理指定天数之前的日志数据
+添加清理任务：包含内置的清理周期(小时、天、周、月)
+删除清理任务：删除添加的日志清理任务
+
+# 脚本代码
 ```shell
 #!/bin/bash
 clear
