@@ -5,6 +5,8 @@ date: 2019-03-22 17:28:33
 tags: redis
 ---
 
+系统的一个简单的边缘功能要用消息系统，不值得再接入各种 mq，redis 也可以实现消息的发布订阅  
+
 ## 发布消息（消息生产者 MessageProducer）
 ```Java
 public static final String CHANNEL_KEY = "channel:1";
