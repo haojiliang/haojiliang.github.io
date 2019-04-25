@@ -148,10 +148,10 @@ install_clean_tasks(){
 	   continue
     else
        input_date=`date -d "${days} days ago" +%Y-%m-%d`
-	   cat << EOF > /etc/cron.${cycle_dir[$pick-1]}/kplog_clean_${days}.sh
+	   cat << EOF > /etc/cron.${cycle_dir[$pick-1]}/esdata_clean_${days}.sh
 #!/bin/sh
 #
-# The task of regularly cleaning kplogs
+# The task of regularly cleaning esdatas
 #
 # chkconfig: 2345 85 15
 # description: www.anbai.com
@@ -170,7 +170,7 @@ curl -X POST -u elastic:changeme "${eshost}/_all/_delete_by_query" -H 'Content-T
           "
 echo "清理完成！"
 EOF
-       chmod +x /etc/cron.${cycle_dir[$pick-1]}/kplog_clean_${days}.sh
+       chmod +x /etc/cron.${cycle_dir[$pick-1]}/esdata_clean_${days}.sh
     fi
 	break
     done
@@ -183,17 +183,17 @@ install_clean_task_cron(){
 	read -p "请输入cron表达式(默认: 0 0 1 * * ?):" cron
     [ -z "$cron" ] && cron="0 0 1 * * ?"
     # ...
-    #chmod +x /etc/cron.d/kplog_clean.sh
+    #chmod +x /etc/cron.d/esdata_clean.sh
 }
 
 # Delete timed tasks for log cleanup
 uninstall_clean_tasks(){
     echo -e "[${red}提示${plain}] 该操作将删除所有已添加的鲲鹏日志清理任务" 
     read -s -n1 -p "按任意键继续或Ctrl+C取消..."
-    rm -rf /etc/cron.hourly/kplog_clean*.sh
-	rm -rf /etc/cron.daily/kplog_clean*.sh
-	rm -rf /etc/cron.weekly/kplog_clean*.sh
-	rm -rf /etc/cron.monthly/kplog_clean*.sh
+    rm -rf /etc/cron.hourly/esdata_clean*.sh
+	rm -rf /etc/cron.daily/esdata_clean*.sh
+	rm -rf /etc/cron.weekly/esdata_clean*.sh
+	rm -rf /etc/cron.monthly/esdata_clean*.sh
 	echo
 	echo "已删除"
 	echo
