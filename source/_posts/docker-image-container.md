@@ -1,12 +1,10 @@
 ---
-title: 『转载』Docker 学习笔记合集第一季 —— image container 基本操作
+title: Docker 学习笔记合集第一季 —— image container 基本操作
 post_url: docker-image-container
 date: 2018-06-28 16:32:22
 tags: docker
 ---
-原文地址：https://testerhome.com/topics/2760 「发表于 TesterHome 」
-
- 
+原文地址：https://testerhome.com/topics/2760
 
 学习 docker 也有数周时间了，一直在 学基础->手痒想实践->实践->卡住->回去学习基础 的过程中挣扎，总算是把 docker 的对 image，container 的基本操作都过了一遍（其实最基本的早就会了，只是一些相对用得不多的没有用过）。因此把到目前为止的一些学习笔记放在这里分享一下（内容真心水，大家轻拍）。
 

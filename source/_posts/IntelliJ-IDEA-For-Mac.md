@@ -1,6 +1,6 @@
 ---
 post_url: IntelliJ-IDEA-For-Mac
-title: 『转载』IntelliJ IDEA For Mac 快捷键
+title: IntelliJ IDEA For Mac 快捷键
 date: 2018-10-12 20:50:47
 tags: [idea, Mac]
 ---

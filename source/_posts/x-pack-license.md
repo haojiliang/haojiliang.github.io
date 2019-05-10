@@ -1,10 +1,9 @@
 ---
-title: 『转载』x-pack license 过期
+title: x-pack license 过期
 post_url: x-pack-license
 date: 2019-03-18 11:47:35
 tags: [xpack, kibana, elasticsearch]
 ---
-
 
 ## 原文
 http://www.lanrenkaifa.com/post/61

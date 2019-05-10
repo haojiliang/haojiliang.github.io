@@ -1,6 +1,6 @@
 ---
 post_url: elasticsearch-notes
-title: 『转载』Elasticsearch 笔记 倒排索引 keyword 和 text
+title: Elasticsearch 笔记 倒排索引 keyword 和 text
 date: 2019-03-19 09:42:54
 tags: elasticsearch
 ---

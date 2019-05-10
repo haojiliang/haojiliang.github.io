@@ -1,6 +1,6 @@
 ---
 post_url: java_stack
-title: 『转载』java 堆栈
+title: java 堆栈
 date: 2019-04-28 07:42:43
 tags: java
 ---
