@@ -51,8 +51,6 @@ error: failed to push some refs to 'https://github.com/haojiliang/haojiliang.git
 
  
 
- 
-
 4. git init
 
 git add ./src/*
@@ -62,3 +60,8 @@ git commit -m "fix bugs"
 git remote add origin https://github.com/haojiliang/haojiliang.github.io.git
 
 git push origin master
+  
+  
+5.合并 dev 分支到当前 master 分支  
+git checkout master  
+git merge dev  
