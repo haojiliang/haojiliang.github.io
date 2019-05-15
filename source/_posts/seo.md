@@ -47,4 +47,4 @@ if ( $http_user_agent !~* "(Android|iPhone|Windows Phone|UC|Kindle|iPod|BlackBer
 如果用了 CDN，并且在 CDN 里配置了搜索引擎回源，这里就可以不配置了。
 ```
 
-## 关键词
+## 关键词不要太多
