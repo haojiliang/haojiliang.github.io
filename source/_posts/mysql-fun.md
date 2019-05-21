@@ -27,3 +27,5 @@ END WHILE;
 RETURN RIGHT(childOrgIds, CHAR_LENGTH(childOrgIds)-1);
 END
 ```
+  
+SELECT kuo.user_id FROM kk_user_org kuo WHERE kuo.org_id IN(getChildOrgIdsByUserId(100))
