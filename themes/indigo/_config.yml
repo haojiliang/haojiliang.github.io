@@ -115,10 +115,10 @@ gitment: false
 
 # use gitalk://github.com/gitalk/gitalk
 gitalk: false
-#  owner: 
-#  repo: 
-#  client_id: 
-#  client_secret: 
+#  owner:
+#  repo:
+#  client_id:
+#  client_secret:
 
 # Valine Comment system. https://valine.js.org
 valine:
@@ -147,7 +147,7 @@ canonical: false
 since_year: 1994
 
 # 用户页面中作者相关的描述性文字，如不需要设为 false
-about: 一个有理想的程序猿
+about: false
 
 # “不蒜子”访问量统计，详见 http://ibruce.info/2015/04/04/busuanzi/
 #visit_counter:
