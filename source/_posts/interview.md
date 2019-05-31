@@ -58,4 +58,8 @@ http/1.1：默认长连接（Connection:keep-alive）；只能客户端主动给
 
 # java 中哪些数据类型是链表，哪些是数组
 
+# sql 优化
+适量使用索引  
+避免使用 select *
+
 # 未完待续
