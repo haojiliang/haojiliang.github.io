@@ -14,7 +14,6 @@ JDK 中的正则是 NFA 实现的
 java DFA 开源实现：https://github.com/zhztheplayer/DFA-Regex  
 DFA 速度快但是部分正则功能不支持  
 https://www.jb51.net/article/31168.htm  
-jdk 中使用的是 NFA 引擎  
 
 # 性能优化
 1.减少回溯  
