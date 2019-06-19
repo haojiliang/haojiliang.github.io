@@ -16,12 +16,12 @@ tags: [linux, windows]
 
 4.cat << EOF > EOF
 
-# 新建或覆盖
+新建或覆盖
 cat << EOF > /root/xxx.txt
 aaa
 bbb
 EOF
-# 新建或文尾追加
+新建或文尾追加
 cat << EOF >> /root/xxx.txt
 aaa
 bbb
