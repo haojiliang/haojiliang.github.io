@@ -289,7 +289,7 @@ findstr -s -i "listener" *.*
 
 三、Windows软件推荐：
 1.本地全局文件搜索：Everything
-2.Java class反编译工具：jd-gui
+2.Java class反编译工具：jd-gui、luyten
 3.hosts管理工具：SwitchHosts
 
  
