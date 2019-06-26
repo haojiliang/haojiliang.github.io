@@ -26,7 +26,7 @@ menu:
     url: /about
 
 # 你的头像url
-avatar: /img/avatar.png
+avatar: /img/haojiliang.jpg
 # avatar link
 avatar_link: /
 # 头像背景图
@@ -59,7 +59,7 @@ show_last_updated: true
 share: true
 
 # 是否开启打赏，关闭 reward: false
-reward:
+reward: false
   title: 谢谢大爷~
   wechat: /img/wechat.jpg     #微信，关闭设为 false
   alipay: /img/alipay.jpg     #支付宝，关闭设为 false
