@@ -11,10 +11,10 @@ tags: [logstash, snmptrap]
 华为设备 MIB 获取方法：http://support.huawei.com/onlinetoolweb/infoM/index.do?domain=1&lang=zh&topicType=mib  
 导出 excel 后取出所需的 OID 列即可  
 ![](/images/huaweimib.jpg)  
-基于华为 S5700-V200R013C00 整理的 logstash 用的 OID 信息：https://download.csdn.net/download/iaiot/11263207 
+这是我基于华为 S5700-V200R013C00 整理的 logstash 用的 OID 信息：https://download.csdn.net/download/iaiot/11263207 
 ![](/images/huaweioid.jpg)  
 
-# logstash 接收  
+# logstash 接收
 将上一步整理的 yaml 文件放到 logstash yamlmibdir 目录
 ```
 input{
