@@ -78,8 +78,8 @@ theme: indigo
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-- type: git
+  type: git
   repo:
     github: https://access_tokens@github.com/haojiliang/haojiliang.github.io.git
-    coding: https://dt_p3UBASS:coding_token@git.dev.tencent.com/haojiliang/haojiliang.git
+    git2: https://dt_p3UBASS:coding_token@git.dev.tencent.com/haojiliang/haojiliang.git
   branch: master
