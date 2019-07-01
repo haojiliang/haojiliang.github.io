@@ -31,5 +31,5 @@ after_script:
   - git config user.email "hjl669@qq.com"
   - sed -i "s/access_tokens/${access_tokens}/g" ./_config.yml
   - sed -i "s/coding_token/${CODING_TOKEN}/g" ./_config.yml
-  - hexo d -g
+  - hexo deploy
 # E: Build LifeCycle
