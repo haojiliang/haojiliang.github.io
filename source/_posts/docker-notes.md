@@ -103,7 +103,9 @@ docker image prune
 
 docker volume prune
 
- 
+24.查看容器日志：docker logs -f --tail=10 [containerID]  
+-f：查看实时日志  
+--tail=10：返回最近10行  
 
 docker 命令大全：http://www.runoob.com/docker/docker-command-manual.html
 
