@@ -15,7 +15,7 @@ git add→commit→push，其中 push 之前会提示先输入 Git 项目地址
  
 
 2. git config --global user.name "hjl666"
-    git config --global user.email "hjl666@iaiot.com"
+   git config --global user.email "hjl666@iaiot.com"
 
  
 
@@ -66,3 +66,6 @@ git push origin master
 5.合并 dev 分支到当前 master 分支  
 git checkout master  
 git merge dev  
+  
+6.git checkout 后在新分支的修改会同步到旧分支  
+解：在新分支 git add, git commit 后旧分支就正常了
