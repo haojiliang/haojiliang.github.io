@@ -80,6 +80,6 @@ theme: indigo
 deploy:
   type: git
   repo:
-    - https://6b017c386697d71bfc8cbac5cc89efc53f241f62@github.com/haojiliang/haojiliang.github.io.git
-    - https://dt_p3UBASS:ut63awaJlqQVJxRVVaNK90elJIuiVV@git.dev.tencent.com/haojiliang/haojiliang.git
+    - https://${access_tokens}@github.com/haojiliang/haojiliang.github.io.git
+    - https://dt_p3UBASS:${CODING_TOKEN}@git.dev.tencent.com/haojiliang/haojiliang.git
   branch: master
