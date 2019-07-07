@@ -2,7 +2,7 @@
 post_url: interview
 title: 面试笔记
 date: 2018-05-09 16:27:08
-tags: 面试
+tags: 
 ---
 
 # TCP UDP webSocket http
@@ -33,8 +33,6 @@ http/1.1：默认长连接（Connection:keep-alive）；只能客户端主动给
 # Java gc
 
 # 红黑树
-
-# elasticsearch 性能优化
 
 # 微服务 集群 分布式
 微服务：多模块  
