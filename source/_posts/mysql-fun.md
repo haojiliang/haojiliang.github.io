@@ -1,7 +1,7 @@
 ---
 post_url: mysql_fun
 title: MySQL 自定义函数
-date: 2019-05-21 13:43:46
+date: 2019-01-21 13:43:46
 tags: [存储过程, mysql]
 ---
 
