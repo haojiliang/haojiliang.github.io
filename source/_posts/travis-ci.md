@@ -56,6 +56,6 @@ after_script:
 ```
 
 # 其他
-其中配置中有不便于公开的参数值，比如用户名密码、各种 token 等都可以放到 Travis 的环境变量中，然后在代码中通过 ${env_key} 引用  
+其中配置中有不便于公开的参数值，比如用户名密码、各种 token 等都可以放到 Travis 的环境变量中，然后在 .travis.yml 中通过 ${env_key} 引用  
   
 这个博客就是使用 Travis CI 构建的，见：https://github.com/haojiliang/haojiliang.github.io/tree/dev  
