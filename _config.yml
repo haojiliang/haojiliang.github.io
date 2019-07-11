@@ -81,5 +81,5 @@ deploy:
   type: git
   repo:
     - https://github_token@github.com/haojiliang/haojiliang.github.io.git
-    - https://dt_p3UBASS:coding_token@git.dev.tencent.com/haojiliang/haojiliang.git
+#    - https://dt_p3UBASS:coding_token@git.dev.tencent.com/haojiliang/haojiliang.git
   branch: master
