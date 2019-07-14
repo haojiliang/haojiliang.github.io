@@ -61,13 +61,13 @@ http/1.1：默认长连接（Connection:keep-alive）；只能客户端主动给
 避免使用 select *  
 
 # mysql 引擎
-常用：MyIASM、InnoDB  
+常用：MyISAM、InnoDB  
 
-|         | MyIASM     | InnoDB    |
+|         | MyISAM     | InnoDB    |
 | --------| ---------  | --------- |
 | 事务     | 不支持      |  支持     |
 | 性能     | 较高        | 较低        |
-| 使用场景  | ①一般小小项目 ②大项目，需要分库分表、读写分离，为了提高性能，只读的可以用 MyIASM |  一般项目  |
+| 使用场景  | ①一般小小项目 ②大项目，需要分库分表、读写分离，为了提高性能，只读的可以用 MyISAM |  一般项目  |
 
 
   
