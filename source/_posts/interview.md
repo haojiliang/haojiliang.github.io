@@ -71,4 +71,73 @@ http/1.1：默认长连接（Connection:keep-alive）；只能客户端主动给
 
 
   
-# 未完待续
+# Java
+## String StringBuffer StringBuffer
+String 不可变  
+StringBuffer 可变  线程安全 synchronized  
+StringBuilder 可变  
+
+## List(有序，元素可重复)
+  ArrayList   底层是数组    数组               适用于查询较多的场景  
+  LinkedList  底层是链表    效率高 占内存大     适用于增删较多的场景  
+  Vector      底层是数组    线程安全           查询增删都很慢  
+  
+list自定义顺序：List自身有个sort方法可以实现，或者使用Collections.sort(list)  
+
+## Map
+  HashMap：  非线程安全. 底层是是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，采用哈希表来存储的。  
+  ConcurrentHashMap： 线程安全.  CAS算法（乐观锁）+synchronized 实现线程安全  
+  TreeMap： 非线程安全. 有序  根据key排序，可以使用Comparator自定义顺序  
+  LinkedHashMap： 继承HashMap，Iterator遍历时有序，按照插入顺序排序  
+
+## 抽象类和接口
+  抽象类可以实现方法，接口中只能声明方法；  
+  抽象类中可以定义变量，接口中不能；接口中只能定义常量  
+  抽象类中可以有静态方法，接口中不能；  
+
+## 抽象类和普通类
+  有未实现的声明方法的类就是抽象类；  
+  抽象类不能被实例化；  
+
+## 反射
+  Proxy类实现，Class.forName 或 ClassLoader 加载类；  
+  Cglib动态代理，性能高  
+
+## final
+  类：不能继承  
+  方法：不能重写  
+  变量：不能修改  
+
+## 设计模式
+  单例模式：一个类只能有一个实例，一般是通过synchronized实现，提供一个全局的访问方法  
+  观察者模式：对象间的一对多的依赖关系，一个变了，其他的也执行相应的操作，如发布订阅  
+  工厂模式：根据传入的参数决定要实例化的类  
+  适配器模式：比如前段列表中的item，把item提取出来创建adapter，供多个list使用  
+  
+## 访问修饰符
+  Private：同一个类  
+  Default：同一个包  
+  Protected：不同包的子类  
+  Public：不同包的非子类  
+
+## 泛型 重载 重写
+泛型：把类型参数化了，所有的强制转换都是自动和隐式的。  
+重载：在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。  
+重写：返回值和形参不变，内部实现重写；  
+
+## 多线程实现方式
+  实现runable接口；  
+  继承thread类；  
+
+## 线程状态
+  新建，可运行，运行中，睡眠，阻塞，等待，死亡。  
+
+## java8 stream
+
+## java8 Lambda 表达式
+
+## equals == hashCode
+  equals 比较内容  
+  == 比较地址  
+  hashCode 可以看做是对象的地址  
+
