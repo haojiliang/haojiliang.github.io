@@ -128,8 +128,17 @@ Public：不同包的非子类
 
 ## java8 Lambda 表达式
 
-## equals == hashCode
+## equals ==
 equals 比较内容  
 == 比较地址  
-hashCode 可以看做是对象的地址  
+
+## equals hashCode
+1.若两个对象 equals 返回 true，则 hashCode 返回相同的int数；  
+2.若两个对象 equals 返回 false，则 hashCode 不一定返回不同的int数，但为不相等的对象生成不同 hashCode 值可以提高哈希表的性能。  
+
+此外：  
+1.当 equals 方法被重写时，通常有必要重写 hashCode 方法，以维护 hashCode 方法的常规协定，该协定声明相等对象必须具有相等的哈希码（即上述两条）。  
+2.hashCode 是为了提高在散列结构存储中查找的效率，在线性表中没有作用。  
+3.同一对象在执行期间若已经存储在集合中，则不能修改影响 hashCode 值的相关信息，否则会导致内存泄露问题。
+
 
