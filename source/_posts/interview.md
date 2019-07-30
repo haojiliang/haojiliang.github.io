@@ -25,8 +25,8 @@ http/1.1：默认长连接（Connection:keep-alive）；只能客户端主动给
 适配器模式：比如前段列表中的item，把item提取出来创建adapter，供多个list使用  
 
 # Java 堆栈
-堆：存放对象数据；操作系统自动释放；快；  
-栈：存放 java 基本数据类型；由程序员、jvm 释放；慢；  
+堆：存放对象数据；由程序员、jvm 释放；慢；  
+栈：存放 java 基本数据类型；操作系统自动释放；快；  
 原理详解：https://blog.iaiot.com/java_stack.html
 
 # Java gc
