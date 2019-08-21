@@ -217,6 +217,7 @@ yum install vim
 
 例：查看 FastDFS 运行状态：netstat -unltp|grep fdfs
 
+48.查看端口占用：netstat -tunlp|grep 80
  
 
  
