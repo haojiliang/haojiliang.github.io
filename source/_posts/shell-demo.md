@@ -188,7 +188,7 @@ install_clean_task_cron(){
 
 # Delete timed tasks for log cleanup
 uninstall_clean_tasks(){
-    echo -e "[${red}提示${plain}] 该操作将删除所有已添加的鲲鹏日志清理任务" 
+    echo -e "[${red}提示${plain}] 该操作将删除所有已添加的日志清理任务" 
     read -s -n1 -p "按任意键继续或Ctrl+C取消..."
     rm -rf /etc/cron.hourly/esdata_clean*.sh
 	rm -rf /etc/cron.daily/esdata_clean*.sh
