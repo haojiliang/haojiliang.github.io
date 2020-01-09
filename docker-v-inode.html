@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="docker,linux">
+    <meta name="description" content="原文地址：https://lrita.github.io/2017/08/18/mount-volume-to-docker-and-modify-from-host/ 在启动docker容器时，为了保证一些基础配置与宿主机保持同步，通常需要将这些配置文件挂载进docker容器，例如/etc/resolv.conf//etc/hosts//etc/localtime等。 当这些配置变化时，我们通常">
+<meta name="keywords" content="docker,linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume">
+<meta property="og:url" content="https://blog.iaiot.com/docker-v-inode.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="原文地址：https://lrita.github.io/2017/08/18/mount-volume-to-docker-and-modify-from-host/ 在启动docker容器时，为了保证一些基础配置与宿主机保持同步，通常需要将这些配置文件挂载进docker容器，例如/etc/resolv.conf//etc/hosts//etc/localtime等。 当这些配置变化时，我们通常">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume">
+<meta name="twitter:description" content="原文地址：https://lrita.github.io/2017/08/18/mount-volume-to-docker-and-modify-from-host/ 在启动docker容器时，为了保证一些基础配置与宿主机保持同步，通常需要将这些配置文件挂载进docker容器，例如/etc/resolv.conf//etc/hosts//etc/localtime等。 当这些配置变化时，我们通常">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-24T02:29:40.000Z" itemprop="datePublished" class="page-time">
+  2018-11-24
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-docker-v-inode"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-24 10:29:40" datetime="2018-11-24T02:29:40.000Z"  itemprop="datePublished">2018-11-24</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>原文地址：<a href="https://lrita.github.io/2017/08/18/mount-volume-to-docker-and-modify-from-host/" target="_blank" rel="noopener">https://lrita.github.io/2017/08/18/mount-volume-to-docker-and-modify-from-host/</a></p>
+<p>在启动docker容器时，为了保证一些基础配置与宿主机保持同步，通常需要将这些配置文件挂载进docker容器，例如/etc/resolv.conf//etc/hosts//etc/localtime等。</p>
+<p>当这些配置变化时，我们通常会修改这些文件。但是此时遇到了一个问题：</p>
+<p>当在宿主机上修改这些文件后，docker容器内查看时，这些文件并未发生对应的修改。</p>
+<p>然后通过查阅相关资料，发现该问题是由docker -v挂载文件和某些编辑器存储文件的行为共同导致 的。</p>
+<p>docker 挂载文件时，并不是挂载了某个文件的路径，而是实打实的挂载了对应的文件，即挂载了某 个指定的inode文件。<br>某些编辑器(vi)在编辑保存文件时，采用了备份、替换的策略，即编辑过程中，将变更写入新文件， 保存时，再将备份文件替换原文件，此时会导致文件的inode发生变化。<br>原inode对应的文件其实并没有发生修改。<br>因此，我们从宿主机上修改这些文件时，应该采用echo重定向等操作，避免文件的inode发生变化。</p>
+<p>附 inode：<a href="http://www.ruanyifeng.com/blog/2011/12/inode.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2011/12/inode.html</a></p>
+<p>通过 inode 这篇文章能很好的理解 Linux 的软链接和硬链接</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.451Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/docker-v-inode.html" target="_blank" rel="external">https://blog.iaiot.com/docker-v-inode.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/docker-v-inode.html&title=《修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/docker-v-inode.html&title=《修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/docker-v-inode.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume》 — 郝继亮的笔记&url=https://blog.iaiot.com/docker-v-inode.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/docker-v-inode.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/docker-daemon.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">docker daemon（dockerd） 配置文件 daemon.json</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/bash-ng-command-not-found.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ng不是内部或外部命令，也不是可运行的程序或批处理文件 或 bash:ng:command not found</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/docker-v-inode.html&title=《修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/docker-v-inode.html&title=《修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/docker-v-inode.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume》 — 郝继亮的笔记&url=https://blog.iaiot.com/docker-v-inode.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/docker-v-inode.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3aS27DMAwFwNz/0u66CGw/UjLrAqNV0KjyOAuCH30+8Tq+1vW333vO9n+eWLi4uMvc43JdPyB5jbMTzr69eW1cXNxB7lnESI5Ozkm41wZcXNw3c3uIPKjh4uL+X24vlamej4uL+7fcpPjpNTWqZ26r1XBxcRe4+SOf+/xIfxcXF7fFPYrr6XbJzdNxcXFHuHlAWR+j9pIkXFzcN3CvB6U5q5q+JAERFxd3hpu3KatNjV4jNcrIcHFxB7nrFyPyS115cvPrMy4u7iA3KWlWxifVJsjpObi4uCPcajtjZSi7MjEp/yq4uLjL3Dx8NMNNvDM6GRcX92Fudfy5ntb09uPi4s5ze9cs9jZYN9RquLi4m7h5+rIyMklSmXzoi4uLO8OtPmBv8VN+eVxc3HFunnxUmx059KZpi4uLO8itNjSrQ9lqsCvcy8DFxd3KPYorSXp6VzqiQSwuLu4Id9eViOTv+Qv3yipcXNy93OpFq6Q5kiQ31f24uLjz3LxJup7QbKvVcHFxX8PtjWCTQFao2HBxcV/JTf5rb5cDFxd3npsUP5Ptj+ZMGBcXdxO3GkqS4qc6RClczMLFxX2W+wPpblLBKgcaXQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

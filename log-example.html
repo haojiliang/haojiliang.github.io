@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="apache,nginx,tomcat,resin,IIS,jboss,wildfly,weblogic">
+    <meta name="description" content="Nginx12格式 = $remote_addr - $remote_user [$time_local] &amp;quot;$request&amp;quot; $status $body_bytes_sent &amp;quot;$http_referer&amp;quot; &amp;quot;$http_user_agent&amp;quot; &amp;quot;$http_x_forwarded_for&amp;quot;样例 = 10.10.1">
+<meta name="keywords" content="apache,nginx,tomcat,resin,IIS,jboss,wildfly,weblogic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例">
+<meta property="og:url" content="https://blog.iaiot.com/log-example.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="Nginx12格式 = $remote_addr - $remote_user [$time_local] &amp;quot;$request&amp;quot; $status $body_bytes_sent &amp;quot;$http_referer&amp;quot; &amp;quot;$http_user_agent&amp;quot; &amp;quot;$http_x_forwarded_for&amp;quot;样例 = 10.10.1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例">
+<meta name="twitter:description" content="Nginx12格式 = $remote_addr - $remote_user [$time_local] &amp;quot;$request&amp;quot; $status $body_bytes_sent &amp;quot;$http_referer&amp;quot; &amp;quot;$http_user_agent&amp;quot; &amp;quot;$http_x_forwarded_for&amp;quot;样例 = 10.10.1">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-14T02:55:07.000Z" itemprop="datePublished" class="page-time">
+  2018-11-14
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx"><span class="post-toc-number">1.</span> <span class="post-toc-text">Nginx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Apache-httpd-配置文件中有三种访问日志格式"><span class="post-toc-number">2.</span> <span class="post-toc-text">Apache(httpd) 配置文件中有三种访问日志格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Tomcat"><span class="post-toc-number">3.</span> <span class="post-toc-text">Tomcat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Resin"><span class="post-toc-number">4.</span> <span class="post-toc-text">Resin</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#IIS-有三种访问日志格式"><span class="post-toc-number">5.</span> <span class="post-toc-text">IIS 有三种访问日志格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Jboss"><span class="post-toc-number">6.</span> <span class="post-toc-text">Jboss</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Wildfly-有两种访问日志格式"><span class="post-toc-number">7.</span> <span class="post-toc-text">Wildfly 有两种访问日志格式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Weblogic-注意-Weblogic-access-日志最后会有一个空格"><span class="post-toc-number">8.</span> <span class="post-toc-text">Weblogic(注意 Weblogic access 日志最后会有一个空格)</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-log-example"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-14 10:55:07" datetime="2018-11-14T02:55:07.000Z"  itemprop="datePublished">2018-11-14</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">格式 = $remote_addr - $remote_user [$time_local] &quot;$request&quot; $status $body_bytes_sent &quot;$http_referer&quot; &quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;</span><br><span class="line">样例 = 10.10.10.12 - - [09/Nov/2018:09:48:42 +0800] &quot;POST /project/totalStatus HTTP/1.1&quot; 200 781 &quot;http://console.monitor.iaiot.com/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="Apache-httpd-配置文件中有三种访问日志格式"><a href="#Apache-httpd-配置文件中有三种访问日志格式" class="headerlink" title="Apache(httpd) 配置文件中有三种访问日志格式"></a>Apache(httpd) 配置文件中有三种访问日志格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">common 格式 = %h %l %u %t &quot;%r&quot; %&gt;s %b</span><br><span class="line">common 样例 = 192.168.1.2 - - [02/Feb/2016:17:44:13 +0800] &quot;GET /favicon.ico HTTP/1.1&quot; 404 209</span><br><span class="line">combined 格式 = %h %l %u %t &quot;%r&quot; %&gt;s %b &quot;%&#123;Referer&#125;i&quot; &quot;%&#123;User-Agent&#125;i&quot;</span><br><span class="line">combined 样例 = 192.168.1.2 - - [02/Feb/2016:17:44:13 +0800] &quot;GET /favicon.ico HTTP/1.1&quot; 404 209 &quot;http://localhost/x1.html&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36&quot;</span><br><span class="line">combinedio 格式 = &quot;%h %l %u %t &quot;%r&quot; %&gt;s %b &quot;%&#123;Referer&#125;i&quot; &quot;%&#123;User-Agent&#125;i&quot; %I %O</span><br><span class="line">combinedio 样例 = 192.168.1.2 - - [02/Feb/2016:17:44:13 +0800] &quot;GET /favicon.ico HTTP/1.1&quot; 404 209 &quot;http://localhost/x1.html&quot; &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36&quot; 127 217</span><br></pre></td></tr></table></figure>
+<h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">格式 = &quot;%h %l %u %t &quot;%r&quot; %s %b&quot;</span><br><span class="line">样例 = 127.0.0.1 - - [09/Nov/2018:11:36:01 +0800] &quot;POST /project/getProjects HTTP/1.1&quot; 200 83</span><br></pre></td></tr></table></figure>
+<h2 id="Resin"><a href="#Resin" class="headerlink" title="Resin"></a>Resin</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">格式 = %h %l %u %t &quot;%r&quot; %&gt;s %b &quot;%&#123;Referer&#125;i&quot; &quot;%&#123;User-Agent&#125;i&quot;</span><br><span class="line">样例 = 127.0.0.1 - - [09/Nov/2018:15:31:39 +0800] &quot;GET /resin-doc/ HTTP/1.1&quot; 200 16417 &quot;http://127.0.0.1:8080/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="IIS-有三种访问日志格式"><a href="#IIS-有三种访问日志格式" class="headerlink" title="IIS 有三种访问日志格式"></a>IIS 有三种访问日志格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">W3C 样例 = 2018-11-09 08:12:41 172.22.255.255 GET /images/picture.jpg - 8080 - 172.30.255.255 Mozilla/5.0+(Windows+NT+10.0;+Win64;+x64)+AppleWebKit/537.36+(KHTML,+like+Gecko)+Chrome/70.0.3538.77+Safari/537.36 http://localhost/ 404 0 2 1</span><br><span class="line">IIS 样例 = 192.168.114.201, -, 03/20/2018, 7:55:20, W3SVC2, SERVER, 172.21.13.45, 4502, 163, 3223, 200, 0, GET, /DeptLogo.gif, -,</span><br><span class="line">NCSA 样例 = 172.21.13.45 - Microsoft\JohnDoe [07/Apr/2004:17:39:04 -0800] &quot;GET /scripts/iisadmin/ism.dll?http/serv HTTP/1.0&quot; 200 3401</span><br></pre></td></tr></table></figure>
+<h2 id="Jboss"><a href="#Jboss" class="headerlink" title="Jboss"></a>Jboss</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">样例 = 127.0.0.1 - - [13/Nov/2018:10:58:27 +0800] &quot;GET /site_test HTTP/1.1&quot; 404 986</span><br></pre></td></tr></table></figure>
+<h2 id="Wildfly-有两种访问日志格式"><a href="#Wildfly-有两种访问日志格式" class="headerlink" title="Wildfly 有两种访问日志格式"></a>Wildfly 有两种访问日志格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">common 样例 = 127.0.0.1 - - [13/Nov/2018:10:08:39 +0800] &quot;GET /site_test/ HTTP/1.1&quot; 200 52</span><br><span class="line">combined 样例 = 127.0.0.1 - - [13/Nov/2018:10:13:25 +0800] &quot;GET /favicon.ico HTTP/1.1&quot; 200 1150 &quot;http://localhost:8080/site_test/&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="Weblogic-注意-Weblogic-access-日志最后会有一个空格"><a href="#Weblogic-注意-Weblogic-access-日志最后会有一个空格" class="headerlink" title="Weblogic(注意 Weblogic access 日志最后会有一个空格)"></a>Weblogic(注意 Weblogic access 日志最后会有一个空格)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">样例 = 127.0.0.1 - - [13/十一月/2018:17:44:01 +0800] &quot;GET /testweb/index.jsp HTTP/1.1&quot; 200 52</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/log-example.html" target="_blank" rel="external">https://blog.iaiot.com/log-example.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IIS/">IIS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jboss/">jboss</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/resin/">resin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weblogic/">weblogic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wildfly/">wildfly</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/log-example.html&title=《Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/log-example.html&title=《Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/log-example.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例》 — 郝继亮的笔记&url=https://blog.iaiot.com/log-example.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/log-example.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/Mac-Shuttle-sshpass-xshell.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Mac 上使用 Shuttle + sshpass 替代 xshell</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Harbor.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Centos7 安装 docker 私有仓库 Harbor</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/log-example.html&title=《Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/log-example.html&title=《Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/log-example.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例》 — 郝继亮的笔记&url=https://blog.iaiot.com/log-example.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/log-example.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aO5KDMBAFQN//0mzqBHhPQlpc1Yoc2KJxMDW/zyc+R3y+v5/c9llxcHFxp7n5489AZ48fu+HMgIuLu597FjGSq69BSbBLDLi4uL/CPbuhDXy4uLi/zr3+bV7Y4OLivp/bpiNJobLiTlxc3D3cvEu57vOS/i4uLu4Q9yhPckObvhRPx8XF3cLNA0r7MmOjl2gci4uLu5g72JiIByp5EhPdgIuLu4Wbty/zBYs8guZtlJsuLy4u7qPctizJ1yxaaBSpcHFxt3Dz4Wi+dDU2LMlfFRcXdzU3SVnGAtDMyKRoleLi4i7mtuOTPPzlzY4ikOHi4m7ktkOU+pFl2nRaq+Hi4i7mFhVSHJ7apY2i+MHFxV3MbQNQOwhJmqF1qxQXF3cLN29kjI1MxgYzN3tkuLi4W7hjo9Y8FM4Ma3Fxcd/GzUcs7Zh2LAHCxcVdzT3K0w5KZxImXFzc/+LOrES0gSlZ9ZgJf7i4uM9y8+ZFmxjlQ9YiYcLFxd3IbdOUvByaKX7qhikuLu4LuHkAatupj3VxcHFxN3Lz8DTf8nggkOHi4g5x84Fonr6MLXbc/Fm4uLhbuHUoKQue65KmXszCxcVdy/0DYde5aCDAieoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

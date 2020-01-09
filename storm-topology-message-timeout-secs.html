@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>storm topology.message.timeout.secs 和 topology.max.spout.pending | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="storm">
+    <meta name="description" content="storm  topology.max.spout.pending：同时活跃的批的数量。这个值必须设置，用于限定同时可以处理的 batch 数量。编程人员可以通过 topology.max.spout.pending 设置这个值，默认是1。 topology.message.timeout.secs：如果调大了超时时间 jstorm kill mytopo 后 topo 一直处于 killed 状">
+<meta name="keywords" content="storm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="storm topology.message.timeout.secs 和 topology.max.spout.pending">
+<meta property="og:url" content="https://blog.iaiot.com/storm-topology-message-timeout-secs.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="storm  topology.max.spout.pending：同时活跃的批的数量。这个值必须设置，用于限定同时可以处理的 batch 数量。编程人员可以通过 topology.max.spout.pending 设置这个值，默认是1。 topology.message.timeout.secs：如果调大了超时时间 jstorm kill mytopo 后 topo 一直处于 killed 状">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="storm topology.message.timeout.secs 和 topology.max.spout.pending">
+<meta name="twitter:description" content="storm  topology.max.spout.pending：同时活跃的批的数量。这个值必须设置，用于限定同时可以处理的 batch 数量。编程人员可以通过 topology.max.spout.pending 设置这个值，默认是1。 topology.message.timeout.secs：如果调大了超时时间 jstorm kill mytopo 后 topo 一直处于 killed 状">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">storm topology.message.timeout.secs 和 topology.max.spout.pending</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">storm topology.message.timeout.secs 和 topology.max.spout.pending</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-01T09:33:52.000Z" itemprop="datePublished" class="page-time">
+  2018-08-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-storm-topology-message-timeout-secs"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">storm topology.message.timeout.secs 和 topology.max.spout.pending</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-01 17:33:52" datetime="2018-08-01T09:33:52.000Z"  itemprop="datePublished">2018-08-01</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>storm </p>
+<p>topology.max.spout.pending：同时活跃的批的数量。这个值必须设置，用于限定同时可以处理的 batch 数量。编程人员可以通过 topology.max.spout.pending 设置这个值，默认是1。</p>
+<p>topology.message.timeout.secs：如果调大了超时时间 jstorm kill mytopo 后 topo 一直处于 killed 状态，可以使用 jstorm kill mytopo 1 来终止 topo</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/storm-topology-message-timeout-secs.html" target="_blank" rel="external">https://blog.iaiot.com/storm-topology-message-timeout-secs.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/storm/">storm</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html&title=《storm topology.message.timeout.secs 和 topology.max.spout.pending》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html&title=《storm topology.message.timeout.secs 和 topology.max.spout.pending》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/storm-topology-message-timeout-secs.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《storm topology.message.timeout.secs 和 topology.max.spout.pending》 — 郝继亮的笔记&url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/data-normalization.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">矩阵数据归一化 java 实现</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/nginx-agent.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">用nginx等做代理转发到本机时最好通过host配置目的地址为127.0.0.1</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html&title=《storm topology.message.timeout.secs 和 topology.max.spout.pending》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html&title=《storm topology.message.timeout.secs 和 topology.max.spout.pending》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/storm-topology-message-timeout-secs.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《storm topology.message.timeout.secs 和 topology.max.spout.pending》 — 郝继亮的笔记&url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/storm-topology-message-timeout-secs.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACq0lEQVR42u3awY4iMQwEUP7/p2fPqxFQ5cSIkV6fRgM0eX2IQ9mPR3z9/Lry//++z7P7v/7GZ5+9cOHh4eEdLz1hPHtP/lBaTLsePDw8vG3e6806WVwCe71vJ4y2wODh4eF9A+9k639NSr4FDw8P76/z2vBiVhLax42Hh4f3GV4bNJyECAkmedyXsxY8PDy8mJdv9N/z90p/Dw8PD++4q54UiaQkJK8mR+16tXh4eHgLvHzDPWll5fe/9R48PDy8PV4+CHWrqd+Wn3b06r/34OHh4S3z2sPurH113lQrihYeHh7eMi8fIJgNBHz+s3h4eHh7vGKA6WATb4cMkrsVDTA8PDy8Bd5sQbPAt30os8YYHh4e3id5s6b+bJeO2v+zqAIPDw9vgddGt7NF37pbO7KAh4eHt83Lf78nh92Ttln+0OvQBA8PD2+Nl5Pa8pC32WbxRFQY8PDw8C7x2gPxLN5N7pMcoPNRBjw8PLy7vHYrLwae4qfbBhlFiw4PDw9vgTdr/M+CgDZQmL36Zv14eHh4l3jtdj+LWduINh8yeFOE8PDw8NZ4SeurPWqfB8F5+SnGBfDw8PCOeW1EezJKlX9j2zzDw8PD+yRvdvw9Z+cRRl6WLgwN4OHh4cWn31mDKk+IZ2Ug/080RoCHh4d3iVf0x46HBk6KxIWSgIeHh7fAaxc3i2hnxSM/uL/p7+Hh4eEt8GaDUCfR7ePqhYeHh7fH+ymvWUhx64icrwcPDw9vj3fSiGojhiSunTW6LpQWPDw8vJLXRgAnIwKzg3heGJ7+YsDDw8Nb4OWH3Vmk+/mWGB4eHt538tqod9YwmxUYPDw8vO/hFTOwSWs/Dm1ncTMeHh7eHi85+OaAtil1PmKFh4eH90le+4N/1v5PikH74B63Ljw8PLz0s/8AfkLPFGROO2wAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

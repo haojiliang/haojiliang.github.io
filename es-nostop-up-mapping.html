@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping） | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="elasticsearch">
+    <meta name="description" content="官方地址：https://www.elastic.co/cn/blog/changing-mapping-with-zero-downtime 官方原文Editor’s Note (May 1, 2017): This blog was originally published several major versions of Elasticsearch ago.  Since then, ne">
+<meta name="keywords" content="elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）">
+<meta property="og:url" content="https://blog.iaiot.com/es-nostop-up-mapping.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="官方地址：https://www.elastic.co/cn/blog/changing-mapping-with-zero-downtime 官方原文Editor’s Note (May 1, 2017): This blog was originally published several major versions of Elasticsearch ago.  Since then, ne">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）">
+<meta name="twitter:description" content="官方地址：https://www.elastic.co/cn/blog/changing-mapping-with-zero-downtime 官方原文Editor’s Note (May 1, 2017): This blog was originally published several major versions of Elasticsearch ago.  Since then, ne">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-10-08T14:18:04.000Z" itemprop="datePublished" class="page-time">
+  2018-10-08
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#官方原文"><span class="post-toc-number">1.</span> <span class="post-toc-text">官方原文</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">2.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-es-nostop-up-mapping"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-10-08 22:18:04" datetime="2018-10-08T14:18:04.000Z"  itemprop="datePublished">2018-10-08</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>官方地址：<a href="https://www.elastic.co/cn/blog/changing-mapping-with-zero-downtime" target="_blank" rel="noopener">https://www.elastic.co/cn/blog/changing-mapping-with-zero-downtime</a></p>
+<h2 id="官方原文"><a href="#官方原文" class="headerlink" title="官方原文"></a>官方原文</h2><p>Editor’s Note (May 1, 2017): This blog was originally published several major versions of Elasticsearch ago.  Since then, new mappings have been made available, but more importantly, new features like the Reindex API have made tasks like this substantially easier.  The below post remains for archival purposes, but it’s recommended you read over the linked reindex blog for a more modern approach to the reindex challenge.</p>
+<p>Update November 2, 2015: Make sure to check out the updates with Elasticsearch mappings introduced in the 2.0 release.</p>
+<p>A developer I know sent me a tweet saying:</p>
+<p>My biggest problem with using Elastic Search as my model is that I have to reindex whenever I make a schema change. With the size of the data sets that takes a long ass time, and that results in a lot of down time for me. Too much for most applications.</p>
+<p>It is quite possible to make schema/mapping changes with zero downtime, but there are too many options available to explain in a tweet, hence this blogpost.</p>
+<p><strong>The problem — Why you can’t change mappings</strong><br>You can only find that which is stored in your index. In order to make your data searchable, your database needs to know what type of data each field contains and how it should be indexed. If you switch a field type from e.g. a string to a date, all of the data for that field that you already have indexed becomes useless. One way or another, you need to reindex that field.</p>
+<p>This applies not just to Elasticsearch, but to any database that uses indices for searching. And if it isn’t using indices then it is sacrificing speed for flexibility.</p>
+<p>Elasticsearch (and Lucene) stores its indices in immutable segments — each segment is a “mini” inverted index. These segments are never updated in place. Updating a document actually creates a new document and marks the old document as deleted. As you add more documents (or update existing documents), new segments are created. A merge process runs in the background merging several smaller segments into a new big segment, after which the old segments are removed entirely.</p>
+<p>Typically, an index in Elasticsearch will contain documents of different types. Each _type has its own schema or mapping. A single segment may contain documents of any type. So, if you want to change the field definition for a single field in a single type, you have little option but to reindex all of the documents in your index.</p>
+<p><strong>Adding fields is free</strong><br>A segment only contains indices for fields that actually exist in the documents for that segment. This means that you can add new fields for free, using the put_mapping API. There is no need to reindex.</p>
+<p><strong>Reindexing your data</strong><br>The process for reindexing your data is quite simple. First, create a new index with the new mapping and settings:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT localhost:9200/new_index -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;mappings&quot;: &#123;</span><br><span class="line">        &quot;my_type&quot;: &#123; ... new mapping definition ...&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Then, pull the documents in from your old index, using a scrolled search and index them into the new index using the bulk API. Many of the client APIs provide a reindex() method which will do all of this for you. Once you are done, you can delete the old index.</p>
+<p>Note: make sure that you include search_type=scan in your search request. This disables sorting and makes “deep paging” efficient.</p>
+<p>The problem with this approach is that the index name changes, which means that you need to change your application to use the new index name</p>
+<p><strong>Reindexing your data with zero downtime</strong><br>Index aliases give us the flexibility to reindex data in the background, making the change completely transparent to our application. An alias is like a symbolic link which can point to one or more real indices.</p>
+<p>The typical workflow is as follows. First, create an index, appending a version or timestamp to the name:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT localhost:9200/my_index_v1 -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123; ... mappings ... &#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Create an alias which points to the index:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST localhost:9200/_aliases -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;actions&quot;: [</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_v1&quot;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Now your application can speak to my_index as if it were a real index.</p>
+<p>When you need to reindex your data, you can create a new index, appending a new version number:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT localhost:9200/my_index_v2 -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123; ... mappings ... &#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Reindex data from my_index_v1 to the new my_index_v2, then change the myindex alias to point to the new index, in a single atomic step:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST localhost:9200/_aliases -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;actions&quot;: [</span><br><span class="line">        &#123; &quot;remove&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_v1&quot;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_v2&quot;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>And finally, delete the old index:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XDELETE localhost:9200/my_index_v1</span><br></pre></td></tr></table></figure></p>
+<p>You have successfully reindexed all of your data in the background without any downtime. Your application is blissfully unaware that the index has changed.</p>
+<p>While this is the standard approach to managing schema changes, there are a number of other options available to you, which I will discuss below.</p>
+<p><strong>I don’t care about old data</strong><br>What if you want to change the datatype for a single field, and you don’t care about the fact that the old data is not searchable? In this case, you have a few options:</p>
+<p><strong>Delete the mapping</strong><br>Update November 2, 2015: Please note that delete mappings are not supported in Elasticsearch 2.0+.</p>
+<p>If you delete the mapping for a specific type, then you can use the put_mapping API. to create a new mapping for that type in the existing index.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Note: when you delete a mapping for a type, you also delete all documents of that type in the index.</span><br></pre></td></tr></table></figure>
+<p>This is particularly useful when you are wanting to change the mapping for a type which contains a small number of documents.</p>
+<p><strong>Rename the field</strong><br>Adding new fields is free, so you could just add a new field with a different name and definition to use for all future documents. Of course, this means changing the fieldname used by your application.</p>
+<p><strong>Upgrade to a multi-field</strong><br>Multi-fields allow a single field to be used for different purposes. A typical use case is to index e.g. a title field in two ways: as an analyzed string for querying, and as anot_analyzed string for sorting.</p>
+<p>Any scalar field (ie excluding fields of type object or nested) can be upgraded to a multi-field without reindexing, using the put_mapping API. For instance, if we have a field called created which is currently mapped as a string:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;created&quot;: &#123; &quot;type&quot;: &quot;string&quot;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>We can upgrade it to a multi-field, and add a date sub-field to it:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT localhost:9200/my_index/my_type/_mapping -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;my_type&quot;: &#123;</span><br><span class="line">        &quot;properties&quot;: &#123;</span><br><span class="line">            &quot;created&quot;: &#123;</span><br><span class="line">                &quot;type&quot;:   &quot;multi_field&quot;,</span><br><span class="line">                &quot;fields&quot;: &#123;</span><br><span class="line">                    &quot;created&quot;: &#123; &quot;type&quot;: &quot;string&quot; &#125;,</span><br><span class="line">                    &quot;date&quot;:    &#123; &quot;type&quot;: &quot;date&quot;   &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>The original created field still exists as the “main” sub-field, and can be queried as created or created.created. The new date variant can be queried as created.date, and will only be populated for new documents.</p>
+<p><strong>Using aliases for greater flexibility</strong><br>Sometimes the above approaches are not enough. Perhaps your application has 100,000 user documents and 10,000,000 blog documents. You want to change the mapping for theuser documents without having to reindex all of the blogs.</p>
+<p>There is no reason that you can’t store different types in different indices. Elasticsearch can search across multiple indices as easily as it can search across a single index. This way, you only need to reindex the index containing the type that you want to change. And with judicious use of aliases, the reindexing process can still be entirely transparent to your application.</p>
+<p>With this approach, your application should use a separate alias for each type. For instance, instead of indexing to my_index, you would index user docs to my_index_user andblog docs to my_index_blog:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST localhost:9200/_aliases -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;actions&quot;: [</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index_user&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_v2&quot;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index_blog&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_v2&quot;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>To search across user and blog documents, you can just specify both aliases:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl localhost:9200/my_index_blog,my_index_user/_search</span><br></pre></td></tr></table></figure></p>
+<p>When you want to change the user mapping, first create a new index just for users, and choose the right number of primary shards for just user docs:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT localhost:9200/my_index_users_v1 -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;settings&quot;: &#123;</span><br><span class="line">        &quot;index&quot;: &#123;</span><br><span class="line">            &quot;number_of_shards&quot;: 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;mappings&quot;: &#123;</span><br><span class="line">        &quot;user&quot;: &#123; ... new user mapping ... &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Reindex just the user docs from the old index into the new:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl &apos;localhost:9200/my_index_user/user?scroll=1m&amp;search_type=scan&apos; -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;size&quot;: 1000</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>And update the alias:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST localhost:9200/_aliases -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;actions&quot;: [</span><br><span class="line">        &#123; &quot;remove&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index_user&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_v2&quot;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index_user&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_user_v1&quot;</span><br><span class="line">        &#125;&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>You can use a delete-by-query request to remove the user docs from the old index:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XDELETE localhost:9200/my_index_v1/user</span><br></pre></td></tr></table></figure></p>
+<p>From now on, any time you want to change the mapping for user docs, you can use the standard reindexing approach that I described above.</p>
+<p><strong>Using aliases without reindexing</strong><br>If you want your changes to apply only to new documents, you can still use the aliases approach, without having to reindex. You would still create a new my_index_user_v1 index, but now you would create two aliases: my_index_user for indexing and my_index_users (plural) for searching:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">curl -XPOST localhost:9200/_aliases -H &apos;Content-Type: application/json&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">    &quot;actions&quot;: [</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index_user&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_user_v1&quot;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index_users&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_user_v1&quot;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">        &#123; &quot;add&quot;: &#123;</span><br><span class="line">            &quot;alias&quot;: &quot;my_index_users&quot;,</span><br><span class="line">            &quot;index&quot;: &quot;my_index_v1&quot;</span><br><span class="line">        &#125;&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line">&apos;</span><br></pre></td></tr></table></figure></p>
+<p>The my_index_user alias points just to the new index, and all new user documents would be indexed using this alias. The my_index_users alias points to both the new index AND the old index. So you can search across both indices at the same time. The old index will use the old mapping, and the new index will use the new mapping.</p>
+<p>As you can see, Elasticsearch provides a wealth of options for managing your indices and, with a little forethought, changes can be managed with zero downtime.</p>
+<p>Editor’s Note (May 1, 2017): Starting with 6.0, any curl command to Elasticsearch containing content will require a valid content type header. As a result, this post has been updated to reflect this change and to set readers of this post up for success with future versions.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>es 修改 mapping，需要重建 index，之前的数据可以通过各种 api 进行 reindex。如果需要实现不停机更新 mapping，必须使用了索引别名 alias。此外，更新 mapping 必须重建索引的原因和具体实现参见上文。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/es-nostop-up-mapping.html" target="_blank" rel="external">https://blog.iaiot.com/es-nostop-up-mapping.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/es-nostop-up-mapping.html&title=《Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/es-nostop-up-mapping.html&title=《Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/es-nostop-up-mapping.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）》 — 郝继亮的笔记&url=https://blog.iaiot.com/es-nostop-up-mapping.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/es-nostop-up-mapping.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/IntelliJ-IDEA-For-Mac.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">IntelliJ IDEA For Mac 快捷键</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/cannot-open-url-please-check-this-url-is-correct.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Cannot open url. please check this url is correct</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/es-nostop-up-mapping.html&title=《Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/es-nostop-up-mapping.html&title=《Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/es-nostop-up-mapping.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）》 — 郝继亮的笔记&url=https://blog.iaiot.com/es-nostop-up-mapping.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/es-nostop-up-mapping.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aQZLDIAwFUd//0sx2Nnb6S87UIJpVyklhPRaKBFwXHuvX4M/TOe9me23IkCFjW8Z6HP1w04W4e+9dbDJkyDiHcffiTrg87RLSh5hlyJAhIwyoUz7KkCFDRp+xwLib+Tkd/2nClSFDxoaMNKBawv0XvbgMGTI2ZPDW9O8/f+V8Q4YMGVsxVjie0+vzcQJJl6s0ZMiQMZvRuRhRS44cE8cjQ4aMoYznsFZ7kLB4Kr9qU8iQIWNzRu2SROfqWK0oDHgyZMgYykin5t/yrX8y54dkLUOGjNEMnkx5wuW/4Zt3QZkoQ4aMQYza5n5aSnZWF80vQ4aMAxidUqxTLJLlQEcIMmTIOIaR7rHz52lSjv8YZMiQcQwjPUnotKnFs4vn2yIyZMgYzSClHu8WO20tb3RlyJBxDiMtzmqJNS00+aWND0eYMmTIGMTgh47pkysc6cafDBkyTmDwNjI9wqwVfGnqlyFDxgmMeGMr3NZP2+DONTIZMmScwKi1kenVrg4V7R3KkCFjNIO8Pm1NeUCkGUbbbTJkyBjNIC94ayv/3UWRIUPGbMYKR9q+9ltZVIDKkCFjNOOtnM2Tdboo/OhChgwZsxkkyfKESIrItOh8rWOWIUPG5gye+GolJr9SVotWhgwZMvov5s0qSd8yZMiQwRm1rf9+6PFJrAwZMkYwaiVd7ds0KaOFkCFDxmhGq3XEAaVzfuVQU4YMGfsxfgA45WqYWgRHewAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>用 proguard 混淆 java 代码 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="java,proguard">
+    <meta name="description" content="混淆工具：proguard 基本步骤：  编译一个myserver.jar 将myserver工程中的java文件导出一个myserver-tmp.jar 用proguard生成基础混淆规则，然后加入自己的混淆规则 混淆myserver-tmp.jar，用混淆后的class文件替换myserver.jar相应class完成混淆  此外如果是maven工程，要去掉pom.xml中的relocatio">
+<meta name="keywords" content="java,proguard">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 proguard 混淆 java 代码">
+<meta property="og:url" content="https://blog.iaiot.com/proguard-java.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="混淆工具：proguard 基本步骤：  编译一个myserver.jar 将myserver工程中的java文件导出一个myserver-tmp.jar 用proguard生成基础混淆规则，然后加入自己的混淆规则 混淆myserver-tmp.jar，用混淆后的class文件替换myserver.jar相应class完成混淆  此外如果是maven工程，要去掉pom.xml中的relocatio">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用 proguard 混淆 java 代码">
+<meta name="twitter:description" content="混淆工具：proguard 基本步骤：  编译一个myserver.jar 将myserver工程中的java文件导出一个myserver-tmp.jar 用proguard生成基础混淆规则，然后加入自己的混淆规则 混淆myserver-tmp.jar，用混淆后的class文件替换myserver.jar相应class完成混淆  此外如果是maven工程，要去掉pom.xml中的relocatio">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">用 proguard 混淆 java 代码</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">用 proguard 混淆 java 代码</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-13T01:36:22.000Z" itemprop="datePublished" class="page-time">
+  2018-08-13
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-proguard-java"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">用 proguard 混淆 java 代码</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-13 09:36:22" datetime="2018-08-13T01:36:22.000Z"  itemprop="datePublished">2018-08-13</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>混淆工具：proguard</p>
+<p>基本步骤：</p>
+<ol>
+<li>编译一个myserver.jar</li>
+<li>将myserver工程中的java文件导出一个myserver-tmp.jar</li>
+<li>用proguard生成基础混淆规则，然后加入自己的混淆规则</li>
+<li>混淆myserver-tmp.jar，用混淆后的class文件替换myserver.jar相应class完成混淆</li>
+</ol>
+<p>此外如果是maven工程，要去掉pom.xml中的relocations配置，不然会导致找不到第三方包。原因：设置不混淆第三方jar包，所以混淆后默认对第三方包中类的导入都是如com.google，而不是com.hjl.iaiot.com.google，不去掉会导致找不到相关包类，而proguard中暂未找到此功能的相关配置。</p>
+<p>混淆规则文件示例myserver_proguard_rule.pro：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br></pre></td><td class="code"><pre><span class="line">-injars myserver_tmp.jar</span><br><span class="line">-outjars myserver_tmp_out.jar</span><br><span class="line"> </span><br><span class="line">-libraryjars libs\charsets.jar</span><br><span class="line">-libraryjars libs\commons-beanutils-1.9.0.jar</span><br><span class="line">-libraryjars libs\commons-codec-1.6.jar</span><br><span class="line">-libraryjars libs\commons-collections-3.2.2.jar</span><br><span class="line">-libraryjars libs\commons-configuration-1.10.jar</span><br><span class="line">-libraryjars libs\commons-digester-2.0.jar</span><br><span class="line">-libraryjars libs\commons-fileupload-1.3.1.jar</span><br><span class="line">-libraryjars libs\commons-io-2.2.jar</span><br><span class="line">-libraryjars libs\commons-jxpath-1.3.jar</span><br><span class="line">-libraryjars libs\commons-lang-2.6.jar</span><br><span class="line">-libraryjars libs\commons-logging-1.1.1.jar</span><br><span class="line">-libraryjars libs\dnsns.jar</span><br><span class="line">-libraryjars libs\gson-2.7.jar</span><br><span class="line">-libraryjars libs\hamcrest-core-1.3.jar</span><br><span class="line">-libraryjars libs\javax.servlet-api-3.1.0.jar</span><br><span class="line">-libraryjars libs\jce.jar</span><br><span class="line">-libraryjars libs\jsse.jar</span><br><span class="line">-libraryjars libs\junit-4.12.jar</span><br><span class="line">-libraryjars libs\localedata.jar</span><br><span class="line">-libraryjars libs\rt.jar</span><br><span class="line">-libraryjars libs\sunjce_provider.jar</span><br><span class="line">-libraryjars libs\xml-resolver-1.2.jar</span><br><span class="line"> </span><br><span class="line">-dontshrink</span><br><span class="line">-dontoptimize</span><br><span class="line">-useuniqueclassmembernames</span><br><span class="line">-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,LocalVariable*Table,*Annotation*,Synthetic,EnclosingMethod</span><br><span class="line">-dontpreverify</span><br><span class="line"> </span><br><span class="line">-ignorewarnings</span><br><span class="line"> </span><br><span class="line">-keep public class com.hjl.iaiot.servlet.MyFilter &#123;*;&#125;</span><br><span class="line">-keep public class com.hjl.iaiot.servlet.MyListener &#123;*;&#125;</span><br><span class="line">-keep public class com.hjl.iaiot.commons.MyUtils &#123;*;&#125;</span><br><span class="line"> </span><br><span class="line"># Keep names - Native method names. Keep all native class/method names.</span><br><span class="line">-keepclasseswithmembers,includedescriptorclasses,allowshrinking class * &#123;</span><br><span class="line">    native &lt;methods&gt;;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># Keep names - _class method names. Keep all .class method names. This may be</span><br><span class="line"># useful for libraries that will be obfuscated again with different obfuscators.</span><br><span class="line">-keepclassmembers,allowshrinking class * &#123;</span><br><span class="line">    java.lang.Class class$(java.lang.String);</span><br><span class="line">    java.lang.Class class$(java.lang.String,boolean);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># Remove - System method calls. Remove all invocations of System</span><br><span class="line"># methods without side effects whose return values are not used.</span><br><span class="line">-assumenosideeffects public class java.lang.System &#123;</span><br><span class="line">    public static long currentTimeMillis();</span><br><span class="line">    static java.lang.Class getCallerClass();</span><br><span class="line">    public static int identityHashCode(java.lang.Object);</span><br><span class="line">    public static java.lang.SecurityManager getSecurityManager();</span><br><span class="line">    public static java.util.Properties getProperties();</span><br><span class="line">    public static java.lang.String getProperty(java.lang.String);</span><br><span class="line">    public static java.lang.String getenv(java.lang.String);</span><br><span class="line">    public static java.lang.String mapLibraryName(java.lang.String);</span><br><span class="line">    public static java.lang.String getProperty(java.lang.String,java.lang.String);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># Remove - Math method calls. Remove all invocations of Math</span><br><span class="line"># methods without side effects whose return values are not used.</span><br><span class="line">-assumenosideeffects public class java.lang.Math &#123;</span><br><span class="line">    public static double sin(double);</span><br><span class="line">    public static double cos(double);</span><br><span class="line">    public static double tan(double);</span><br><span class="line">    public static double asin(double);</span><br><span class="line">    public static double acos(double);</span><br><span class="line">    public static double atan(double);</span><br><span class="line">    public static double toRadians(double);</span><br><span class="line">    public static double toDegrees(double);</span><br><span class="line">    public static double exp(double);</span><br><span class="line">    public static double log(double);</span><br><span class="line">    public static double log10(double);</span><br><span class="line">    public static double sqrt(double);</span><br><span class="line">    public static double cbrt(double);</span><br><span class="line">    public static double IEEEremainder(double,double);</span><br><span class="line">    public static double ceil(double);</span><br><span class="line">    public static double floor(double);</span><br><span class="line">    public static double rint(double);</span><br><span class="line">    public static double atan2(double,double);</span><br><span class="line">    public static double pow(double,double);</span><br><span class="line">    public static int round(float);</span><br><span class="line">    public static long round(double);</span><br><span class="line">    public static double random();</span><br><span class="line">    public static int abs(int);</span><br><span class="line">    public static long abs(long);</span><br><span class="line">    public static float abs(float);</span><br><span class="line">    public static double abs(double);</span><br><span class="line">    public static int max(int,int);</span><br><span class="line">    public static long max(long,long);</span><br><span class="line">    public static float max(float,float);</span><br><span class="line">    public static double max(double,double);</span><br><span class="line">    public static int min(int,int);</span><br><span class="line">    public static long min(long,long);</span><br><span class="line">    public static float min(float,float);</span><br><span class="line">    public static double min(double,double);</span><br><span class="line">    public static double ulp(double);</span><br><span class="line">    public static float ulp(float);</span><br><span class="line">    public static double signum(double);</span><br><span class="line">    public static float signum(float);</span><br><span class="line">    public static double sinh(double);</span><br><span class="line">    public static double cosh(double);</span><br><span class="line">    public static double tanh(double);</span><br><span class="line">    public static double hypot(double,double);</span><br><span class="line">    public static double expm1(double);</span><br><span class="line">    public static double log1p(double);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># Remove - Number method calls. Remove all invocations of Number</span><br><span class="line"># methods without side effects whose return values are not used.</span><br><span class="line">-assumenosideeffects public class java.lang.* extends java.lang.Number &#123;</span><br><span class="line">    public static java.lang.String toString(byte);</span><br><span class="line">    public static java.lang.Byte valueOf(byte);</span><br><span class="line">    public static byte parseByte(java.lang.String);</span><br><span class="line">    public static byte parseByte(java.lang.String,int);</span><br><span class="line">    public static java.lang.Byte valueOf(java.lang.String,int);</span><br><span class="line">    public static java.lang.Byte valueOf(java.lang.String);</span><br><span class="line">    public static java.lang.Byte decode(java.lang.String);</span><br><span class="line">    public int compareTo(java.lang.Byte);</span><br><span class="line">    public static java.lang.String toString(short);</span><br><span class="line">    public static short parseShort(java.lang.String);</span><br><span class="line">    public static short parseShort(java.lang.String,int);</span><br><span class="line">    public static java.lang.Short valueOf(java.lang.String,int);</span><br><span class="line">    public static java.lang.Short valueOf(java.lang.String);</span><br><span class="line">    public static java.lang.Short valueOf(short);</span><br><span class="line">    public static java.lang.Short decode(java.lang.String);</span><br><span class="line">    public static short reverseBytes(short);</span><br><span class="line">    public int compareTo(java.lang.Short);</span><br><span class="line">    public static java.lang.String toString(int,int);</span><br><span class="line">    public static java.lang.String toHexString(int);</span><br><span class="line">    public static java.lang.String toOctalString(int);</span><br><span class="line">    public static java.lang.String toBinaryString(int);</span><br><span class="line">    public static java.lang.String toString(int);</span><br><span class="line">    public static int parseInt(java.lang.String,int);</span><br><span class="line">    public static int parseInt(java.lang.String);</span><br><span class="line">    public static java.lang.Integer valueOf(java.lang.String,int);</span><br><span class="line">    public static java.lang.Integer valueOf(java.lang.String);</span><br><span class="line">    public static java.lang.Integer valueOf(int);</span><br><span class="line">    public static java.lang.Integer getInteger(java.lang.String);</span><br><span class="line">    public static java.lang.Integer getInteger(java.lang.String,int);</span><br><span class="line">    public static java.lang.Integer getInteger(java.lang.String,java.lang.Integer);</span><br><span class="line">    public static java.lang.Integer decode(java.lang.String);</span><br><span class="line">    public static int highestOneBit(int);</span><br><span class="line">    public static int lowestOneBit(int);</span><br><span class="line">    public static int numberOfLeadingZeros(int);</span><br><span class="line">    public static int numberOfTrailingZeros(int);</span><br><span class="line">    public static int bitCount(int);</span><br><span class="line">    public static int rotateLeft(int,int);</span><br><span class="line">    public static int rotateRight(int,int);</span><br><span class="line">    public static int reverse(int);</span><br><span class="line">    public static int signum(int);</span><br><span class="line">    public static int reverseBytes(int);</span><br><span class="line">    public int compareTo(java.lang.Integer);</span><br><span class="line">    public static java.lang.String toString(long,int);</span><br><span class="line">    public static java.lang.String toHexString(long);</span><br><span class="line">    public static java.lang.String toOctalString(long);</span><br><span class="line">    public static java.lang.String toBinaryString(long);</span><br><span class="line">    public static java.lang.String toString(long);</span><br><span class="line">    public static long parseLong(java.lang.String,int);</span><br><span class="line">    public static long parseLong(java.lang.String);</span><br><span class="line">    public static java.lang.Long valueOf(java.lang.String,int);</span><br><span class="line">    public static java.lang.Long valueOf(java.lang.String);</span><br><span class="line">    public static java.lang.Long valueOf(long);</span><br><span class="line">    public static java.lang.Long decode(java.lang.String);</span><br><span class="line">    public static java.lang.Long getLong(java.lang.String);</span><br><span class="line">    public static java.lang.Long getLong(java.lang.String,long);</span><br><span class="line">    public static java.lang.Long getLong(java.lang.String,java.lang.Long);</span><br><span class="line">    public static long highestOneBit(long);</span><br><span class="line">    public static long lowestOneBit(long);</span><br><span class="line">    public static int numberOfLeadingZeros(long);</span><br><span class="line">    public static int numberOfTrailingZeros(long);</span><br><span class="line">    public static int bitCount(long);</span><br><span class="line">    public static long rotateLeft(long,int);</span><br><span class="line">    public static long rotateRight(long,int);</span><br><span class="line">    public static long reverse(long);</span><br><span class="line">    public static int signum(long);</span><br><span class="line">    public static long reverseBytes(long);</span><br><span class="line">    public int compareTo(java.lang.Long);</span><br><span class="line">    public static java.lang.String toString(float);</span><br><span class="line">    public static java.lang.String toHexString(float);</span><br><span class="line">    public static java.lang.Float valueOf(java.lang.String);</span><br><span class="line">    public static java.lang.Float valueOf(float);</span><br><span class="line">    public static float parseFloat(java.lang.String);</span><br><span class="line">    public static boolean isNaN(float);</span><br><span class="line">    public static boolean isInfinite(float);</span><br><span class="line">    public static int floatToIntBits(float);</span><br><span class="line">    public static int floatToRawIntBits(float);</span><br><span class="line">    public static float intBitsToFloat(int);</span><br><span class="line">    public static int compare(float,float);</span><br><span class="line">    public boolean isNaN();</span><br><span class="line">    public boolean isInfinite();</span><br><span class="line">    public int compareTo(java.lang.Float);</span><br><span class="line">    public static java.lang.String toString(double);</span><br><span class="line">    public static java.lang.String toHexString(double);</span><br><span class="line">    public static java.lang.Double valueOf(java.lang.String);</span><br><span class="line">    public static java.lang.Double valueOf(double);</span><br><span class="line">    public static double parseDouble(java.lang.String);</span><br><span class="line">    public static boolean isNaN(double);</span><br><span class="line">    public static boolean isInfinite(double);</span><br><span class="line">    public static long doubleToLongBits(double);</span><br><span class="line">    public static long doubleToRawLongBits(double);</span><br><span class="line">    public static double longBitsToDouble(long);</span><br><span class="line">    public static int compare(double,double);</span><br><span class="line">    public boolean isNaN();</span><br><span class="line">    public boolean isInfinite();</span><br><span class="line">    public int compareTo(java.lang.Double);</span><br><span class="line">    public byte byteValue();</span><br><span class="line">    public short shortValue();</span><br><span class="line">    public int intValue();</span><br><span class="line">    public long longValue();</span><br><span class="line">    public float floatValue();</span><br><span class="line">    public double doubleValue();</span><br><span class="line">    public int compareTo(java.lang.Object);</span><br><span class="line">    public boolean equals(java.lang.Object);</span><br><span class="line">    public int hashCode();</span><br><span class="line">    public java.lang.String toString();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># Remove - String method calls. Remove all invocations of String</span><br><span class="line"># methods without side effects whose return values are not used.</span><br><span class="line">-assumenosideeffects public class java.lang.String &#123;</span><br><span class="line">    public static java.lang.String copyValueOf(char[]);</span><br><span class="line">    public static java.lang.String copyValueOf(char[],int,int);</span><br><span class="line">    public static java.lang.String valueOf(boolean);</span><br><span class="line">    public static java.lang.String valueOf(char);</span><br><span class="line">    public static java.lang.String valueOf(char[]);</span><br><span class="line">    public static java.lang.String valueOf(char[],int,int);</span><br><span class="line">    public static java.lang.String valueOf(double);</span><br><span class="line">    public static java.lang.String valueOf(float);</span><br><span class="line">    public static java.lang.String valueOf(int);</span><br><span class="line">    public static java.lang.String valueOf(java.lang.Object);</span><br><span class="line">    public static java.lang.String valueOf(long);</span><br><span class="line">    public boolean contentEquals(java.lang.StringBuffer);</span><br><span class="line">    public boolean endsWith(java.lang.String);</span><br><span class="line">    public boolean equalsIgnoreCase(java.lang.String);</span><br><span class="line">    public boolean equals(java.lang.Object);</span><br><span class="line">    public boolean matches(java.lang.String);</span><br><span class="line">    public boolean regionMatches(boolean,int,java.lang.String,int,int);</span><br><span class="line">    public boolean regionMatches(int,java.lang.String,int,int);</span><br><span class="line">    public boolean startsWith(java.lang.String);</span><br><span class="line">    public boolean startsWith(java.lang.String,int);</span><br><span class="line">    public byte[] getBytes();</span><br><span class="line">    public byte[] getBytes(java.lang.String);</span><br><span class="line">    public char charAt(int);</span><br><span class="line">    public char[] toCharArray();</span><br><span class="line">    public int compareToIgnoreCase(java.lang.String);</span><br><span class="line">    public int compareTo(java.lang.Object);</span><br><span class="line">    public int compareTo(java.lang.String);</span><br><span class="line">    public int hashCode();</span><br><span class="line">    public int indexOf(int);</span><br><span class="line">    public int indexOf(int,int);</span><br><span class="line">    public int indexOf(java.lang.String);</span><br><span class="line">    public int indexOf(java.lang.String,int);</span><br><span class="line">    public int lastIndexOf(int);</span><br><span class="line">    public int lastIndexOf(int,int);</span><br><span class="line">    public int lastIndexOf(java.lang.String);</span><br><span class="line">    public int lastIndexOf(java.lang.String,int);</span><br><span class="line">    public int length();</span><br><span class="line">    public java.lang.CharSequence subSequence(int,int);</span><br><span class="line">    public java.lang.String concat(java.lang.String);</span><br><span class="line">    public java.lang.String replaceAll(java.lang.String,java.lang.String);</span><br><span class="line">    public java.lang.String replace(char,char);</span><br><span class="line">    public java.lang.String replaceFirst(java.lang.String,java.lang.String);</span><br><span class="line">    public java.lang.String[] split(java.lang.String);</span><br><span class="line">    public java.lang.String[] split(java.lang.String,int);</span><br><span class="line">    public java.lang.String substring(int);</span><br><span class="line">    public java.lang.String substring(int,int);</span><br><span class="line">    public java.lang.String toLowerCase();</span><br><span class="line">    public java.lang.String toLowerCase(java.util.Locale);</span><br><span class="line">    public java.lang.String toString();</span><br><span class="line">    public java.lang.String toUpperCase();</span><br><span class="line">    public java.lang.String toUpperCase(java.util.Locale);</span><br><span class="line">    public java.lang.String trim();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># Remove - StringBuffer method calls. Remove all invocations of StringBuffer</span><br><span class="line"># methods without side effects whose return values are not used.</span><br><span class="line">-assumenosideeffects public class java.lang.StringBuffer &#123;</span><br><span class="line">    public java.lang.String toString();</span><br><span class="line">    public char charAt(int);</span><br><span class="line">    public int capacity();</span><br><span class="line">    public int codePointAt(int);</span><br><span class="line">    public int codePointBefore(int);</span><br><span class="line">    public int indexOf(java.lang.String,int);</span><br><span class="line">    public int lastIndexOf(java.lang.String);</span><br><span class="line">    public int lastIndexOf(java.lang.String,int);</span><br><span class="line">    public int length();</span><br><span class="line">    public java.lang.String substring(int);</span><br><span class="line">    public java.lang.String substring(int,int);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"># Remove - StringBuilder method calls. Remove all invocations of StringBuilder</span><br><span class="line"># methods without side effects whose return values are not used.</span><br><span class="line">-assumenosideeffects public class java.lang.StringBuilder &#123;</span><br><span class="line">    public java.lang.String toString();</span><br><span class="line">    public char charAt(int);</span><br><span class="line">    public int capacity();</span><br><span class="line">    public int codePointAt(int);</span><br><span class="line">    public int codePointBefore(int);</span><br><span class="line">    public int indexOf(java.lang.String,int);</span><br><span class="line">    public int lastIndexOf(java.lang.String);</span><br><span class="line">    public int lastIndexOf(java.lang.String,int);</span><br><span class="line">    public int length();</span><br><span class="line">    public java.lang.String substring(int);</span><br><span class="line">    public java.lang.String substring(int,int);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>参考：<a href="https://www.jianshu.com/p/60e82aafcfd0" target="_blank" rel="noopener">https://www.jianshu.com/p/60e82aafcfd0</a><br>官方文档：<a href="https://www.guardsquare.com/en/proguard/manual/introduction" target="_blank" rel="noopener">https://www.guardsquare.com/en/proguard/manual/introduction</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/proguard-java.html" target="_blank" rel="external">https://blog.iaiot.com/proguard-java.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/proguard/">proguard</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/proguard-java.html&title=《用 proguard 混淆 java 代码》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/proguard-java.html&title=《用 proguard 混淆 java 代码》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/proguard-java.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用 proguard 混淆 java 代码》 — 郝继亮的笔记&url=https://blog.iaiot.com/proguard-java.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/proguard-java.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/apache-httpd-apache-proxy.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">apache httpd 服务实现转发后如偶尔出现 apache proxy 错误</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Java-Socket.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java 使用 Socket 判断某服务能否连通</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/proguard-java.html&title=《用 proguard 混淆 java 代码》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/proguard-java.html&title=《用 proguard 混淆 java 代码》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/proguard-java.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《用 proguard 混淆 java 代码》 — 郝继亮的笔记&url=https://blog.iaiot.com/proguard-java.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/proguard-java.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3aS46EMAwFwL7/pZntSCPg2Q5pNKqsekGTCgvLn3w+8Tp+rfzJs+fztzUXLi7umHtcrrMNqluevSE34OLi7ueebXD9OwFdf4LcgIuL+2ZunqwkYQsXF/d/cP8+30uGcHFx38/N05FqeZMc+5FaDRcXd8DNmxrP/X6kv4uLi9viHsVVbYLkhVO0Oy4u7hbuPH2ZhMLevri4uE9zJw2LaipTfc/pd8XFxX2Ye51wJOlILzBdN16bvRxcXNxF3CqrGnqSQFk4GC4u7hZu9SLF5FrVquYLLi7uTu6kldlLd/LdF49YcHFxg7ZIL5DlxUz+zW4CGS4u7kbuZJvqRavRmBYXF3cLNwof8TPVYqlZ/ODi4m7kVtOOyUWN3uAWFxd3P7eQZIyPcV103ZRkuLi4G7n5H3oj1RwaFT+4uLjbuUmikw9dJpe3ohwKFxd3KXc+Rk3CVjXALZv94uLitrjzKxF527Q6oB1d5sDFxR1z8+A1abD2iiJcXNzvcqsjjWpTdXGthouL+3puPhpJyqRP7zS4uLgv4PaC3aTLgYuLu59bbZJWw1zeQLn5ELi4uFu41VDSC1i9w4/6u7i4uB3uD1kNmnmMABBrAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

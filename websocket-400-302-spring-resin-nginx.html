@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="socket,resin,websocket">
+    <meta name="description" content="webSocket 400                                                                                                           1234567891011location /ws/createwebsocket &amp;#123;        proxy_redirect off;">
+<meta name="keywords" content="socket,resin,websocket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket">
+<meta property="og:url" content="https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="webSocket 400                                                                                                           1234567891011location /ws/createwebsocket &amp;#123;        proxy_redirect off;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog.iaiot.com/images/20190322173348403.png">
+<meta property="og:image" content="https://blog.iaiot.com/images/20190322171006565.png">
+<meta property="og:image" content="https://blog.iaiot.com/images/20190322171454875.png">
+<meta property="og:image" content="https://blog.iaiot.com/images/20190322171428208.png">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket">
+<meta name="twitter:description" content="webSocket 400                                                                                                           1234567891011location /ws/createwebsocket &amp;#123;        proxy_redirect off;">
+<meta name="twitter:image" content="https://blog.iaiot.com/images/20190322173348403.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-22T09:15:58.000Z" itemprop="datePublished" class="page-time">
+  2019-03-22
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#webSocket-400"><span class="post-toc-number">1.</span> <span class="post-toc-text">webSocket 400</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#webSocket-302"><span class="post-toc-number">2.</span> <span class="post-toc-text">webSocket 302</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#spring-websocket（4-2-5-RELEASE）"><span class="post-toc-number">3.</span> <span class="post-toc-text">spring-websocket（4.2.5.RELEASE）</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-websocket"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-22 17:15:58" datetime="2019-03-22T09:15:58.000Z"  itemprop="datePublished">2019-03-22</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="webSocket-400"><a href="#webSocket-400" class="headerlink" title="webSocket 400"></a>webSocket 400</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20190322173348403.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">location /ws/createwebsocket &#123;</span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_set_header Host $host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_pass http://my.api.iaiot.com:8080/ws/createwebsocket;</span><br><span class="line"></span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">        proxy_set_header Connection &quot;upgrade&quot;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="webSocket-302"><a href="#webSocket-302" class="headerlink" title="webSocket 302"></a>webSocket 302</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20190322171006565.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="spring-websocket（4-2-5-RELEASE）"><a href="#spring-websocket（4-2-5-RELEASE）" class="headerlink" title="spring-websocket（4.2.5.RELEASE）"></a>spring-websocket（4.2.5.RELEASE）</h2><p>spring-websocket 不支持 resin，如果用 resin 部署服务，需基于 com.caucho.websocket.WebSocketListener 自己实现，或者依赖一个其他的 spring 支持的 websocket 包，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.undertow&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;undertow-websockets-jsr&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.0.17.Final&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>spring-websocket 支持的 RequestUpgradeStrategy：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20190322171454875.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20190322171428208.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/websocket-400-302-spring-resin-nginx.html" target="_blank" rel="external">https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/resin/">resin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/socket/">socket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/websocket/">websocket</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html&title=《webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html&title=《webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket》 — 郝继亮的笔记&url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/redis-publish-subscribe.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">redis 实现消息的发布订阅（Java）</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/elasticsearch-notes.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Elasticsearch 笔记 倒排索引 keyword 和 text</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html&title=《webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html&title=《webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《webSocket 笔记 问题汇总 400 302 spring-websocket resin-websocket nginx-websocket》 — 郝继亮的笔记&url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/websocket-400-302-spring-resin-nginx.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3ay3LcMAwEQP//TzvXJFuWZwjCj6rWacvWWmweBHqAt7f4ev/rev356+fXb71eH92T//1rFx4eHt5g6fki8gU9359s5WQ9eHh4eHu8jx7zvOj5bxNYXiTw8PDwfhcvKQDtEfm5UOHh4eH9Ft7zUp6DifbzNxQGPDw8vJiXhBGTYPf5/lsxBx4eHt7X8PIu0s/5vNLfw8PDwxt31fMX7lnZaKOHerV4eHh4C7xJnNpGq8lR+6xt9sm24uHh4X0J7yw8TcpDHr/mo1ef/DU8PDy8q7xJmyo/NE+i27xRF3X28PDw8NZ4eWFIRqzyAOJsO4oYAg8PD2+NN4kM2s5UeygvnoWHh4e3wJtECe238u8+b3c9eoWHh4e3wGtDhLMDcT4c0L7ho1KBh4eHd4nXDja1d7akdijheT14eHh4G7zk1vwAPV/oJAguqh8eHh7egDcpDGd56aTM1KEGHh4e3hovDwXa0HYSBF+ucnh4eHiXeGdh6yRKSLYvL0h1DIGHh4d3ldcWgEl4MS8A7bEeDw8P7xavjQYmA1L5Vt46rOPh4eHt8ZLXcXJsnUQP9dLboSs8PDy8q7yzaCDfjrYM3BpfwMPDw9vg5Qfis1j2LJzNw44i4MDDw8O7ymuHotoefV5Izjb9kwKGh4eHt8zbiGWTw3HbDCtGr/Dw8PDWePlg063ftmHE2bACHh4e3jZvXiry4jEZLCjux8PDw7vKey+vs2ZV8oq/VYT++YyHh4e3wGtfuHlEO2mktY2uGoOHh4c35uUv+vYxbVNtpTDg4eHhrfHazlE+HHChLg2GFfDw8PB+Am/eBssP1vO14eHh4f0EXv6YvGy0YXG+EXh4eHh7vPxhZ8fcjfGs6Lt4eHh4C7zJP/xJ0+uM0RaYlTwDDw8P7//rDwI0IhbGHVhjAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

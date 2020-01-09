@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Nginx+lua-nginx-module，openresty，lua基础语法 笔记 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="lua">
+    <meta name="description" content="Lua 用[[…]]括起来的字符不会被转义，在写正则表达式的时候很实用；例：[[^\d+.\d+$]]  lua 中”~=”表示不等于  可以用 type(aa)查看变量 aa 的类型  lua 中 0 是真(true)  字符串连接符：..  lua 中的逻辑运算符比较特殊例：local y = a and b or c 相当于 a?b:c参考：https://moonbingbing.git">
+<meta name="keywords" content="lua">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx+lua-nginx-module，openresty，lua基础语法 笔记">
+<meta property="og:url" content="https://blog.iaiot.com/lua-notes.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="Lua 用[[…]]括起来的字符不会被转义，在写正则表达式的时候很实用；例：[[^\d+.\d+$]]  lua 中”~=”表示不等于  可以用 type(aa)查看变量 aa 的类型  lua 中 0 是真(true)  字符串连接符：..  lua 中的逻辑运算符比较特殊例：local y = a and b or c 相当于 a?b:c参考：https://moonbingbing.git">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog.iaiot.com/images/20180112173241641.png">
+<meta property="og:image" content="https://blog.iaiot.com/images/20180112173844671.png">
+<meta property="og:image" content="https://blog.iaiot.com/images/20180112173621526.png">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx+lua-nginx-module，openresty，lua基础语法 笔记">
+<meta name="twitter:description" content="Lua 用[[…]]括起来的字符不会被转义，在写正则表达式的时候很实用；例：[[^\d+.\d+$]]  lua 中”~=”表示不等于  可以用 type(aa)查看变量 aa 的类型  lua 中 0 是真(true)  字符串连接符：..  lua 中的逻辑运算符比较特殊例：local y = a and b or c 相当于 a?b:c参考：https://moonbingbing.git">
+<meta name="twitter:image" content="https://blog.iaiot.com/images/20180112173241641.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx+lua-nginx-module，openresty，lua基础语法 笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx+lua-nginx-module，openresty，lua基础语法 笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-12T09:31:42.000Z" itemprop="datePublished" class="page-time">
+  2018-01-12
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-lua-notes"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx+lua-nginx-module，openresty，lua基础语法 笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-12 17:31:42" datetime="2018-01-12T09:31:42.000Z"  itemprop="datePublished">2018-01-12</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ol>
+<li><p>Lua 用[[…]]括起来的字符不会被转义，在写正则表达式的时候很实用；<br>例：[[^\d+.\d+$]]</p>
+</li>
+<li><p>lua 中”~=”表示不等于</p>
+</li>
+<li><p>可以用 type(aa)查看变量 aa 的类型</p>
+</li>
+<li><p>lua 中 0 是真(true)</p>
+</li>
+<li><p>字符串连接符：..</p>
+</li>
+<li><p>lua 中的逻辑运算符比较特殊<br>例：local y = a and b or c 相当于 a?b:c<br>参考：<a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/lua/operator.html" target="_blank" rel="noopener">https://moonbingbing.gitbooks.io/openresty-best-practices/content/lua/operator.html</a></p>
+</li>
+<li><p>local m,n = “aaa” 表示 m 被赋值为字符串，n 没有被赋值，是 nil</p>
+</li>
+<li><p>lua function 可以返回多个值<br>参考：<a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/lua/function_result.html" target="_blank" rel="noopener">https://moonbingbing.gitbooks.io/openresty-best-practices/content/lua/function_result.html</a></p>
+</li>
+<li><p>lua 中当 table 作为一个函数的参数时，就和 java 中的集合和数组一样是传引用的方式，而不是传值的方式<br>注：java 中都是值传递，只不过集合和数组传的是对象的地址值</p>
+</li>
+<li><p>请求头参数修改方法：ngx.req.set_header(header_name, header_value)；<br>请求体是 table 类型的，所以要修改请求体，可以先 ngx.req.get_body_data，修改完再 ngx.req.set_body_data<br>table 修改方法：table.key = newvalue 或 table[key] = newvalue</p>
+</li>
+<li><p>Nginx Http 处理流程有：init/rewrite/access/content/filter/log 等<br>可参考：<a href="http://tengine.taobao.org/book/chapter_12.html(多阶段处理请求)" target="_blank" rel="noopener">http://tengine.taobao.org/book/chapter_12.html(多阶段处理请求)</a></p>
+</li>
+<li><p>在 lua 里判断空字符串只能用检查长度的方式</p>
+</li>
+<li><p>正则匹配，ngx.re.match()返回的结果是一个表，里面存储了匹配的结果，如果匹配成功，<br>m[0]保存的是整个(匹配成功的)字符串，之后的 m[1],m[2]等保存的是匹配的子表达式<br>local m = ngx.re.match(“abcd-123”, “(.*)123$”, “jo”)<br>– 参数 “j” 启用 JIT 编译，参数 “o” 是开启缓存必须的</p>
+</li>
+<li><p>单行注释：–<br>多行注释：–[[…]]</p>
+</li>
+<li><p>print(#’openresty’) –计算字符串长度，输出 9</p>
+</li>
+<li><p>这些文件 I/O 操作，在 OpenResty 的上下文中对事件循环是会产生阻塞效应。OpenResty 比较擅长的是高并发网络处理，在这个环境中，任何文件的操作，都将阻塞其他并行执行的请求。实际中的应用，在 OpenResty 项目中应尽可能让网络处理部分、文件 I/0 操作部分相互独立，不要揉和在一起。<br><a href="https://moonbingbing.gitbooks.io/openresty-best-practices/content/lua/file.html" target="_blank" rel="noopener">https://moonbingbing.gitbooks.io/openresty-best-practices/content/lua/file.html</a></p>
+</li>
+<li><p>官方建议使用 openresty，不建议使用原生 nginx 自己集成 lua-nginx-module<br>原文：<a href="https://github.com/openresty/lua-nginx-module#installation" target="_blank" rel="noopener">https://github.com/openresty/lua-nginx-module#installation</a></p>
+</li>
+<li><p>任何重写规则的第一部分都是一个正则表达式<br>可以使用括号来捕获，后续可以根据位置来将其引用，位置变量值取决于捕获正则表达式中的顺序，$1引用第一个括号中的值，$2引用第二个括号中的值，以此类推。<br>例：^/images/([a-z]{2})/([a-z0-9]{5})/(.*).(png|jpg|gif)$<br>$1是两个小写字母组成的字符串，$2是由小写字母和0到9的数字组成的5个字符的字符串，$3将是个文件名，$4是png、jpg、gif中的其中一个。<br>参考：<a href="http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/" target="_blank" rel="noopener">http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/</a></p>
+</li>
+<li><p>nginx lua指令及其执行顺序</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20180112173241641.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>其中上图中提到的各个指令的作用：<br>init_by_lua*:初始化 nginx 和预加载 lua(nginx 启动和 reload 时执行)<br>init_worker_by_lua*:每个工作进程(worker_processes)被创建时执行，用于启动一些定时任务，<br>比如心跳检查，后端服务的健康检查，定时拉取服务器配置等；<br>ssl_certificate_by_lua*:对 https 请求的处理，即将启动下游 SSL（https）连接的 SSL 握手时执行，用例：按照每个请求设置 SSL 证书链和相应的私钥，按照 SSL 协议有选择的拒绝请求等；<br>set_by_lua*:设置 nginx 变量<br>rewrite_by_lua*:重写请求（从原生 nginx 的 rewrite 阶段进入），执行内部 URL 重写或者外部重定向，典型的如伪静态化的 URL 重写；<br>access_by_lua*:处理请求（和 rewrite_by_lua 可以实现相同的功能，从原生 nginx 的 access阶段进入）<br>content_by_lua*:执行业务逻辑并产生响应，类似于 jsp 中的 servlet<br>balancer_by_lua*:负载均衡<br>header_filter_by_lua*:处理响应头<br>body_filter_by_lua*:处理响应体<br>log_by_lua*:记录访问日志<br>参考：<a href="https://github.com/openresty/lua-nginx-module" target="_blank" rel="noopener">https://github.com/openresty/lua-nginx-module</a><br><a href="http://tengine.taobao.org/book/chapter_12.html#id8" target="_blank" rel="noopener">http://tengine.taobao.org/book/chapter_12.html#id8</a><br><a href="http://jinnianshilongnian.iteye.com/blog/2186448" target="_blank" rel="noopener">http://jinnianshilongnian.iteye.com/blog/2186448</a></p>
+</li>
+<li>http请求报文<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20180112173844671.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>HTTP响应报文<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20180112173621526.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>附openresty的Github地址：<a href="https://github.com/openresty" target="_blank" rel="noopener">https://github.com/openresty</a></li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/lua-notes.html" target="_blank" rel="external">https://blog.iaiot.com/lua-notes.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/lua-notes.html&title=《Nginx+lua-nginx-module，openresty，lua基础语法 笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/lua-notes.html&title=《Nginx+lua-nginx-module，openresty，lua基础语法 笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/lua-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx+lua-nginx-module，openresty，lua基础语法 笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/lua-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/lua-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/WebStorm-debug-angular.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">WebStorm打断点调试Angular4应用</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Elasticsearch-buckets.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 buckets 桶</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/lua-notes.html&title=《Nginx+lua-nginx-module，openresty，lua基础语法 笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/lua-notes.html&title=《Nginx+lua-nginx-module，openresty，lua基础语法 笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/lua-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx+lua-nginx-module，openresty，lua基础语法 笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/lua-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/lua-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwElEQVR42u3aQY7DIAwF0N7/0p1tpRmib1OTdvRYRRGClywsbPN4xOP5MvZn5qs1By4u7jb3eTlWc17f/35OiNfrLz8JFxf3IHe1wWpOvsHOp+Li4n4LN2flK+Di4v4P7vXMPE3CxcX9ZG41DFUTnhtyNVxc3A1uXqWcex6p7+Li4ra4z+JI2iHJm+buuLi4R7h5QElwyXHnDS1bXFzcYW6SZuSHlaRBW/2YP/4rLi7uEW6y5U7hIymLRMURXFzcI9ykdZG/6V282Gm04OLiTnCrwWs/bG0VX3BxcW/lVhdtRs34pzQrrLi4uC1udWr1SkS1RFLeERcXd4BbTVryxCYhJsegZfKDi4s7zM2PJgk9D1jN5AcXF3eYWw1JWxeqgs+OEidcXNzj3GqptBqM8iNRFMhwcXGPcKtpTLJNb/1lOMPFxT3OzeusyTa9YmuhfYKLizvAnUtjclahPYOLi3uE27sS0dusWpzttXVxcXHfxc0TlV4I22nT4uLi3svNWxo9aC/k4eLifju3x2pmbLi4uB/M3bpIUUy9cHFxz3OrDdE8hPUaLYWeMC4u7gC3HEriRmyS0pQvZuHi4s5yfwA/eCn4GS4YMAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

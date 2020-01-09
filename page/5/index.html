@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="郝继亮">
+    <meta name="description" content="郝继亮">
+<meta name="keywords" content="郝继亮">
+<meta property="og:type" content="website">
+<meta property="og:title" content="郝继亮的笔记">
+<meta property="og:url" content="https://blog.iaiot.com/page/5/index.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="郝继亮">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="郝继亮的笔记">
+<meta name="twitter:description" content="郝继亮">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">郝继亮的笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header index-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">郝继亮的笔记</h1>
+        <h5 class="subtitle">
+            
+                
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+<div class="container body-wrap">
+
+    <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-jstorm-nimbus-Supervisor"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-05-22 11:18:54" datetime="2018-05-22T03:18:54.000Z"  itemprop="datePublished">2018-05-22</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/jstorm-nimbus-Supervisor.html">Jstorm 启动后 nimbus、Supervisor 自动停止</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        情景1：以前可以，异常关机重启后不行了。。。
+原因1：jstorm 进程异常终止，导致 storm data 目录下的数据异常；
+解决：删除 Jstorm data 目录里面的内容，再重新启动~
+情景2：第一次安装的，从节点 Supervisor 可以正常启动，主节点的 nimbus 和 Supervisor 启动后接着停止（nimbus 甚至直接不启动）；
+原因：未配置 hostname
+...
+    
+
+        <a href="/jstorm-nimbus-Supervisor.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jstorm/">jstorm</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-fastjson"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-05-16 18:16:28" datetime="2018-05-16T10:16:28.000Z"  itemprop="datePublished">2018-05-16</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/fastjson.html">fastjson中getLong(&#34;&#34;)返回的是Long类型，不能直接用“==”比较</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        fastjson中getLong(“”)返回的是Long类型，不能直接用“==”比较；
+如需比较要使用getLongValue(“”)，getLongValue返回的是long类型的；
+user.getLong(“mid”) != fileDetail.getLong(“mid”)user.getLongValue(“mid”) == fileDetail.getLongValue(“mid...
+    
+
+        <a href="/fastjson.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-interview"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-05-09 16:27:08" datetime="2018-05-09T08:27:08.000Z"  itemprop="datePublished">2018-05-09</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/interview.html">面试笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        TCP UDP webSocket httpTCP传输层协议；三次握手（建立连接时）四次挥手（关闭连接时）  
+UDP传输层协议；不建立连接，所以没有握手挥手的过程  
+webSocket应用层协议长连接，服务端客户端可以互发消息  
+http应用层协议http/1.0：默认短连接；建立连接 -&gt; 传输数据 -&gt; 断开连接http/1.1：默认长连接（Connection:kee...
+    
+
+        <a href="/interview.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-npm_install_error"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-04-09 23:25:35" datetime="2018-04-09T15:25:35.000Z"  itemprop="datePublished">2018-04-09</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/npm_install_error.html">mac 下 npm install 报错</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        sudo npm install -g @vue/cli –unsafe-perm
+
+                
+                    
+                    
+                
+                
+            
+
+                
+                    
+         ...
+    
+
+        <a href="/npm_install_error.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-git-notes"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-04-04 16:23:45" datetime="2018-04-04T08:23:45.000Z"  itemprop="datePublished">2018-04-04</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/git-notes.html">git 笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        VCS→Import into→Version Control→Create Git Repository→选择本地项目目录→OK
+git add→commit→push，其中 push 之前会提示先输入 Git 项目地址
+
+用 IDEA 上传本地项目到码云/Github：https://blog.csdn.net/zsyoung/article/details/76891211
+
+
+git...
+    
+
+        <a href="/git-notes.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-mysql-python-redis"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-02-06 10:40:09" datetime="2018-02-06T02:40:09.000Z"  itemprop="datePublished">2018-02-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/mysql-python-redis.html">使用 python 查询 MySQL 数据并写入 redis</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566import jsonimport osimport sysimport MySQLdbimport redisimport hashlib rel...
+    
+
+        <a href="/mysql-python-redis.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Elasticsearch-python"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-02-06 10:36:35" datetime="2018-02-06T02:36:35.000Z"  itemprop="datePublished">2018-02-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Elasticsearch-python.html">通过python使用游标查询Elasticsearch数据并写入文件</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970import jsonimport osimport sysimport urllib2 reload(sys)sys.setdef...
+    
+
+        <a href="/Elasticsearch-python.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-js-xss"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-02-06 09:54:06" datetime="2018-02-06T01:54:06.000Z"  itemprop="datePublished">2018-02-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/js-xss.html">页面输出时用js转义替换字符串中的script标签，防止XSS</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        123456789function stringEncode(str)&#123;    var div=document.createElement('div');    if(div.innerText)&#123;        div.innerText=str;    &#125;else&#123;        div.textContent=str;    &#125;   ...
+    
+
+        <a href="/js-xss.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xss/">xss</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Elasticsearch-cmd"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-01-24 15:16:04" datetime="2018-01-24T07:16:04.000Z"  itemprop="datePublished">2018-01-24</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Elasticsearch-cmd.html">Elasticsearch常用命令整理</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        在命令行查看Elasticsearch信息及数据，另有es head插件（可以自己安装，另外在谷歌浏览器扩展程序里也有），可以直接在网页中可视化操作Elasticsearch
+                
+                    
+                    
+                
+                
+            
+
+查看...
+    
+
+        <a href="/Elasticsearch-cmd.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-WebStorm-debug-angular"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-01-20 10:49:35" datetime="2018-01-20T02:49:35.000Z"  itemprop="datePublished">2018-01-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/WebStorm-debug-angular.html">WebStorm打断点调试Angular4应用</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        我用的是WebStorm和Google浏览器调试的Angular4，配置步骤如下：
+
+
+                
+                    
+                    
+                
+                
+            
+
+                
+                    
+        ...
+    
+
+        <a href="/WebStorm-debug-angular.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-lua-notes"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-01-12 17:31:42" datetime="2018-01-12T09:31:42.000Z"  itemprop="datePublished">2018-01-12</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/lua-notes.html">Nginx+lua-nginx-module，openresty，lua基础语法 笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+Lua 用[[…]]括起来的字符不会被转义，在写正则表达式的时候很实用；例：[[^\d+.\d+$]]
+
+lua 中”~=”表示不等于
+
+可以用 type(aa)查看变量 aa 的类型
+
+lua 中 0 是真(true)
+
+字符串连接符：..
+
+lua 中的逻辑运算符比较特殊例：local y = a and b or c 相当于 a?b:c参考：https://moonbingbing....
+    
+
+        <a href="/lua-notes.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Elasticsearch-buckets"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-12-28 18:08:58" datetime="2017-12-28T10:08:58.000Z"  itemprop="datePublished">2017-12-28</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Elasticsearch-buckets.html">通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 buckets 桶</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Elasticsearch 的 buckets（桶）包含 Histogram、Date Histogram、Range、Date Range、Terms、IPv4 Range、Significant Terms 等；
+
+Histogram：1SELECT * FROM INDEX-2017-12 GROUP BY (histogram('alias'='log_date.mthAggs', ...
+    
+
+        <a href="/Elasticsearch-buckets.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Elasticsearch-metrics"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-12-27 10:43:07" datetime="2017-12-27T02:43:07.000Z"  itemprop="datePublished">2017-12-27</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Elasticsearch-metrics.html">通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Elasticsearch 的 metrics（度量）包含 count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）
+
+count（数量）：1SELECT count(log_date.d) AS C...
+    
+
+        <a href="/Elasticsearch-metrics.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-could-NOT-be-bound"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-12-06 15:31:10" datetime="2017-12-06T07:31:10.000Z"  itemprop="datePublished">2017-12-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/could-NOT-be-bound.html">Angular4配置host后执行ng serve报Provided host a.api.***.com could NOT be bound...</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        问题：Angular4在schema.json中配置host后执行ng serve报
+Provided host aaa.com could NOT be bound. Please provide a different host address or hostname
+解决：修改系统host，加入127.0.0.1 aaa.com
+
+    
+
+        <a href="/could-NOT-be-bound.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-urllib2"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-12-01 10:28:52" datetime="2017-12-01T02:28:52.000Z"  itemprop="datePublished">2017-12-01</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/urllib2.html">python网络请求报urllib2.HTTPError:HTTP Error 405:Not Allowed</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        报错信息：12345678910111213141516Traceback (most recent call last):  File &quot;exportESData.py&quot;, line 45, in &lt;module&gt;    exportEsData(&quot;https://www.iaiot.com&quot;, index, type, siteid)....
+    
+
+        <a href="/urllib2.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-openresty"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-10-18 15:57:26" datetime="2017-10-18T07:57:26.000Z"  itemprop="datePublished">2017-10-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/openresty.html">CentOS安装openresty或者verynginx时:undefined reference to `pcre_free_study&#39;</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        一、openresty问题复现：centos安装openresty-1.11.2.5，./configure后make时报错：
+12345678910111213141516171819objs/addon/src/ngx_http_lua_regex.o: In function `ngx_http_lua_regex_free_study_data&apos;:/home/openres...
+    
+
+        <a href="/openresty.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openresty/">openresty</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-JMeter-URISyntaxException"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-10-13 11:15:02" datetime="2017-10-13T03:15:02.000Z"  itemprop="datePublished">2017-10-13</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/JMeter-URISyntaxException.html">JMeter java.net.URISyntaxException</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        问题复现：在url中传json等有特殊字符的数据时；
+解决办法：把url中的参数进行url编码再进行请求；
+url在线编码工具：http://tool.oschina.net/encode?type=4
+
+    
+
+        <a href="/JMeter-URISyntaxException.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JMeter/">JMeter</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-linux-notes"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-09-18 17:48:19" datetime="2017-09-18T09:48:19.000Z"  itemprop="datePublished">2017-09-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/linux-notes.html">Linux、CentOS、Windows、零散笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        一、Linux相关(以下均在CentOS中操作)0.shell中引号的区别
+                
+                    
+                    
+                
+                
+             
+1.安装sz/rz：yum install lrzsz
+2.新建的.sh文件不能执行：chmod +x ...
+    
+
+        <a href="/linux-notes.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-resin"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-09-18 10:18:04" datetime="2017-09-18T02:18:04.000Z"  itemprop="datePublished">2017-09-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/resin.html">resin安全配置,ip黑白名单,只允许指定ip访问resin-admin,拒绝某些ip访问webapp</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        为resin-admin设置白名单，webapps设置黑名单：
+
+resin.xml中加入admin的host配置resin:Allow，如下：
+1234567891011&lt;cluster id=&quot;app&quot;&gt;    ......    &lt;!-- 只允许指定ip访问resin-admin --&gt;    &lt;host id=&quot;$&#123...
+    
+
+        <a href="/resin.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/resin/">resin</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-storm-zookeeper"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2017-09-06 17:40:15" datetime="2017-09-06T09:40:15.000Z"  itemprop="datePublished">2017-09-06</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/storm-zookeeper.html">安装 Storm 集群和 Zookeeper 集群./zkServer.sh status报错Error contacting service. It is probably not running.</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        除了http://blog.csdn.net/xiewendong93/article/details/50500471里面的方法外还有可能是
+jdk的问题；
+检查一下JDK是否正确安装；；
+我的是直接从其他机器复制过来jdk的环境变量设置，却忘记在新机器上解压jdk的压缩包了。。
+
+    
+
+        <a href="/storm-zookeeper.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/storm/">storm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zookeeper/">zookeeper</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+    </ul>
+
+    
+<nav id="page-nav">
+    <div class="inner">
+    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
+    </div>
+</nav>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/page/5/&title=郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/page/5/&title=郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/page/5/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=郝继亮的笔记&url=https://blog.iaiot.com/page/5/&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/page/5/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxElEQVR42u3ay4rDMAwF0P7/T3dgmE0Z6lxJjZPCyaoYJz3JQujhxyO+nr/X+vf6rv/r63tHFy4u7pj7XF494vred3vWBlxc3P3cJHjlK8nrVffg4uLek7tOUNYryavi4uJ+I3cevHBxcb+LmxQ/eaKTNEFOr9VwcXEH3E81TCe/L+jv4uLitqYSSUCp7uz979+9uLi4W7hJO2ONq7ZBJ6kSLi7uHm41iCTlUO+YRfRkXFzcS7mTcJas50OXlxVcXNzbcOcJUFL2RKUULi7uFm7euOzt6bVCDsIiLi7uydxqOtIrk/KDWQfFEi4u7kZu7w/y5/TKJ1xc3Ku483MO+RGNJNuqNmhwcXHP4PZGI9WRyfrbFIIjLi7uRm41oFQTnUnJhIuLu587KVeqRyvyT3DwgXBxcU/mVluivdfLCx5cXNz7cKtD0+rgpNkGxcXFvZTba48WjlK1BiqjPi4uLu6AWw0oSfrSa6TmgxlcXNw93GrBk6cveWGTp1O4uLg7uXnw6o1Jqi2Vt/txcXFvxp20TiZPbgYyXFzcjdxegEuKqGhsg4uLu5E7PyRRTY+qZRIuLu5O7rxhWm5ttEosXFzcLdwfgxG0e5rbiggAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

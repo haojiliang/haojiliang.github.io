@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>App开放接口api安全性—Token签名sign的设计与实现 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="项目">
+    <meta name="description" content="原文地址：https://blog.csdn.net/fengshizty/article/details/48754609前言       在app开放接口api的设计中，避免不了的就是安全性问题，因为大多数接口涉及到用户的个人信息以及一些敏感的数据，所以对这些接口需要进行身份的认证，那么这就需要用户提供一些信息，比如用户名密码等，但是为了安全起见让用户暴露的明文密码次数越少越好，我们一般在we">
+<meta name="keywords" content="项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="App开放接口api安全性—Token签名sign的设计与实现">
+<meta property="og:url" content="https://blog.iaiot.com/app-api-token.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="原文地址：https://blog.csdn.net/fengshizty/article/details/48754609前言       在app开放接口api的设计中，避免不了的就是安全性问题，因为大多数接口涉及到用户的个人信息以及一些敏感的数据，所以对这些接口需要进行身份的认证，那么这就需要用户提供一些信息，比如用户名密码等，但是为了安全起见让用户暴露的明文密码次数越少越好，我们一般在we">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="App开放接口api安全性—Token签名sign的设计与实现">
+<meta name="twitter:description" content="原文地址：https://blog.csdn.net/fengshizty/article/details/48754609前言       在app开放接口api的设计中，避免不了的就是安全性问题，因为大多数接口涉及到用户的个人信息以及一些敏感的数据，所以对这些接口需要进行身份的认证，那么这就需要用户提供一些信息，比如用户名密码等，但是为了安全起见让用户暴露的明文密码次数越少越好，我们一般在we">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">App开放接口api安全性—Token签名sign的设计与实现</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">App开放接口api安全性—Token签名sign的设计与实现</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-14T10:58:00.000Z" itemprop="datePublished" class="page-time">
+  2018-08-14
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-app-api-token"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">App开放接口api安全性—Token签名sign的设计与实现</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-14 18:58:00" datetime="2018-08-14T10:58:00.000Z"  itemprop="datePublished">2018-08-14</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>原文地址：<a href="https://blog.csdn.net/fengshizty/article/details/48754609" target="_blank" rel="noopener">https://blog.csdn.net/fengshizty/article/details/48754609</a><br>前言<br>       在app开放接口api的设计中，避免不了的就是安全性问题，因为大多数接口涉及到用户的个人信息以及一些敏感的数据，所以对这些接口需要进行身份的认证，那么这就需要用户提供一些信息，比如用户名密码等，但是为了安全起见让用户暴露的明文密码次数越少越好，我们一般在web项目中，大多数采用保存的session中，然后在存一份到cookie中，来保持用户的回话有效性。但是在app提供的开放接口中，后端服务器在用户登录后如何去验证和维护用户的登陆有效性呢，以下是参考项目中设计的解决方案，其原理和大多数开放接口安全验证一样，如淘宝的开放接口token验证，微信开发平台token验证都是同理。</p>
+<p>签名设计<br>     对于敏感的api接口，需使用https协议<br>           https是在http超文本传输协议加入SSL层，它在网络间通信是加密的，所以需要加密证书。</p>
+<pre><code>      https协议需要ca证书，一般需要交费。
+
+
+
+签名的设计
+      原理：用户登录后向服务器提供用户认证信息（如账户和密码），服务器认证完后给客户端返回一个Token令牌，用户再次获取信息时，带上此令牌，如果令牌正取，则返回数据。对于获取Token信息后，访问用户相关接口，客户端请求的url需要带上如下参数：
+
+    时间戳：timestamp
+
+    Token令牌：token
+
+    然后将所有用户请求的参数按照字母排序（包括timestamp，token），然后更具MD5加密（可以加点盐），全部大写，生成sign签名，这就是所说的url签名算法。然后登陆后每次调用用户信息时，带上sign，timestamp，token参数。
+</code></pre><p>例如：原请求<a href="https://www.andy.cn/api/user/update/info.shtml?city=北京" target="_blank" rel="noopener">https://www.andy.cn/api/user/update/info.shtml?city=北京</a> （post和get都一样，对所有参数排序加密）</p>
+<p> 加上时间戳和token</p>
+<pre><code> https://www.andy.cn/api/user/update/info.shtml?city=北京×tamp=12445323134&amp;token=wefkfjdskfjewfjkjfdfnc
+
+然后更具url参数生成sign
+
+最终的请求如
+
+   https://www.andy.cn/api/user/update/info.shtml?city=北京×tamp=12445323134&amp;token=wefkfjdskfjewfjkjfdfnc&amp;sign=FDK2434JKJFD334FDF2
+</code></pre><p>其最终的原理是减小明文的暴露次数；保证数据安全的访问。</p>
+<p>具体实现如下：</p>
+<pre><code>   1. api请求客户端想服务器端一次发送用用户认证信息（用户名和密码），服务器端请求到改请求后，验证用户信息是否正确。
+
+如果正确：则返回一个唯一不重复的字符串（一般为UUID），然后在Redis（任意缓存服务器）中维护Token----Uid的用户信息关系，以便其他api对token的校验。
+
+如果错误：则返回错误码。
+
+
+
+    2.服务器设计一个url请求拦截规则
+
+       （1）判断是否包含timestamp，token，sign参数，如果不含有返回错误码。
+
+       （2）判断服务器接到请求的时间和参数中的时间戳是否相差很长一段时间（时间自定义如半个小时），如果超过则说明该                         url已经过期（如果url被盗，他改变了时间戳，但是会导致sign签名不相等）。
+
+       （3）判断token是否有效，根据请求过来的token，查询redis缓存中的uid，如果获取不到这说明该token已过期。
+
+       （4）根据用户请求的url参数，服务器端按照同样的规则生成sign签名，对比签名看是否相等，相等则放行。（自然url签名                       也无法100%保证其安全，也可以通过公钥AES对数据和url加密，但这样如果无法确保公钥丢失，所以签名只是很大程                       度上保证安全）。
+
+        （5）此url拦截只需对获取身份认证的url放行（如登陆url），剩余所有的url都需拦截。
+
+
+
+    3.Token和Uid关系维护
+
+       对于用户登录我们需要创建token--uid的关系，用户退出时需要需删除token--uid的关系。
+</code></pre>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.451Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/app-api-token.html" target="_blank" rel="external">https://blog.iaiot.com/app-api-token.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目/">项目</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/app-api-token.html&title=《App开放接口api安全性—Token签名sign的设计与实现》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/app-api-token.html&title=《App开放接口api安全性—Token签名sign的设计与实现》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/app-api-token.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《App开放接口api安全性—Token签名sign的设计与实现》 — 郝继亮的笔记&url=https://blog.iaiot.com/app-api-token.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/app-api-token.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/npm-install-webpack-g.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">npm install webpack -g 和 npm install --global vue-cli 失败报错 Unexpected end of JSON input while parsi</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/docker-nginx.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">docker run 和 docker-compose 配置挂载 Volume 并运行 nginx</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/app-api-token.html&title=《App开放接口api安全性—Token签名sign的设计与实现》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/app-api-token.html&title=《App开放接口api安全性—Token签名sign的设计与实现》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/app-api-token.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《App开放接口api安全性—Token签名sign的设计与实现》 — 郝继亮的笔记&url=https://blog.iaiot.com/app-api-token.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/app-api-token.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABzElEQVR42u3awaqDMBAFUP//p33wVoW2emeig4WTVaEajy5CZm62LR77/3j9/Trer/z27/s12x0DFxd3mbsfjnfuMSuZJ7/rwyvh4uIOcvPFK7ly5a4TGy4u7sO4K5uY49fAxcX9Xe7x43vlEy4u7pO5edFyvH3Jy5jbazVcXNwFbq9heu3v2/u7uLi4F6USvaZnQtlbAxcXd4Z7HJNUw9G8mMm3UFtSD+Hi4l7Krd7We1hSxkQNWVxc3HFuvkitNEHyFsmHf3FxcUe4eaGSryTVFmp1flxc3BludSnJI9U8LEmWP1xc3Cdwmw3NYiaSH/bCxcWd5ObRSN6F7YUx0UKJi4s7yK0+bD1w7cW3uLi4d3PzYqO6hOUbl0Jki4uLO8hdIa4seeVPgIuLO8LtFT/VWCUvhKKjG7i4uDdzezdXr7zq1CUuLu4kt1rerBc8zdAFFxd3kFuNUXuboTzCKWQ+uLi4N3CrC0q1KEqy0auOguHi4l7LrbYyq+2PakB78kVxcXEHuXlJkx/qSmbIPbi4uM/krtQg1Zm/vh4uLu4juck2ZaW9cvIyuLi4g9zq1L0WSTV8XWqL4OLiLnB7m5XeEY1eQIuLizvI/QOpYBsxwfABZwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

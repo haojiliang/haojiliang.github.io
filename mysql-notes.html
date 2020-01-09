@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>mysql笔记 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mysql">
+    <meta name="description" content="centos下删除 卸载Mysql  yum remove  mysql mysql-server mysql-libs mysql-server;find / -name mysql 将找到的相关东西delete掉； rpm -qa|grep mysql(查询出来的东东yum remove掉)  安装MySQL用户相关操作(%:通配符，此处表示允许该用户通过任意IP连接到数据库)：  设置 r">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql笔记">
+<meta property="og:url" content="https://blog.iaiot.com/mysql-notes.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="centos下删除 卸载Mysql  yum remove  mysql mysql-server mysql-libs mysql-server;find / -name mysql 将找到的相关东西delete掉； rpm -qa|grep mysql(查询出来的东东yum remove掉)  安装MySQL用户相关操作(%:通配符，此处表示允许该用户通过任意IP连接到数据库)：  设置 r">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql笔记">
+<meta name="twitter:description" content="centos下删除 卸载Mysql  yum remove  mysql mysql-server mysql-libs mysql-server;find / -name mysql 将找到的相关东西delete掉； rpm -qa|grep mysql(查询出来的东东yum remove掉)  安装MySQL用户相关操作(%:通配符，此处表示允许该用户通过任意IP连接到数据库)：  设置 r">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">mysql笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">mysql笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-19T10:57:48.000Z" itemprop="datePublished" class="page-time">
+  2018-06-19
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-mysql-notes"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">mysql笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-06-19 18:57:48" datetime="2018-06-19T10:57:48.000Z"  itemprop="datePublished">2018-06-19</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ol>
+<li>centos下删除 卸载Mysql</li>
+</ol>
+<p>yum remove  mysql mysql-server mysql-libs mysql-server;<br>find / -name mysql 将找到的相关东西delete掉；</p>
+<p>rpm -qa|grep mysql(查询出来的东东yum remove掉)</p>
+<ol start="2">
+<li>安装MySQL用户相关操作(%:通配符，此处表示允许该用户通过任意IP连接到数据库)：</li>
+</ol>
+<p>设置 root 密码：SET PASSWORD FOR ‘root‘@’localhost’ = PASSWORD(‘newpass’);<br>创建用户：CREATE USER ‘username‘@’localhost’ IDENTIFIED BY ‘password’; 例：CREATE USER ‘admin‘@’%’ IDENTIFIED BY ‘123456’;<br>用户授权：GRANT privileges ON databasename.tablename TO ‘username‘@’host’; 例：GRANT ALL ON db1.* TO ‘admin‘@’%’;<br>删除用户：drop user ‘username‘@’localhost’; 例：drop user ‘admin‘@’%’;<br>查询用户：SELECT User, Host, Password FROM mysql.user;<br>刷新权限：flush privileges;<br>停止MySQL：/etc/init.d/mysqld stop<br>重启MySQL：/etc/init.d/mysqld restart<br>       或：service mysqld restart<br>启动MySQL：service mysqld start<br>查看是否有与MySQL相关的软件：rpm -qa | grep -i mysql<br>卸载相关软件：yum remove mysql mysql-server mysql-libs mysql-server<br>参考：<a href="https://jingyan.baidu.com/article/fec7a1e5f8d3201190b4e782.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/fec7a1e5f8d3201190b4e782.html</a><br>      <a href="https://zhidao.baidu.com/question/1603863845338636507.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/1603863845338636507.html</a><br>      <a href="http://www.cnblogs.com/snake-hand/p/3157247.html" target="_blank" rel="noopener">http://www.cnblogs.com/snake-hand/p/3157247.html</a><br>      <a href="http://www.cnblogs.com/xiaoluo501395377/archive/2013/04/07/3003278.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaoluo501395377/archive/2013/04/07/3003278.html</a><br>      <a href="http://www.jianshu.com/p/d7b9c468f20d" target="_blank" rel="noopener">http://www.jianshu.com/p/d7b9c468f20d</a><br>      <a href="http://blog.csdn.net/dbanote/article/details/12911851" target="_blank" rel="noopener">http://blog.csdn.net/dbanote/article/details/12911851</a></p>
+<ol start="3">
+<li>登录MySQL(注意无空格)：<br>本地登录：mysql -uroot -p123456 -P3306<br>远程登录：mysql -h192.168.1.2 -P3306 -uroot -p123456</li>
+</ol>
+<ol start="4">
+<li>MySQL数据迁移(备份恢复)<br>导出全部数据：mysqldump -uroot -p123456 db1 &gt; db1.dump<br>只导出表结构：mysqldump -uroot -p123456 –no-data –databases db1 &gt; db1.dump<br>导出远程MySQL数据：mysqldump -h192.168.1.2 -P3306 -uroot -p123456 db1 &gt; db1.dump<br>导入：先创建目标数据库(create database db1;)，然后mysql -uroot -p123456 db1 &lt; db1.dump<br>附：删除数据库：drop database db1;</li>
+</ol>
+<ol start="5">
+<li>MySQL部分迁移<br>选择某个数据库：use db1;<br>导出指定数据到文件：select * into OUTFILE ‘t1’ from table1 where id in(2,3,5);<br>导入数据文件到数据库：LOAD DATA INFILE ‘t1’ INTO TABLE t1;</li>
+</ol>
+<ol start="6">
+<li>MySQL-Linux通用版安装<br>该方法可以解决很多使用普通安装方式安装遇到的问题</li>
+</ol>
+<p><a href="https://blog.csdn.net/iaiot/article/details/80737630" target="_blank" rel="noopener">https://blog.csdn.net/iaiot/article/details/80737630</a></p>
+<ol start="7">
+<li>修改MySQL自增ID起始值:</li>
+</ol>
+<p>alter table users AUTO_INCREMENT=1;</p>
+<ol start="8">
+<li>MySQL时间戳 时间查询转换</li>
+</ol>
+<p>时间转时间戳：select UNIX_TIMESTAMP(update_time) from table1;</p>
+<p>时间戳转时间：select FROM_UNIXTIME(create_time) from table1;</p>
+<ol start="9">
+<li><p>MySQL一次查询统计多条数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line"><span class="keyword">count</span>(<span class="keyword">case</span> <span class="keyword">when</span> u.audit_status = <span class="number">1</span> <span class="keyword">AND</span> u.isdeleted = <span class="number">0</span> <span class="keyword">then</span> u.audit_status <span class="keyword">end</span>) <span class="keyword">AS</span> verified,</span><br><span class="line"><span class="keyword">count</span>(<span class="keyword">case</span> <span class="keyword">when</span> u.audit_status = <span class="number">2</span> <span class="keyword">AND</span> u.isdeleted = <span class="number">0</span> <span class="keyword">then</span> u.audit_status <span class="keyword">end</span>) <span class="keyword">AS</span> disVerified,</span><br><span class="line"><span class="keyword">count</span>(<span class="keyword">case</span> <span class="keyword">when</span> u.audit_status = <span class="number">0</span> <span class="keyword">AND</span> u.isdeleted = <span class="number">0</span> <span class="keyword">then</span> u.audit_status <span class="keyword">end</span>) <span class="keyword">AS</span> unVerified,</span><br><span class="line"><span class="keyword">count</span>(<span class="number">1</span>) total</span><br><span class="line"><span class="keyword">from</span> sc_user u</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Windows下安装MySQL5.6 zip版</p>
+</li>
+</ol>
+<p>参考：<a href="https://jingyan.baidu.com/article/f3ad7d0ffc061a09c3345bf0.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/f3ad7d0ffc061a09c3345bf0.html</a></p>
+<ol start="11">
+<li>yum默认安装的那个MySQL版本时间字段不支持update_time和create_time同时自动设置时间，建议手动安装MySQL5.6以上版本；</li>
+</ol>
+<ol start="12">
+<li>MyBatis中取值时，#和$的区别</li>
+</ol>
+<p>#{} 这种取值是编译好SQL语句再取值 </p>
+<p>${} 这种是取值以后再去编译SQL语句</p>
+<p>动态拼接sql要用${}，${}会有SQL注入的风险</p>
+<p>参考：<a href="https://www.jianshu.com/p/b3b4a4fb8a54" target="_blank" rel="noopener">https://www.jianshu.com/p/b3b4a4fb8a54</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/mysql-notes.html" target="_blank" rel="external">https://blog.iaiot.com/mysql-notes.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/mysql-notes.html&title=《mysql笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/mysql-notes.html&title=《mysql笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/mysql-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mysql笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/mysql-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/mysql-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/docker-notes.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">docker 笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/centos-install-mysql.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Centos 离线安装 MySQL 详细步骤</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/mysql-notes.html&title=《mysql笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/mysql-notes.html&title=《mysql笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/mysql-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mysql笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/mysql-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/mysql-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3aO24DMQwFQN//0k6bxptHUhQcYFQZ/uyOXBAi375e8Xr/Wsmnn76ZXO3AwsXFHXPfj+sZ9EzMv58YcHFx73M/VYzq6wTxfJ0/bLi4uF/PzQ8x1SKIi4v7H7n5Yeh5S7i4uN/MnRxHPhGr1zzcq+Hi4g64+ZRy7/XKfBcXF7fFfRfX8+Ejb3Wad8fFxb3CnY85Ekq+gSiOxcXFXebmA5Gcm7Q6vTvi4uLe51YLUzTcLDY/0YkMFxd3mVsNR3tNS7WoFQYouLi4a9xk8JEHq8/lrDd8wcXFvc/tjT/ykUc1Li2ErLi4uGvcanAyyXKTYleou7i4uGvcahQ6aZbmRRMXF3ebWz12VGctyTGo8Hfg4uJe4W5cNGl+qoHra+8/wMXFDbj5aCOPTHrvFJ4jw8XFXePuRae9zUQhKy4u7nVu78bJb3uNFi4u7h3upGDl0cuB7BcXF/citxeOVi89CW6bm8HFxR1zq41NcuNTTdEfaTAuLu4yN480emPQ6tGnMN/FxcX9Am51DDofxxx7EgQXF3eNO3ksYzLlwMXFvc+tPkiRbGMStDQzYVxc3EPcainpbS8PY3oHJlxc3EPcHxoqr463kNEIAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

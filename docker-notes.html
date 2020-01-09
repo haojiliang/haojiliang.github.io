@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>docker 笔记 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="docker">
+    <meta name="description" content="容器的本质是宿主机上一个特殊的进程，通过 宿主机 的 Namespace、Cgroups、rootfs 等（Namespace 做进程隔离，Cgroups 做限制(限制隔离进程组所使用的cpu,memory,IO等物理资源)，rootfs 做文件系统）与宿主机上的其他东西 “隔离开”。  强制删除 docker 镜像：docker rmi -f [IMAGE-ID]  或 docker rmi -">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker 笔记">
+<meta property="og:url" content="https://blog.iaiot.com/docker-notes.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="容器的本质是宿主机上一个特殊的进程，通过 宿主机 的 Namespace、Cgroups、rootfs 等（Namespace 做进程隔离，Cgroups 做限制(限制隔离进程组所使用的cpu,memory,IO等物理资源)，rootfs 做文件系统）与宿主机上的其他东西 “隔离开”。  强制删除 docker 镜像：docker rmi -f [IMAGE-ID]  或 docker rmi -">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker 笔记">
+<meta name="twitter:description" content="容器的本质是宿主机上一个特殊的进程，通过 宿主机 的 Namespace、Cgroups、rootfs 等（Namespace 做进程隔离，Cgroups 做限制(限制隔离进程组所使用的cpu,memory,IO等物理资源)，rootfs 做文件系统）与宿主机上的其他东西 “隔离开”。  强制删除 docker 镜像：docker rmi -f [IMAGE-ID]  或 docker rmi -">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">docker 笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">docker 笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-28T05:51:43.000Z" itemprop="datePublished" class="page-time">
+  2018-06-28
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-docker-notes"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">docker 笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-06-28 13:51:43" datetime="2018-06-28T05:51:43.000Z"  itemprop="datePublished">2018-06-28</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>容器的本质是宿主机上一个特殊的进程，通过 宿主机 的 Namespace、Cgroups、rootfs 等（Namespace 做进程隔离，Cgroups 做限制(限制隔离进程组所使用的cpu,memory,IO等物理资源)，rootfs 做文件系统）与宿主机上的其他东西 “隔离开”。</p>
+<ol>
+<li><p>强制删除 docker 镜像：docker rmi -f [IMAGE-ID]  或 docker rmi -f [IMAGE-NAME]</p>
+<p>删除 container：docker rm [CONTAINER ID]</p>
+</li>
+<li><p>保存镜像到文件：docker save -o /data/image1.tar [IMAGE_NAME]</p>
+</li>
+<li><p>载入镜像文件：docker load –input /data/image1.tar 或 docker load &lt; /data/image1.tar</p>
+</li>
+<li><p>使用本地模板导入镜像：cat centos-6-x86_64-20170709.tar.xz | docker import - [IMAGE-NAME-NEW] </p>
+</li>
+</ol>
+<p>例：cat centos-6-x86_64-20170709.tar.xz | docker import - centos6</p>
+<p>OpenVZ 模板下载网站：<a href="https://openvz.org/Download/template/precreated" target="_blank" rel="noopener">https://openvz.org/Download/template/precreated</a></p>
+<ol start="5">
+<li>查看本地镜像列表：docker images</li>
+</ol>
+<p>查找本地镜像：docker images nginx</p>
+<p>搜索仓库镜像：docker search nginx</p>
+<ol start="6">
+<li><p>执行 docker 命令：docker run [IMAGE_NAME] ping 10.10.50.55</p>
+</li>
+<li><p>Docker 入门：<a href="http://www.docker.org.cn/book/docker/what-is-docker-16.html" target="_blank" rel="noopener">http://www.docker.org.cn/book/docker/what-is-docker-16.html</a></p>
+</li>
+<li><p>创建并运行 container 后进入其 bash 控制台：docker run -t -i 691ad2f6923d /bin/bash</p>
+</li>
+</ol>
+<p>进入后台运行的容器：docker exec -it [CONTAINER_NAME || CONTAINER_ID] /bin/sh</p>
+<ol start="9">
+<li><p>列出 container：docker ps -a</p>
+</li>
+<li><p>卸载安装：<a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+</li>
+<li><p>镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的 类 和 实例 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
+</li>
+<li><p>容器存储：</p>
+</li>
+</ol>
+<p>前面讲过镜像使用的是分层存储，容器也是如此。每一个容器运行时，是以镜像为基础层，在其上创建一个当前容器的存储层，我们可以称这个为容器运行时读写而准备的存储层为容器存储层。</p>
+<p>容器存储层的生存周期和容器一样，容器消亡时，容器存储层也随之消亡。因此，任何保存于容器存储层的信息都会随容器删除而丢失。</p>
+<p>按照 Docker 最佳实践的要求，容器不应该向其存储层内写入任何数据，容器存储层要保持无状态化。所有的文件写入操作，都应该使用 数据卷（Volume）、或者绑定宿主目录，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）发生读写，其性能和稳定性更高。</p>
+<p>数据卷的生存周期独立于容器，容器消亡，数据卷不会消亡。因此，使用数据卷后，容器删除或者重新运行之后，数据却不会丢失。</p>
+<ol start="13">
+<li><p>Docker hub地址：<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a></p>
+</li>
+<li><p>后台运行（信息不输出到前台）：使用 -d 参数</p>
+</li>
+</ol>
+<p>注： 容器是否会长久运行，是和 docker run 指定的命令有关，和 -d 参数无关。</p>
+<p>参考：<a href="https://yeasy.gitbooks.io/docker_practice/container/daemon.html" target="_blank" rel="noopener">https://yeasy.gitbooks.io/docker_practice/container/daemon.html</a></p>
+<ol start="15">
+<li>查看端口映射配置：docker port web2 80</li>
+</ol>
+<p>参考：<a href="https://yeasy.gitbooks.io/docker_practice/network/port_mapping.html" target="_blank" rel="noopener">https://yeasy.gitbooks.io/docker_practice/network/port_mapping.html</a></p>
+<ol start="16">
+<li><p>查看 Image 或 Container 的信息：docker inspect wordpress</p>
+</li>
+<li><p>安装 docker：<a href="https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce-1" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce-1</a></p>
+</li>
+<li><p>查看系统内核版本：uname -r</p>
+</li>
+<li><p>安装 docker-compose：</p>
+</li>
+</ol>
+<p>$ sudo curl -L <a href="https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname" target="_blank" rel="noopener">https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname</a> -s<code>-</code>uname -m` &gt; /usr/local/bin/docker-compose </p>
+<p>$ sudo chmod +x /usr/local/bin/docker-compose</p>
+<p>参考：<a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">https://docs.docker.com/compose/install/</a></p>
+<p>其他资料：<a href="https://docs.docker.com/compose/gettingstarted/" target="_blank" rel="noopener">https://docs.docker.com/compose/gettingstarted/</a></p>
+<ol start="20">
+<li>安装 Docker Machine</li>
+</ol>
+<p><a href="https://docs.docker.com/machine/install-machine/#install-machine-directly" target="_blank" rel="noopener">https://docs.docker.com/machine/install-machine/#install-machine-directly</a></p>
+<ol start="21">
+<li>在 Swarm 集群中使用 compose 文件</li>
+</ol>
+<p>$ docker stack deploy -c docker-compose.yml wordpress</p>
+<p>$ docker stack ls</p>
+<p>$ docker stack down wordpress</p>
+<p>参考：<a href="https://yeasy.gitbooks.io/docker_practice/swarm_mode/stack.html" target="_blank" rel="noopener">https://yeasy.gitbooks.io/docker_practice/swarm_mode/stack.html</a></p>
+<ol start="22">
+<li><p>macOS 下如果用邮箱登录 docker，pull 镜像时会提示：…unauthorized: incorrect username or password. 用 DockerID 登录就没问题。</p>
+</li>
+<li><p>清理所有停止运行的容器 docker container prune   </p>
+</li>
+</ol>
+<p>image、volume、network 同理：</p>
+<p>docker image prune</p>
+<p>docker volume prune</p>
+<p>24.查看容器日志：docker logs -f –tail=10 [containerID]<br>-f：查看实时日志<br>–tail=10：返回最近10行  </p>
+<p>docker 命令大全：<a href="http://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener">http://www.runoob.com/docker/docker-command-manual.html</a></p>
+<p>《Docker 从入门到实践》：<a href="https://yeasy.gitbooks.io/docker_practice/install/centos.html" target="_blank" rel="noopener">https://yeasy.gitbooks.io/docker_practice/install/centos.html</a></p>
+<p>更多：<a href="https://blog.csdn.net/iaiot/article/details/80845250" target="_blank" rel="noopener">https://blog.csdn.net/iaiot/article/details/80845250</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.451Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/docker-notes.html" target="_blank" rel="external">https://blog.iaiot.com/docker-notes.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/docker-notes.html&title=《docker 笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/docker-notes.html&title=《docker 笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/docker-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker 笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/docker-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/docker-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/docker-image-container.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker 学习笔记合集第一季 —— image container 基本操作</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/mysql-notes.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mysql笔记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/docker-notes.html&title=《docker 笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/docker-notes.html&title=《docker 笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/docker-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker 笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/docker-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/docker-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aQW7DMAwEwPz/0+m5KOwsSUlxgfEpcJxofCHIlV6v+HoH198nk3977bhwcXHH3CriarGrX1W/vV8FFxf3JPeqYlw9k7/M/f3cgIuL+2Rur4nJixouLu5/51aLV14ocXFxn8BNlr8vQ/dLfmFWw8XFHXDzlHLf5y35Li4ubov7Ll73ZatajMqr4+LiHuHmBWWypdoLVi6fxMXFPcLNS8xaSr4x02x9cHFxF3GruFWbK81wBBcXdwN38n69IafaVP36jIuLe5ybBx+TbdRC/PFXgouLe4TbC0Crx7Z6g1C0J4yLi7uBe1+qJkc0emNSoe7i4uJu5vZGoLzdye9/WAsXF/cgNylkebmZD0IL6i4uLu6AWx1+7seeyWbMh6i0N6vh4uKOudGjvYNTcVsTRbe4uLgHuXlU0QtMc+iHwAUXF/er3GTbtVqeesNVoSPDxcUdc9/FK49FklYpCVNwcXHPc5ed4Ci2LPmg1XwZXFzcMbdXvBLoJJCNhh9cXNzN3Grw0TuusWxWw8XFfRg3udMrZIWJDRcX92HcSTM0STlwcXHPc/MGpTCoDOKPBbMaLi7ugFsuJYMopFoKR/kuLi5uh/sD7OJxsEStYKQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

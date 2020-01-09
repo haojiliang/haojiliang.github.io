@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>docker daemon（dockerd） 配置文件 daemon.json | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="docker">
+    <meta name="description" content="原文：https://docs.docker.com/engine/reference/commandline/dockerd/1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker daemon（dockerd） 配置文件 daemon.json">
+<meta property="og:url" content="https://blog.iaiot.com/docker-daemon.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="原文：https://docs.docker.com/engine/reference/commandline/dockerd/1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker daemon（dockerd） 配置文件 daemon.json">
+<meta name="twitter:description" content="原文：https://docs.docker.com/engine/reference/commandline/dockerd/1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">docker daemon（dockerd） 配置文件 daemon.json</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">docker daemon（dockerd） 配置文件 daemon.json</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-01T15:26:55.000Z" itemprop="datePublished" class="page-time">
+  2018-12-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-docker-daemon"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">docker daemon（dockerd） 配置文件 daemon.json</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-01 23:26:55" datetime="2018-12-01T15:26:55.000Z"  itemprop="datePublished">2018-12-01</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>原文：<a href="https://docs.docker.com/engine/reference/commandline/dockerd/" target="_blank" rel="noopener">https://docs.docker.com/engine/reference/commandline/dockerd/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">Usage:	dockerd COMMAND</span><br><span class="line"> </span><br><span class="line">A self-sufficient runtime for containers.</span><br><span class="line"> </span><br><span class="line">Options:</span><br><span class="line">      --add-runtime runtime                   Register an additional OCI compatible runtime (default [])</span><br><span class="line">      --allow-nondistributable-artifacts list Push nondistributable artifacts to specified registries (default [])</span><br><span class="line">      --api-cors-header string                Set CORS headers in the Engine API</span><br><span class="line">      --authorization-plugin list             Authorization plugins to load (default [])</span><br><span class="line">      --bip string                            Specify network bridge IP</span><br><span class="line">  -b, --bridge string                         Attach containers to a network bridge</span><br><span class="line">      --cgroup-parent string                  Set parent cgroup for all containers</span><br><span class="line">      --cluster-advertise string              Address or interface name to advertise</span><br><span class="line">      --cluster-store string                  URL of the distributed storage backend</span><br><span class="line">      --cluster-store-opt map                 Set cluster store options (default map[])</span><br><span class="line">      --config-file string                    Daemon configuration file (default &quot;/etc/docker/daemon.json&quot;)</span><br><span class="line">      --containerd string                     Path to containerd socket</span><br><span class="line">      --cpu-rt-period int                     Limit the CPU real-time period in microseconds</span><br><span class="line">      --cpu-rt-runtime int                    Limit the CPU real-time runtime in microseconds</span><br><span class="line">      --data-root string                      Root directory of persistent Docker state (default &quot;/var/lib/docker&quot;)</span><br><span class="line">  -D, --debug                                 Enable debug mode</span><br><span class="line">      --default-gateway ip                    Container default gateway IPv4 address</span><br><span class="line">      --default-gateway-v6 ip                 Container default gateway IPv6 address</span><br><span class="line">      --default-address-pool                  Set the default address pool for local node networks</span><br><span class="line">      --default-runtime string                Default OCI runtime for containers (default &quot;runc&quot;)</span><br><span class="line">      --default-ulimit ulimit                 Default ulimits for containers (default [])</span><br><span class="line">      --dns list                              DNS server to use (default [])</span><br><span class="line">      --dns-opt list                          DNS options to use (default [])</span><br><span class="line">      --dns-search list                       DNS search domains to use (default [])</span><br><span class="line">      --exec-opt list                         Runtime execution options (default [])</span><br><span class="line">      --exec-root string                      Root directory for execution state files (default &quot;/var/run/docker&quot;)</span><br><span class="line">      --experimental                          Enable experimental features</span><br><span class="line">      --fixed-cidr string                     IPv4 subnet for fixed IPs</span><br><span class="line">      --fixed-cidr-v6 string                  IPv6 subnet for fixed IPs</span><br><span class="line">  -G, --group string                          Group for the unix socket (default &quot;docker&quot;)</span><br><span class="line">      --help                                  Print usage</span><br><span class="line">  -H, --host list                             Daemon socket(s) to connect to (default [])</span><br><span class="line">      --icc                                   Enable inter-container communication (default true)</span><br><span class="line">      --init                                  Run an init in the container to forward signals and reap processes</span><br><span class="line">      --init-path string                      Path to the docker-init binary</span><br><span class="line">      --insecure-registry list                Enable insecure registry communication (default [])</span><br><span class="line">      --ip ip                                 Default IP when binding container ports (default 0.0.0.0)</span><br><span class="line">      --ip-forward                            Enable net.ipv4.ip_forward (default true)</span><br><span class="line">      --ip-masq                               Enable IP masquerading (default true)</span><br><span class="line">      --iptables                              Enable addition of iptables rules (default true)</span><br><span class="line">      --ipv6                                  Enable IPv6 networking</span><br><span class="line">      --label list                            Set key=value labels to the daemon (default [])</span><br><span class="line">      --live-restore                          Enable live restore of docker when containers are still running</span><br><span class="line">      --log-driver string                     Default driver for container logs (default &quot;json-file&quot;)</span><br><span class="line">  -l, --log-level string                      Set the logging level (&quot;debug&quot;, &quot;info&quot;, &quot;warn&quot;, &quot;error&quot;, &quot;fatal&quot;) (default &quot;info&quot;)</span><br><span class="line">      --log-opt map                           Default log driver options for containers (default map[])</span><br><span class="line">      --max-concurrent-downloads int          Set the max concurrent downloads for each pull (default 3)</span><br><span class="line">      --max-concurrent-uploads int            Set the max concurrent uploads for each push (default 5)</span><br><span class="line">      --metrics-addr string                   Set default address and port to serve the metrics api on</span><br><span class="line">      --mtu int                               Set the containers network MTU</span><br><span class="line">      --node-generic-resources list           Advertise user-defined resource</span><br><span class="line">      --no-new-privileges                     Set no-new-privileges by default for new containers</span><br><span class="line">      --oom-score-adjust int                  Set the oom_score_adj for the daemon (default -500)</span><br><span class="line">  -p, --pidfile string                        Path to use for daemon PID file (default &quot;/var/run/docker.pid&quot;)</span><br><span class="line">      --raw-logs                              Full timestamps without ANSI coloring</span><br><span class="line">      --registry-mirror list                  Preferred Docker registry mirror (default [])</span><br><span class="line">      --seccomp-profile string                Path to seccomp profile</span><br><span class="line">      --selinux-enabled                       Enable selinux support</span><br><span class="line">      --shutdown-timeout int                  Set the default shutdown timeout (default 15)</span><br><span class="line">  -s, --storage-driver string                 Storage driver to use</span><br><span class="line">      --storage-opt list                      Storage driver options (default [])</span><br><span class="line">      --swarm-default-advertise-addr string   Set default address or interface for swarm advertised address</span><br><span class="line">      --tls                                   Use TLS; implied by --tlsverify</span><br><span class="line">      --tlscacert string                      Trust certs signed only by this CA (default &quot;~/.docker/ca.pem&quot;)</span><br><span class="line">      --tlscert string                        Path to TLS certificate file (default &quot;~/.docker/cert.pem&quot;)</span><br><span class="line">      --tlskey string                         Path to TLS key file (default ~/.docker/key.pem&quot;)</span><br><span class="line">      --tlsverify                             Use TLS and verify the remote</span><br><span class="line">      --userland-proxy                        Use userland proxy for loopback traffic (default true)</span><br><span class="line">      --userland-proxy-path string            Path to the userland proxy binary</span><br><span class="line">      --userns-remap string                   User/Group setting for user namespaces</span><br><span class="line">  -v, --version                               Print version information and quit</span><br></pre></td></tr></table></figure></p>
+<p>Linux 上配置文件的默认位置是 /etc/docker/daemon.json。 –config-file 可用于指定非默认位置。</p>
+<p>这是 Linux 上允许的配置选项示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;authorization-plugins&quot;: [],</span><br><span class="line">	&quot;data-root&quot;: &quot;&quot;,</span><br><span class="line">	&quot;dns&quot;: [],</span><br><span class="line">	&quot;dns-opts&quot;: [],</span><br><span class="line">	&quot;dns-search&quot;: [],</span><br><span class="line">	&quot;exec-opts&quot;: [],</span><br><span class="line">	&quot;exec-root&quot;: &quot;&quot;,</span><br><span class="line">	&quot;experimental&quot;: false,</span><br><span class="line">	&quot;features&quot;: &#123;&#125;,</span><br><span class="line">	&quot;storage-driver&quot;: &quot;&quot;,</span><br><span class="line">	&quot;storage-opts&quot;: [],</span><br><span class="line">	&quot;labels&quot;: [],</span><br><span class="line">	&quot;live-restore&quot;: true,</span><br><span class="line">	&quot;log-driver&quot;: &quot;&quot;,</span><br><span class="line">	&quot;log-opts&quot;: &#123;&#125;,</span><br><span class="line">	&quot;mtu&quot;: 0,</span><br><span class="line">	&quot;pidfile&quot;: &quot;&quot;,</span><br><span class="line">	&quot;cluster-store&quot;: &quot;&quot;,</span><br><span class="line">	&quot;cluster-store-opts&quot;: &#123;&#125;,</span><br><span class="line">	&quot;cluster-advertise&quot;: &quot;&quot;,</span><br><span class="line">	&quot;max-concurrent-downloads&quot;: 3,</span><br><span class="line">	&quot;max-concurrent-uploads&quot;: 5,</span><br><span class="line">	&quot;default-shm-size&quot;: &quot;64M&quot;,</span><br><span class="line">	&quot;shutdown-timeout&quot;: 15,</span><br><span class="line">	&quot;debug&quot;: true,</span><br><span class="line">	&quot;hosts&quot;: [],</span><br><span class="line">	&quot;log-level&quot;: &quot;&quot;,</span><br><span class="line">	&quot;tls&quot;: true,</span><br><span class="line">	&quot;tlsverify&quot;: true,</span><br><span class="line">	&quot;tlscacert&quot;: &quot;&quot;,</span><br><span class="line">	&quot;tlscert&quot;: &quot;&quot;,</span><br><span class="line">	&quot;tlskey&quot;: &quot;&quot;,</span><br><span class="line">	&quot;swarm-default-advertise-addr&quot;: &quot;&quot;,</span><br><span class="line">	&quot;api-cors-header&quot;: &quot;&quot;,</span><br><span class="line">	&quot;selinux-enabled&quot;: false,</span><br><span class="line">	&quot;userns-remap&quot;: &quot;&quot;,</span><br><span class="line">	&quot;group&quot;: &quot;&quot;,</span><br><span class="line">	&quot;cgroup-parent&quot;: &quot;&quot;,</span><br><span class="line">	&quot;default-ulimits&quot;: &#123;</span><br><span class="line">		&quot;nofile&quot;: &#123;</span><br><span class="line">			&quot;Name&quot;: &quot;nofile&quot;,</span><br><span class="line">			&quot;Hard&quot;: 64000,</span><br><span class="line">			&quot;Soft&quot;: 64000</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;init&quot;: false,</span><br><span class="line">	&quot;init-path&quot;: &quot;/usr/libexec/docker-init&quot;,</span><br><span class="line">	&quot;ipv6&quot;: false,</span><br><span class="line">	&quot;iptables&quot;: false,</span><br><span class="line">	&quot;ip-forward&quot;: false,</span><br><span class="line">	&quot;ip-masq&quot;: false,</span><br><span class="line">	&quot;userland-proxy&quot;: false,</span><br><span class="line">	&quot;userland-proxy-path&quot;: &quot;/usr/libexec/docker-proxy&quot;,</span><br><span class="line">	&quot;ip&quot;: &quot;0.0.0.0&quot;,</span><br><span class="line">	&quot;bridge&quot;: &quot;&quot;,</span><br><span class="line">	&quot;bip&quot;: &quot;&quot;,</span><br><span class="line">	&quot;fixed-cidr&quot;: &quot;&quot;,</span><br><span class="line">	&quot;fixed-cidr-v6&quot;: &quot;&quot;,</span><br><span class="line">	&quot;default-gateway&quot;: &quot;&quot;,</span><br><span class="line">	&quot;default-gateway-v6&quot;: &quot;&quot;,</span><br><span class="line">	&quot;icc&quot;: false,</span><br><span class="line">	&quot;raw-logs&quot;: false,</span><br><span class="line">	&quot;allow-nondistributable-artifacts&quot;: [],</span><br><span class="line">	&quot;registry-mirrors&quot;: [],</span><br><span class="line">	&quot;seccomp-profile&quot;: &quot;&quot;,</span><br><span class="line">	&quot;insecure-registries&quot;: [],</span><br><span class="line">	&quot;no-new-privileges&quot;: false,</span><br><span class="line">	&quot;default-runtime&quot;: &quot;runc&quot;,</span><br><span class="line">	&quot;oom-score-adjust&quot;: -500,</span><br><span class="line">	&quot;node-generic-resources&quot;: [&quot;NVIDIA-GPU=UUID1&quot;, &quot;NVIDIA-GPU=UUID2&quot;],</span><br><span class="line">	&quot;runtimes&quot;: &#123;</span><br><span class="line">		&quot;cc-runtime&quot;: &#123;</span><br><span class="line">			&quot;path&quot;: &quot;/usr/bin/cc-runtime&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;custom&quot;: &#123;</span><br><span class="line">			&quot;path&quot;: &quot;/usr/local/bin/my-runc-replacement&quot;,</span><br><span class="line">			&quot;runtimeArgs&quot;: [</span><br><span class="line">				&quot;--debug&quot;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;default-address-pools&quot;:[&#123;&quot;base&quot;:&quot;172.80.0.0/16&quot;,&quot;size&quot;:24&#125;,</span><br><span class="line">	&#123;&quot;base&quot;:&quot;172.90.0.0/16&quot;,&quot;size&quot;:24&#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>修改后重新启动服务使之生效。</p>
+<p>$ sudo systemctl daemon-reload</p>
+<p>$ sudo systemctl restart docker</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.451Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/docker-daemon.html" target="_blank" rel="external">https://blog.iaiot.com/docker-daemon.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/docker-daemon.html&title=《docker daemon（dockerd） 配置文件 daemon.json》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/docker-daemon.html&title=《docker daemon（dockerd） 配置文件 daemon.json》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/docker-daemon.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker daemon（dockerd） 配置文件 daemon.json》 — 郝继亮的笔记&url=https://blog.iaiot.com/docker-daemon.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/docker-daemon.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/docker-compose-move-wordpress.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">docker-compose 迁移部署 wordpress 站点、创建自定义网络、设置容器为静态 ip</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/docker-v-inode.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/docker-daemon.html&title=《docker daemon（dockerd） 配置文件 daemon.json》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/docker-daemon.html&title=《docker daemon（dockerd） 配置文件 daemon.json》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/docker-daemon.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《docker daemon（dockerd） 配置文件 daemon.json》 — 郝继亮的笔记&url=https://blog.iaiot.com/docker-daemon.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/docker-daemon.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3aQW7EIBAEwP3/p51rpAi7hwHWkYpTpHihuIyYhs8nHtdg/P7v6Mv72T47Bi4ubpt73Y57xP2SoxmSTQ63hIuLe5CbLFatMPlWEwMuLu77udVDTF7UcHFx/yN3RO9QcHFx38mdCz6SKGQuTFnQq+Hi4ja4eUq57+8t+S4uLu4U9yqOuQKUNEjR6ri4uEe4q8LQfiySrIuLi3uSmxxE+tFJ9Qj1sCVcXNxt3FXPrZLClBTByRMZLi7uBm4nEEkizupzruG6uLi4B7l5tNFvfgrxx995cHFxj3DnLlCTdqjfCBUCEVxc3A3c5DlUfh0yGYAG7RAuLu5JbvVYMxeq5k3RQynExcXdzM3L0P3UhyIVXFzcc+lledK128g3iYuL+y3u2rhzriA+bB4XF/cgNylV1RYov55Z0Kvh4uJu4HaOO8ky1WI3+R4EFxe3zb2KI99w9YlG4TIVFxd3M3fuSUT10jQ/HlUvZXFxcfdxk+KVQ6tfVlsmXFzck9zylUbwzfZeDRcX9zXcPDqpFrJCx4aLi/tKbvKrtSkHLi7ueW71QrRz0MmfZeDi4n6LWy0l+WElD1L7V7O4uLiLuD9lALlo+A+GAwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

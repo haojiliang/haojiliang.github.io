@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="郝继亮">
+    <meta name="description" content="郝继亮">
+<meta name="keywords" content="郝继亮">
+<meta property="og:type" content="website">
+<meta property="og:title" content="郝继亮的笔记">
+<meta property="og:url" content="https://blog.iaiot.com/page/3/index.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="郝继亮">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="郝继亮的笔记">
+<meta name="twitter:description" content="郝继亮">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">郝继亮的笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header index-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">郝继亮的笔记</h1>
+        <h5 class="subtitle">
+            
+                
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+<div class="container body-wrap">
+
+    <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-FastDFS-cmd"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-20 22:27:17" datetime="2018-11-20T14:27:17.000Z"  itemprop="datePublished">2018-11-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/FastDFS-cmd.html">FastDFS 常用命令</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        启动 Tracker：service fdfs_trackerd start  或者 /etc/init.d/fdfs_trackerd start
+停止 Tracker：service fdfs_trackerd stop
+启动 Storage：service fdfs_storaged start 或者 /etc/init.d/fdfs_storaged start
+停止 Storage...
+    
+
+        <a href="/FastDFS-cmd.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FastDFS/">FastDFS</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-elasticsearch-head"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-20 22:21:17" datetime="2018-11-20T14:21:17.000Z"  itemprop="datePublished">2018-11-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/elasticsearch-head.html">elasticsearch 笔记 elasticsearch-head</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+elasticsearch5.0 以上版本安装 elasticsearch-head
+
+es5.1 中，elasticsearch-head不能放在 elasticsearch 的 plugins、modules 目录下不能使用 elasticsearch-plugin install直接启动 elasticsearch 即可安装 elasticsearch-headelasticsear...
+    
+
+        <a href="/elasticsearch-head.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-nginx-notes"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-20 21:34:01" datetime="2018-11-20T13:34:01.000Z"  itemprop="datePublished">2018-11-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/nginx-notes.html">Nginx 笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        安装：http://blog.csdn.net/gaojinshan/article/details/37603157
+其中安装时如果需要ssl：./configure –with-http_ssl_module
+卸载：直接rm -rf find出来的nginx目录即可启动：/usr/local/nginx/sbin/下./nginx验证配置文件是否正确：./nginx -t重启：./ngi...
+    
+
+        <a href="/nginx-notes.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-centos-notes"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-20 21:28:30" datetime="2018-11-20T13:28:30.000Z"  itemprop="datePublished">2018-11-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/centos-notes.html">CentOS 防火墙、端口、端口转发、selinux、Windows 端口</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        防火墙基础操作1) 重启后生效开启： chkconfig iptables on关闭： chkconfig iptables off2) 即时生效，重启后失效开启： service iptables start关闭： service iptables stop参考：https://zhidao.baidu.com/question/303901938543294164.html3）开放特定端...
+    
+
+        <a href="/centos-notes.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-linux-widows-service"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-20 20:49:59" datetime="2018-11-20T12:49:59.000Z"  itemprop="datePublished">2018-11-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/linux-widows-service.html">CentOS 和 Windows 服务相关操作，配置开机自动启动等，Windows 脚本获取路径语法</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        CentOS  服务（https://www.jianshu.com/p/7bd61fc1de4b）：chkconfig  –add  xxx     //  把服务添加到  chkconfig  列表chkconfig  –del  xxx      //  把服务从  chkconfig  列表中删除chkconfig  xxx  on         //  开机启动chkconfig...
+    
+
+        <a href="/linux-widows-service.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-redis-notes"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-18 22:28:58" datetime="2018-11-18T14:28:58.000Z"  itemprop="datePublished">2018-11-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/redis-notes.html">Redis 笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+配置密码：在 redis.conf 中加入 requirepass yDvQ3t$hwoJvWree配置密码后登录 redis：redis-cli -a ‘yDvQ3t$hwoJvWree’或: redis-cli 后 &gt;&gt; auth yDvQ3t$hwoJvWree
+登录远程 redis：redis-cli -h 192.168.1.115 -p 6379启动 redis：r...
+    
+
+        <a href="/redis-notes.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-vmware-nat"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-18 11:12:20" datetime="2018-11-18T03:12:20.000Z"  itemprop="datePublished">2018-11-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/vmware-nat.html">vmware 虚拟机三种网络连接类型的区别，CentOS 设置静态 ip</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        1.虚拟机三种网络连接类型：
+桥接模式：虚拟机加入到宿主机所在局域网，可以和宿主机所在局域网内其他机器互相访问。就像是局域网中的一台独立的主机。
+nat 模式：虚拟机和宿主机组成局域网，只能宿主机和虚拟机之间互相访问。虚拟机在对外访问时，使用的则是宿主机的IP地址，通过宿主机所在的网络来访问公网，这样从外部网络来看，只能看到宿主机，完全看不到新建的虚拟局域网。
+仅主机模式：仅虚拟机之间组成局...
+    
+
+        <a href="/vmware-nat.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vmware/">vmware</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Mac-Shuttle-sshpass-xshell"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-18 11:07:02" datetime="2018-11-18T03:07:02.000Z"  itemprop="datePublished">2018-11-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Mac-Shuttle-sshpass-xshell.html">Mac 上使用 Shuttle + sshpass 替代 xshell</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        终于在 Mac 上找到相对好用又简洁的 xhsell 替代工具：Shuttle + sshpass
+1.安装 sshpass：123456下载并解压 http://sourceforge.net/projects/sshpass/$ ./configure$ sudo make install 使用：$ sshpass -p &apos;123456&apos; ssh root@192.1...
+    
+
+        <a href="/Mac-Shuttle-sshpass-xshell.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-log-example"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-14 10:55:07" datetime="2018-11-14T02:55:07.000Z"  itemprop="datePublished">2018-11-14</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/log-example.html">Nginx Apache(httpd) Tomcat Resin IIS Jboss Wildfly Weblogic 等各种应用容器默认访问日志的格式及样例</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Nginx12格式 = $remote_addr - $remote_user [$time_local] &quot;$request&quot; $status $body_bytes_sent &quot;$http_referer&quot; &quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;样例 = 10.1...
+    
+
+        <a href="/log-example.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IIS/">IIS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/apache/">apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jboss/">jboss</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/resin/">resin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/weblogic/">weblogic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wildfly/">wildfly</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Harbor"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-08 14:43:07" datetime="2018-11-08T06:43:07.000Z"  itemprop="datePublished">2018-11-08</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Harbor.html">Centos7 安装 docker 私有仓库 Harbor</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        123456789101112131415161718192021222324# 安装 Harbor 之前需要先安装 python2.7+、Openssl、Docker、Docker Compose； # 安装 opensslyum install opensslyum install openssl-devel # 安装 dockeryum install -y yum-utils dev...
+    
+
+        <a href="/Harbor.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Harbor/">Harbor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-logstash-conf"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-08 11:30:55" datetime="2018-11-08T03:30:55.000Z"  itemprop="datePublished">2018-11-08</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/logstash-conf.html">Logstash logstash.conf 配置示例</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Sample Logstash configuration for creating a simpleFile -&gt; Logstash -&gt; Elasticsearch pipeline.
+12345678910111213141516171819input &#123;  file &#123;    path =&gt; &quot;/data/nginx/logs/acce...
+    
+
+        <a href="/logstash-conf.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logstash/">logstash</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-pip-install-tensorflow"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-10-23 11:27:45" datetime="2018-10-23T03:27:45.000Z"  itemprop="datePublished">2018-10-23</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/pip-install-tensorflow.html">pip install tensorflow</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Win10 安装 Tensorflow 时：pip install tensorflow
+报错：Could not find a version that satisfies the requirement tensorflow (from versions: ) No matching distribution found for tensorflow
+原因：python 版本不对
+解决：...
+    
+
+        <a href="/pip-install-tensorflow.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tensorflow/">tensorflow</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-IntelliJ-IDEA-For-Mac"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-10-12 20:50:47" datetime="2018-10-12T12:50:47.000Z"  itemprop="datePublished">2018-10-12</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/IntelliJ-IDEA-For-Mac.html">IntelliJ IDEA For Mac 快捷键</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        原文地址：https://www.cnblogs.com/exmyth/p/5949192.html
+http://www.cnblogs.com/wxd0108/p/5295017.html
+Mac键盘符号和修饰键说明
+⌘ Command⇧ Shift⌥ Option⌃ Control↩︎ Return/Enter⌫ Delete⌦ 向前删除键（Fn+Delete）↑ 上箭头↓ 下箭头← ...
+    
+
+        <a href="/IntelliJ-IDEA-For-Mac.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/idea/">idea</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-es-nostop-up-mapping"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-10-08 22:18:04" datetime="2018-10-08T14:18:04.000Z"  itemprop="datePublished">2018-10-08</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/es-nostop-up-mapping.html">Elasticsearch Changing Mapping with Zero Downtime（ES 不停机更新 mapping）</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        官方地址：https://www.elastic.co/cn/blog/changing-mapping-with-zero-downtime
+官方原文Editor’s Note (May 1, 2017): This blog was originally published several major versions of Elasticsearch ago.  Since then,...
+    
+
+        <a href="/es-nostop-up-mapping.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-cannot-open-url-please-check-this-url-is-correct"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-25 14:03:34" datetime="2018-09-25T06:03:34.000Z"  itemprop="datePublished">2018-09-25</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/cannot-open-url-please-check-this-url-is-correct.html">Cannot open url. please check this url is correct</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+可能是配置 -DsocksProxyHost=127.0.0.1 -DsocksProxyPort=1984 有误
+
+                
+                    
+                    
+                
+                
+            
+
+删掉重新加一下
+
+                
+    ...
+    
+
+        <a href="/cannot-open-url-please-check-this-url-is-correct.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/idea/">idea</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-gitignore"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-07 16:29:47" datetime="2018-09-07T08:29:47.000Z"  itemprop="datePublished">2018-09-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/gitignore.html">idea 忽略不需要提交 git、svn 的目录或文件</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        方法一：项目根目录下新建 .gitignore 文件（详细参考：https://www.cnblogs.com/youyoui/p/8337147.html）1234/target/*/.idea/*/src/test/**.iml
+1234# .gitignore 规则不生效git rm -r --cached .git add .git commit -m &apos;update .g...
+    
+
+        <a href="/gitignore.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-seo"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-07 13:14:49" datetime="2018-09-07T05:14:49.000Z"  itemprop="datePublished">2018-09-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/seo.html">业余 网站 SEO 实践总结</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        301 302 的选择12345678301：永久重定向，搜索引擎在抓取新的内容的同时也将旧的网址替换为了重定向之后的网址。302：临时跳转，蜘蛛会认为新的网址是暂时的，所以搜索引擎会抓取新的内容而保留旧的地址。实例：如果是设备跳转适配，https://www.vhxsl.com/ 转 https://m.vhxsl.com/ 用 302；如果是 http 跳转 https，用 301;如果...
+    
+
+        <a href="/seo.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/seo/">seo</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-storm-no-IRichSpout"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-07 11:58:16" datetime="2018-09-07T03:58:16.000Z"  itemprop="datePublished">2018-09-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/storm-no-IRichSpout.html">Storm 本地调试 报 NoClassDefFoundError:org/apache/storm/topology/IRichSpout</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        Storm 本地调试 报 java.lang.NoClassDefFoundError: org/apache/storm/topology/IRichSpout
+12345678910111213141516java.lang.NoClassDefFoundError: org/apache/storm/topology/IRichSpout	at java.lang.Class.getD...
+    
+
+        <a href="/storm-no-IRichSpout.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/storm/">storm</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-java-deep-clone"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-09-07 11:35:05" datetime="2018-09-07T03:35:05.000Z"  itemprop="datePublished">2018-09-07</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/java-deep-clone.html">Java 深拷贝 Cloneable</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        1234567891011121314151617181920212223242526272829303132333435363738394041424344import java.util.ArrayList; public class Person implements Cloneable &#123;     private String name;    private ArrayL...
+    
+
+        <a href="/java-deep-clone.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-shangqiao"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-08-20 22:29:15" datetime="2018-08-20T14:29:15.000Z"  itemprop="datePublished">2018-08-20</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/shangqiao.html">点击自定义按钮弹出百度商桥对话框</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        原文地址：https://blog.csdn.net/SeekerTime/article/details/66973659
+在原文基础上做了一些优化。
+在页面中已经成功安装了百度商桥的情况下，想通过点击自定义的按钮来弹出百度商桥的对话框，来达到及时沟通和不使页面跳转的目的。有以下解决方法：
+
+首先需要把你的按钮添加一个 class，例如 加一个 “shangqiao”
+
+12&lt;a c...
+    
+
+        <a href="/shangqiao.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/seo/">seo</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+    </ul>
+
+    
+<nav id="page-nav">
+    <div class="inner">
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    </div>
+</nav>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/page/3/&title=郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/page/3/&title=郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/page/3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=郝继亮的笔记&url=https://blog.iaiot.com/page/3/&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/page/3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3aSW7DMBAEQP//08rVgBOlm5udoHgSBFkq+jCYhY9HvK6n9Xzn9fr1V8nbFi9cXNxp7nW7Vv0fyYbvDbi4uOe592EopyeIqVCIi4v7R7g/baB9Ay4u7n/iztzHxcX9ZG6ejrSdiiSt2VKr4eLiTnDzpsa+6y39XVxc3CHuVa6ZUmfB13FxcY9w84CSE9sn6+/i4uIe4eZNjXb42rKSbePi4p7k5gGrLV3y1KdujuDi4m7j3oenseB1H5LGQhsuLu4Z7lhqMl/w5PH1my4OLi7uQe7YqDX/5MzEpN49Li7uNHemGTqWGCUh8sdAhouLu5nbHrrKRyP5ULYulnBxcd/KTUBtGdP2cYtAhouLu4HbFj+rDm0UnV1cXNzj3LaR0R6tyAczv6RHuLi4b+K2xUmbymwsfnBxcZdyxxKaZNAyFiLrSQsuLu4i7lWuNn0ZHKa2uRIuLu5S7syRiPYoRtJCnSmxcHFx13LHWqVjz+ep1WCig4uLu5SbFzZ5CJsvfqJRCi4u7odx26RnJm3CxcX9ZO5gX3a6y4GLi3uemw9E82fa0WyUVOHi4h7htqEkSURmBjBFiwQXF3c99wuuKnGwWddvAgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

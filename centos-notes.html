@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>CentOS 防火墙、端口、端口转发、selinux、Windows 端口 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="linux">
+    <meta name="description" content="防火墙基础操作1) 重启后生效开启： chkconfig iptables on关闭： chkconfig iptables off2) 即时生效，重启后失效开启： service iptables start关闭： service iptables stop参考：https://zhidao.baidu.com/question/303901938543294164.html3）开放特定端口方法">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 防火墙、端口、端口转发、selinux、Windows 端口">
+<meta property="og:url" content="https://blog.iaiot.com/centos-notes.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="防火墙基础操作1) 重启后生效开启： chkconfig iptables on关闭： chkconfig iptables off2) 即时生效，重启后失效开启： service iptables start关闭： service iptables stop参考：https://zhidao.baidu.com/question/303901938543294164.html3）开放特定端口方法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS 防火墙、端口、端口转发、selinux、Windows 端口">
+<meta name="twitter:description" content="防火墙基础操作1) 重启后生效开启： chkconfig iptables on关闭： chkconfig iptables off2) 即时生效，重启后失效开启： service iptables start关闭： service iptables stop参考：https://zhidao.baidu.com/question/303901938543294164.html3）开放特定端口方法">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CentOS 防火墙、端口、端口转发、selinux、Windows 端口</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CentOS 防火墙、端口、端口转发、selinux、Windows 端口</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-20T13:28:30.000Z" itemprop="datePublished" class="page-time">
+  2018-11-20
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#防火墙基础操作"><span class="post-toc-number">1.</span> <span class="post-toc-text">防火墙基础操作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#端口管理"><span class="post-toc-number">2.</span> <span class="post-toc-text">端口管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关闭-selinux"><span class="post-toc-number">3.</span> <span class="post-toc-text">关闭 selinux</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过防火墙配置实现-端口映射、端口转发"><span class="post-toc-number">4.</span> <span class="post-toc-text">通过防火墙配置实现 端口映射、端口转发</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#linux查看端口占用"><span class="post-toc-number">5.</span> <span class="post-toc-text">linux查看端口占用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Windows关闭端口方法"><span class="post-toc-number">6.</span> <span class="post-toc-text">Windows关闭端口方法</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-centos-notes"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOS 防火墙、端口、端口转发、selinux、Windows 端口</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-20 21:28:30" datetime="2018-11-20T13:28:30.000Z"  itemprop="datePublished">2018-11-20</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="防火墙基础操作"><a href="#防火墙基础操作" class="headerlink" title="防火墙基础操作"></a>防火墙基础操作</h2><p>1) 重启后生效<br>开启： chkconfig iptables on<br>关闭： chkconfig iptables off<br>2) 即时生效，重启后失效<br>开启： service iptables start<br>关闭： service iptables stop<br>参考：<a href="https://zhidao.baidu.com/question/303901938543294164.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/303901938543294164.html</a><br>3）开放特定端口<br>方法1：查看状态：iptables -L -n<br>下面添加对特定端口开放的方法：<br>使用iptables开放如下端口：/sbin/iptables -I INPUT -p tcp –dport 6379 -j ACCEPT<br>保存：/etc/rc.d/init.d/iptables save<br>重启服务：service iptables restart<br>查看需要打开的端口是否生效：/etc/init.d/iptables status<br>方法2：直接编辑/etc/sysconfig/iptables<br>添加：-A INPUT -p tcp -m tcp –dport 6379 -j ACCEPT</p>
+<p>重启：service iptables restart</p>
+<p>4）如果CentOS7，service iptables stop 时显示not loaded</p>
+<p>可能是用的firewalld</p>
+<p>停止firewalld，并禁用这个服务</p>
+<p>sudo systemctl stop firewalld.service</p>
+<p>sudo systemctl disable firewalld.service</p>
+<p>启动firewalld：sudo systemctl start firewalld.service</p>
+<p>参考：<a href="https://blog.csdn.net/yelllowcong/article/details/75945339" target="_blank" rel="noopener">https://blog.csdn.net/yelllowcong/article/details/75945339</a></p>
+<p>其他firewalld开放指定端口及相关操作：</p>
+<p>firewall-cmd –zone=public –add-port=2377/tcp –permanent</p>
+<p>firewall-cmd –reload</p>
+<p>参考：<a href="https://blog.csdn.net/u012498149/article/details/78772058" target="_blank" rel="noopener">https://blog.csdn.net/u012498149/article/details/78772058</a></p>
+<h2 id="端口管理"><a href="#端口管理" class="headerlink" title="端口管理"></a>端口管理</h2><p>(部署集群时可以将其写在sh脚本里执行)<br>禁用指定端口：iptables -I INPUT -p tcp –dport 6379 -j DROP<br>对指定ip开启指定端口：iptables -I INPUT -s 192.168.1.10 -p tcp –dport 6379 -j ACCEPT<br>命令开启80端口：iptables -I INPUT -p tcp –dport 80 -j ACCEPT<br>配置文件开启80端口：修改/etc/sysconfig/iptables文件，添加-A INPUT -p tcp -m state –state NEW -m tcp –dport 80 -j ACCEPT<br>参考：<a href="http://blog.csdn.net/zhouyufengqingyang/article/details/51737254" target="_blank" rel="noopener">http://blog.csdn.net/zhouyufengqingyang/article/details/51737254</a></p>
+<h2 id="关闭-selinux"><a href="#关闭-selinux" class="headerlink" title="关闭 selinux"></a>关闭 selinux</h2><p>修改/etc/selinux/config 文件<br>将SELINUX=enforcing改为SELINUX=disabled<br>重启<br>参考：<a href="http://bguncle.blog.51cto.com/3184079/957315/" target="_blank" rel="noopener">http://bguncle.blog.51cto.com/3184079/957315/</a></p>
+<h2 id="通过防火墙配置实现-端口映射、端口转发"><a href="#通过防火墙配置实现-端口映射、端口转发" class="headerlink" title="通过防火墙配置实现 端口映射、端口转发"></a>通过防火墙配置实现 端口映射、端口转发</h2><p>打开 ipv4 端口转发</p>
+<p>sysctl net.ipv4.ip_forward=1</p>
+<p>配置端口映射（例：该机器公网ip:8080转到192.168.0.122:80，其中192.168.0.62为该机器的内网ip）<br>iptables -A INPUT -p tcp –dport 8080 -j ACCEPT<br>iptables -t nat -A PREROUTING -p tcp –dport 8080 -j DNAT –to-destination 192.168.0.122:80</p>
+<p>iptables -t nat -A POSTROUTING -d 192.168.0.122 -p tcp –dport 80 -j SNAT –to 192.168.0.62</p>
+<p>参考：<a href="http://man.linuxde.net/iptables" target="_blank" rel="noopener">http://man.linuxde.net/iptables</a></p>
+<h2 id="linux查看端口占用"><a href="#linux查看端口占用" class="headerlink" title="linux查看端口占用"></a>linux查看端口占用</h2><p>1) lsof -i:端口号</p>
+<p>2) netstat -tunlp | grep 端口号</p>
+<p>参考：<a href="https://jingyan.baidu.com/article/546ae1853947b71149f28cb7.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/546ae1853947b71149f28cb7.html</a></p>
+<h2 id="Windows关闭端口方法"><a href="#Windows关闭端口方法" class="headerlink" title="Windows关闭端口方法"></a>Windows关闭端口方法</h2><p>netstat -ano | findstr :4200<br>TaskKill.exe /F /PID 12784<br>参考地址：<a href="https://stackoverflow.com/questions/38586364/ember-s-port-4200-is-already-in-use" target="_blank" rel="noopener">https://stackoverflow.com/questions/38586364/ember-s-port-4200-is-already-in-use</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.451Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/centos-notes.html" target="_blank" rel="external">https://blog.iaiot.com/centos-notes.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/centos-notes.html&title=《CentOS 防火墙、端口、端口转发、selinux、Windows 端口》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/centos-notes.html&title=《CentOS 防火墙、端口、端口转发、selinux、Windows 端口》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/centos-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 防火墙、端口、端口转发、selinux、Windows 端口》 — 郝继亮的笔记&url=https://blog.iaiot.com/centos-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/centos-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/nginx-notes.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Nginx 笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/linux-widows-service.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS 和 Windows 服务相关操作，配置开机自动启动等，Windows 脚本获取路径语法</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/centos-notes.html&title=《CentOS 防火墙、端口、端口转发、selinux、Windows 端口》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/centos-notes.html&title=《CentOS 防火墙、端口、端口转发、selinux、Windows 端口》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/centos-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CentOS 防火墙、端口、端口转发、selinux、Windows 端口》 — 郝继亮的笔记&url=https://blog.iaiot.com/centos-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/centos-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3aSY7jMBAEQP//05oHDCRlskzCaARPDbRkhn0o1Pb5xOf67yRPTp4ZHVxc3DH3ejzJBc9v3X3C3X9ffhpcXNyD3DvE3TPJZe2XeTbg4uL+Mvf54jZs4eLi/iVugksSI1xc3F/mJmnKcyGUtDmO1mq4uLgDbt6l3Pf3lv4uLi7uEvcqT5vW5J8QvYuLi3uE26YmkxQkH8y8jGNxcXGPc/OA0ga4tS/z0sXBxcU9wl1bzJovZxThEhcX9yA3ebm9/ruhDRcX9wx3bbkqzzfa5OklROLi4h7h7hu1TqY6UdsFFxd3G7dtdyZFzmKzI1n5wsXFPcKdtD7zENYWRS/FEi4u7mZuntB8q23ajmyjbRFcXNyvcpOSpk1NkpZK20xZvAwXF3cbt+islEtdeSJVBDJcXNyvctsiJy+BcspirYaLi7uN2waytfDULl582nwKFxd3zL3KkwegnFWkTbi4uEe4awXMPLmJ2h+TZQ5cXNwxt13JahudbaulqNVwcXE3c9vr89HpxloNFxf3h7n1OGRQMuHi4v4m91Br406Ii4t7kDsfjUxWN4qWCi4u7hFuHUriy/Lw16ZHuLi427j/AMDXuWgvdy8JAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

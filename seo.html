@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>业余 网站 SEO 实践总结 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="seo">
+    <meta name="description" content="301 302 的选择12345678301：永久重定向，搜索引擎在抓取新的内容的同时也将旧的网址替换为了重定向之后的网址。302：临时跳转，蜘蛛会认为新的网址是暂时的，所以搜索引擎会抓取新的内容而保留旧的地址。实例：如果是设备跳转适配，https://www.vhxsl.com/ 转 https://m.vhxsl.com/ 用 302；如果是 http 跳转 https，用 301;如果是网站">
+<meta name="keywords" content="seo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="业余 网站 SEO 实践总结">
+<meta property="og:url" content="https://blog.iaiot.com/seo.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="301 302 的选择12345678301：永久重定向，搜索引擎在抓取新的内容的同时也将旧的网址替换为了重定向之后的网址。302：临时跳转，蜘蛛会认为新的网址是暂时的，所以搜索引擎会抓取新的内容而保留旧的地址。实例：如果是设备跳转适配，https://www.vhxsl.com/ 转 https://m.vhxsl.com/ 用 302；如果是 http 跳转 https，用 301;如果是网站">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="业余 网站 SEO 实践总结">
+<meta name="twitter:description" content="301 302 的选择12345678301：永久重定向，搜索引擎在抓取新的内容的同时也将旧的网址替换为了重定向之后的网址。302：临时跳转，蜘蛛会认为新的网址是暂时的，所以搜索引擎会抓取新的内容而保留旧的地址。实例：如果是设备跳转适配，https://www.vhxsl.com/ 转 https://m.vhxsl.com/ 用 302；如果是 http 跳转 https，用 301;如果是网站">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">业余 网站 SEO 实践总结</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">业余 网站 SEO 实践总结</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-07T05:14:49.000Z" itemprop="datePublished" class="page-time">
+  2018-09-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#301-302-的选择"><span class="post-toc-number">1.</span> <span class="post-toc-text">301 302 的选择</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx-PC-移动-站点跳转适配"><span class="post-toc-number">2.</span> <span class="post-toc-text">Nginx PC/移动 站点跳转适配</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#收录索引权重"><span class="post-toc-number">3.</span> <span class="post-toc-text">收录索引权重</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CDN-回源"><span class="post-toc-number">4.</span> <span class="post-toc-text">CDN 回源</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#域名解析"><span class="post-toc-number">5.</span> <span class="post-toc-text">域名解析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#关键词不要太多"><span class="post-toc-number">6.</span> <span class="post-toc-text">关键词不要太多</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-seo"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">业余 网站 SEO 实践总结</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-07 13:14:49" datetime="2018-09-07T05:14:49.000Z"  itemprop="datePublished">2018-09-07</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="301-302-的选择"><a href="#301-302-的选择" class="headerlink" title="301 302 的选择"></a>301 302 的选择</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">301：永久重定向，搜索引擎在抓取新的内容的同时也将旧的网址替换为了重定向之后的网址。</span><br><span class="line">302：临时跳转，蜘蛛会认为新的网址是暂时的，所以搜索引擎会抓取新的内容而保留旧的地址。</span><br><span class="line">实例：如果是设备跳转适配，https://www.vhxsl.com/ 转 https://m.vhxsl.com/ 用 302；</span><br><span class="line">如果是 http 跳转 https，用 301;</span><br><span class="line">如果是网站更换域名或改版用 301。</span><br><span class="line"> </span><br><span class="line">Nginx配置：rewrite ^(.*)$  https://$host$1 permanent; rewrite 后跟 permanent 会返回 301</span><br><span class="line">rewrite ^/(.*)$  https://m.vhxsl.com$uri redirect; 后跟 redirect 返回 302</span><br></pre></td></tr></table></figure>
+<h2 id="Nginx-PC-移动-站点跳转适配"><a href="#Nginx-PC-移动-站点跳转适配" class="headerlink" title="Nginx PC/移动 站点跳转适配"></a>Nginx PC/移动 站点跳转适配</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1.PC 转 移动</span><br><span class="line">if ( $http_user_agent ~* &quot;(Android|iPhone|Windows Phone|UC|Kindle|iPod|BlackBerry)&quot; )&#123;</span><br><span class="line">    rewrite ^/(.*)$  https://m.vhxsl.com$uri redirect;</span><br><span class="line">&#125;</span><br><span class="line">2.移动 转 PC</span><br><span class="line">if ( $http_user_agent !~* &quot;(Android|iPhone|Windows Phone|UC|Kindle|iPod|BlackBerry)&quot; )&#123;</span><br><span class="line">    rewrite ^/(.*)$  https://www.vhxsl.com$uri redirect;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="收录索引权重"><a href="#收录索引权重" class="headerlink" title="收录索引权重"></a>收录索引权重</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.在百度站内搜索提交 sitemap 比在百度站长里提交 sitemap 收录快，纯直觉，是不是真这样就不知道了。</span><br><span class="line">2.据说通过百度站长后台提交的链接的权重会比百度蜘蛛主动抓取收录的链接的权重低 2%，这个也不确定。</span><br></pre></td></tr></table></figure>
+<h2 id="CDN-回源"><a href="#CDN-回源" class="headerlink" title="CDN 回源"></a>CDN 回源</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用 CDN 时一定要将来自搜索引擎的请求直接回源！</span><br><span class="line">百度 CDN 里有明确说明：用户的域名在接入 CDN 后，因 CDN 频繁变更 IP 会影响域名搜索结果的权重。</span><br><span class="line">用户可选择开启搜索引擎自动回源功能，将来自搜索引擎的请求直接回源，保证搜索引擎权重的稳定性。</span><br></pre></td></tr></table></figure>
+<h2 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">设置域名解析时向搜索引擎爬虫的 DNS（在添加记录的解析路线里可以看到该选项），返回源站的记录值。</span><br><span class="line">如果用了 CDN，并且在 CDN 里配置了搜索引擎回源，这里就可以不配置了。</span><br></pre></td></tr></table></figure>
+<h2 id="关键词不要太多"><a href="#关键词不要太多" class="headerlink" title="关键词不要太多"></a>关键词不要太多</h2>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/seo.html" target="_blank" rel="external">https://blog.iaiot.com/seo.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/seo/">seo</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/seo.html&title=《业余 网站 SEO 实践总结》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/seo.html&title=《业余 网站 SEO 实践总结》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/seo.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《业余 网站 SEO 实践总结》 — 郝继亮的笔记&url=https://blog.iaiot.com/seo.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/seo.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/gitignore.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">idea 忽略不需要提交 git、svn 的目录或文件</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/storm-no-IRichSpout.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Storm 本地调试 报 NoClassDefFoundError:org/apache/storm/topology/IRichSpout</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/seo.html&title=《业余 网站 SEO 实践总结》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/seo.html&title=《业余 网站 SEO 实践总结》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/seo.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《业余 网站 SEO 实践总结》 — 郝继亮的笔记&url=https://blog.iaiot.com/seo.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/seo.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABuUlEQVR42u3aQY6DMAwF0N7/0sx2NsC33YQivayqCpIXFlbs+POJx/Fv5P/ks3154OLijrnH5Th7Jp/nenu5ARcXdz/3bPneM8lWq/Pj4uK+i5sEoDyo4eLivpHbS3KSDeDi4v4aN0ldrqfOaxqbcjVcXNwBd77M/PeS+i4uLm6LexRHskxeZi2vjouLu4WbB5TeFct30ydcXNyd3F5YydsvclZ+oYuLi7uO21syCWe9o1LhRIaLi7uYm0Anl6bV9On0eISLi/sQd15InRdBTj8WLi7udm7eNpGXNiafoFC/wcXFXcDNF54XPpJPcBPIcHFxH+JWG6SStCdJq24KKLi4uNu5k0vT/J+oMJoEMlxc3GXcvMyRt2RVi6F5WMTFxd3JTa5aq6lR9fiSX8Pg4uLu5OYvr37r5mPh4uJu51bTmF4gmxyAcHFxV3OP4qjmUpPrGVxc3Ke485aISaEkmae5GVxc3DG3GryS6mXvQiUKcLi4uBu5k0BTLXnkyQ8uLu5buEmrRO/5qP0CFxf3J7nVosa88IGLi/sUt3oRUk2QJkkULi7ufm45lAQHlLzdqtyYhYuLu5b7B1Jb4jHDPJvPAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

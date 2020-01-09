@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>面试笔记 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="TCP UDP webSocket httpTCP传输层协议；三次握手（建立连接时）四次挥手（关闭连接时）   UDP传输层协议；不建立连接，所以没有握手挥手的过程   webSocket应用层协议长连接，服务端客户端可以互发消息   http应用层协议http/1.0：默认短连接；建立连接 -&amp;gt; 传输数据 -&amp;gt; 断开连接http/1.1：默认长连接（Connection:keep-a">
+<meta name="keywords" content="郝继亮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试笔记">
+<meta property="og:url" content="https://blog.iaiot.com/interview.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="TCP UDP webSocket httpTCP传输层协议；三次握手（建立连接时）四次挥手（关闭连接时）   UDP传输层协议；不建立连接，所以没有握手挥手的过程   webSocket应用层协议长连接，服务端客户端可以互发消息   http应用层协议http/1.0：默认短连接；建立连接 -&amp;gt; 传输数据 -&amp;gt; 断开连接http/1.1：默认长连接（Connection:keep-a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试笔记">
+<meta name="twitter:description" content="TCP UDP webSocket httpTCP传输层协议；三次握手（建立连接时）四次挥手（关闭连接时）   UDP传输层协议；不建立连接，所以没有握手挥手的过程   webSocket应用层协议长连接，服务端客户端可以互发消息   http应用层协议http/1.0：默认短连接；建立连接 -&amp;gt; 传输数据 -&amp;gt; 断开连接http/1.1：默认长连接（Connection:keep-a">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">面试笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">面试笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-09T08:27:08.000Z" itemprop="datePublished" class="page-time">
+  2018-05-09
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#TCP-UDP-webSocket-http"><span class="post-toc-number">1.</span> <span class="post-toc-text">TCP UDP webSocket http</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TCP"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">TCP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#UDP"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">UDP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#webSocket"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">webSocket</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#http"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">http</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设计模式"><span class="post-toc-number">2.</span> <span class="post-toc-text">设计模式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Java-堆栈"><span class="post-toc-number">3.</span> <span class="post-toc-text">Java 堆栈</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Java-gc"><span class="post-toc-number">4.</span> <span class="post-toc-text">Java gc</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#红黑树"><span class="post-toc-number">5.</span> <span class="post-toc-text">红黑树</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#微服务-集群-分布式"><span class="post-toc-number">6.</span> <span class="post-toc-text">微服务 集群 分布式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#linux-查看-Exception-前后-5-行"><span class="post-toc-number">7.</span> <span class="post-toc-text">linux 查看 Exception 前后 5 行</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#线程池-数据库连接池"><span class="post-toc-number">8.</span> <span class="post-toc-text">线程池 数据库连接池</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#kafka-实现原理-存储原理"><span class="post-toc-number">9.</span> <span class="post-toc-text">kafka 实现原理 存储原理</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#elasticsearch-大量数据查询速度怎么优化"><span class="post-toc-number">10.</span> <span class="post-toc-text">elasticsearch 大量数据查询速度怎么优化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql-存储过程"><span class="post-toc-number">11.</span> <span class="post-toc-text">mysql 存储过程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#sql-优化"><span class="post-toc-number">12.</span> <span class="post-toc-text">sql 优化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#mysql-引擎"><span class="post-toc-number">13.</span> <span class="post-toc-text">mysql 引擎</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Java"><span class="post-toc-number">14.</span> <span class="post-toc-text">Java</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#String-StringBuffer-StringBuffer"><span class="post-toc-number">14.1.</span> <span class="post-toc-text">String StringBuffer StringBuffer</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#List-有序，元素可重复"><span class="post-toc-number">14.2.</span> <span class="post-toc-text">List(有序，元素可重复)</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Map"><span class="post-toc-number">14.3.</span> <span class="post-toc-text">Map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#抽象类和接口"><span class="post-toc-number">14.4.</span> <span class="post-toc-text">抽象类和接口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#抽象类和普通类"><span class="post-toc-number">14.5.</span> <span class="post-toc-text">抽象类和普通类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#反射"><span class="post-toc-number">14.6.</span> <span class="post-toc-text">反射</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#final"><span class="post-toc-number">14.7.</span> <span class="post-toc-text">final</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问修饰符"><span class="post-toc-number">14.8.</span> <span class="post-toc-text">访问修饰符</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#泛型-重载-重写"><span class="post-toc-number">14.9.</span> <span class="post-toc-text">泛型 重载 重写</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多线程实现方式"><span class="post-toc-number">14.10.</span> <span class="post-toc-text">多线程实现方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#线程状态"><span class="post-toc-number">14.11.</span> <span class="post-toc-text">线程状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#java8-stream"><span class="post-toc-number">14.12.</span> <span class="post-toc-text">java8 stream</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#java8-Lambda-表达式"><span class="post-toc-number">14.13.</span> <span class="post-toc-text">java8 Lambda 表达式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#equals"><span class="post-toc-number">14.14.</span> <span class="post-toc-text">equals ==</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#equals-hashCode"><span class="post-toc-number">14.15.</span> <span class="post-toc-text">equals hashCode</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-interview"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">面试笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-05-09 16:27:08" datetime="2018-05-09T08:27:08.000Z"  itemprop="datePublished">2018-05-09</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="TCP-UDP-webSocket-http"><a href="#TCP-UDP-webSocket-http" class="headerlink" title="TCP UDP webSocket http"></a>TCP UDP webSocket http</h1><h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p>传输层协议；三次握手（建立连接时）四次挥手（关闭连接时）  </p>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>传输层协议；不建立连接，所以没有握手挥手的过程  </p>
+<h2 id="webSocket"><a href="#webSocket" class="headerlink" title="webSocket"></a>webSocket</h2><p>应用层协议<br>长连接，服务端客户端可以互发消息  </p>
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><p>应用层协议<br>http/1.0：默认短连接；建立连接 -&gt; 传输数据 -&gt; 断开连接<br>http/1.1：默认长连接（Connection:keep-alive）；只能客户端主动给服务端发消息；建立连接 -&gt; 传输数据 -&gt; 保持连接 -&gt; 传输数据 -&gt; … -&gt; 保持连接 -&gt; 传输数据 -&gt; 断开连接  </p>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>单例模式：一个类只能有一个实例，一般是通过synchronized实现，提供一个全局的访问方法<br>观察者模式：对象间的一对多的依赖关系，一个变了，其他的也执行相应的操作，如发布订阅<br>工厂模式：根据传入的参数决定要实例化的类<br>适配器模式：比如前段列表中的item，把item提取出来创建adapter，供多个list使用  </p>
+<h1 id="Java-堆栈"><a href="#Java-堆栈" class="headerlink" title="Java 堆栈"></a>Java 堆栈</h1><p>堆：存放对象数据；由程序员、jvm 释放；慢；<br>栈：存放 java 基本数据类型；操作系统自动释放；快；<br>原理详解：<a href="https://blog.iaiot.com/java_stack.html">https://blog.iaiot.com/java_stack.html</a></p>
+<h1 id="Java-gc"><a href="#Java-gc" class="headerlink" title="Java gc"></a>Java gc</h1><h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h1 id="微服务-集群-分布式"><a href="#微服务-集群-分布式" class="headerlink" title="微服务 集群 分布式"></a>微服务 集群 分布式</h1><p>微服务：多模块<br>集群：多节点<br>分布式：多机器  </p>
+<h1 id="linux-查看-Exception-前后-5-行"><a href="#linux-查看-Exception-前后-5-行" class="headerlink" title="linux 查看 Exception 前后 5 行"></a>linux 查看 Exception 前后 5 行</h1><p>前后5行：cat access.log | grep -5 “Exception”<br>前后5行：cat access.log | grep -C 5 “Exception”<br>后5行：cat access.log | grep -A 5 “Exception”<br>前5行：cat access.log | grep -B 5 “Exception”  </p>
+<h1 id="线程池-数据库连接池"><a href="#线程池-数据库连接池" class="headerlink" title="线程池 数据库连接池"></a>线程池 数据库连接池</h1><p>为什么要用池：复用，不需要频繁创建销毁  </p>
+<h1 id="kafka-实现原理-存储原理"><a href="#kafka-实现原理-存储原理" class="headerlink" title="kafka 实现原理 存储原理"></a>kafka 实现原理 存储原理</h1><h1 id="elasticsearch-大量数据查询速度怎么优化"><a href="#elasticsearch-大量数据查询速度怎么优化" class="headerlink" title="elasticsearch 大量数据查询速度怎么优化"></a>elasticsearch 大量数据查询速度怎么优化</h1><h1 id="mysql-存储过程"><a href="#mysql-存储过程" class="headerlink" title="mysql 存储过程"></a>mysql 存储过程</h1><p><a href="https://blog.iaiot.com/mysql_fun.html">https://blog.iaiot.com/mysql_fun.html</a>  </p>
+<h1 id="sql-优化"><a href="#sql-优化" class="headerlink" title="sql 优化"></a>sql 优化</h1><p>适量使用索引<br>避免使用 select *  </p>
+<h1 id="mysql-引擎"><a href="#mysql-引擎" class="headerlink" title="mysql 引擎"></a>mysql 引擎</h1><p>常用：MyISAM、InnoDB  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MyISAM</th>
+<th>InnoDB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事务</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>较高</td>
+<td>较低</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>①一般小小项目 ②大项目，需要分库分表、读写分离，为了提高性能，只读的可以用 MyISAM</td>
+<td>一般项目</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="String-StringBuffer-StringBuffer"><a href="#String-StringBuffer-StringBuffer" class="headerlink" title="String StringBuffer StringBuffer"></a>String StringBuffer StringBuffer</h2><p>String 不可变<br>StringBuffer 可变  线程安全 synchronized<br>StringBuilder 可变  </p>
+<h2 id="List-有序，元素可重复"><a href="#List-有序，元素可重复" class="headerlink" title="List(有序，元素可重复)"></a>List(有序，元素可重复)</h2><p>ArrayList   底层是数组    数组               适用于查询较多的场景<br>LinkedList  底层是链表    效率高 占内存大     适用于增删较多的场景<br>Vector      底层是数组    线程安全           查询增删都很慢  </p>
+<p>list自定义顺序：List自身有个sort方法可以实现，或者使用Collections.sort(list)  </p>
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><p>HashMap：  非线程安全. 底层是是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，采用哈希表来存储的。<br>ConcurrentHashMap： 线程安全.  CAS算法（乐观锁）+synchronized 实现线程安全<br>TreeMap： 非线程安全. 有序  根据key排序，可以使用Comparator自定义顺序<br>LinkedHashMap： 继承HashMap，Iterator遍历时有序，按照插入顺序排序  </p>
+<h2 id="抽象类和接口"><a href="#抽象类和接口" class="headerlink" title="抽象类和接口"></a>抽象类和接口</h2><p>抽象类可以实现方法，接口中只能声明方法；<br>抽象类中可以定义变量，接口中不能；接口中只能定义常量<br>抽象类中可以有静态方法，接口中不能；  </p>
+<h2 id="抽象类和普通类"><a href="#抽象类和普通类" class="headerlink" title="抽象类和普通类"></a>抽象类和普通类</h2><p>有未实现的声明方法的类就是抽象类；<br>抽象类不能被实例化；  </p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>Proxy类实现，Class.forName 或 ClassLoader 加载类；<br>Cglib动态代理，性能高  </p>
+<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><p>类：不能继承<br>方法：不能重写<br>变量：不能修改  </p>
+<h2 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h2><p>Private：同一个类<br>Default：同一个包<br>Protected：不同包的子类<br>Public：不同包的非子类  </p>
+<h2 id="泛型-重载-重写"><a href="#泛型-重载-重写" class="headerlink" title="泛型 重载 重写"></a>泛型 重载 重写</h2><p>泛型：把类型参数化了，所有的强制转换都是自动和隐式的。<br>重载：在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。<br>重写：返回值和形参不变，内部实现重写；  </p>
+<h2 id="多线程实现方式"><a href="#多线程实现方式" class="headerlink" title="多线程实现方式"></a>多线程实现方式</h2><p>实现runable接口；<br>继承thread类；  </p>
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p>新建，可运行，运行中，睡眠，阻塞，等待，死亡。  </p>
+<h2 id="java8-stream"><a href="#java8-stream" class="headerlink" title="java8 stream"></a>java8 stream</h2><h2 id="java8-Lambda-表达式"><a href="#java8-Lambda-表达式" class="headerlink" title="java8 Lambda 表达式"></a>java8 Lambda 表达式</h2><h2 id="equals"><a href="#equals" class="headerlink" title="equals =="></a>equals ==</h2><p>equals 比较内容<br>== 比较地址  </p>
+<h2 id="equals-hashCode"><a href="#equals-hashCode" class="headerlink" title="equals hashCode"></a>equals hashCode</h2><p>1.若两个对象 equals 返回 true，则 hashCode 返回相同的int数；<br>2.若两个对象 equals 返回 false，则 hashCode 不一定返回不同的int数，但为不相等的对象生成不同 hashCode 值可以提高哈希表的性能。  </p>
+<p>此外：<br>1.当 equals 方法被重写时，通常有必要重写 hashCode 方法，以维护 hashCode 方法的常规协定，该协定声明相等对象必须具有相等的哈希码（即上述两条）。<br>2.hashCode 是为了提高在散列结构存储中查找的效率，在线性表中没有作用。<br>3.同一对象在执行期间若已经存储在集合中，则不能修改影响 hashCode 值的相关信息，否则会导致内存泄露问题。<br>参考：<a href="https://blog.csdn.net/lijiecao0226/article/details/24609559" target="_blank" rel="noopener">https://blog.csdn.net/lijiecao0226/article/details/24609559</a>  </p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/interview.html" target="_blank" rel="external">https://blog.iaiot.com/interview.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/interview.html&title=《面试笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/interview.html&title=《面试笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/interview.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《面试笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/interview.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/interview.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/fastjson.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">fastjson中getLong(&#34;&#34;)返回的是Long类型，不能直接用“==”比较</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/npm_install_error.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">mac 下 npm install 报错</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/interview.html&title=《面试笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/interview.html&title=《面试笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/interview.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《面试笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/interview.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/interview.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3awa7CIBAF0P7/T/dtX6LUO0OhmhxWRgk9djFhLhxHPM7B+P/r68xktWPFwMXFneaelyPhvqITYrL+mzVxcXE3ckcPGM0ZfXP9/TX32oCLi/vN3LzMVVfAxcX9XW7emyQzcXFxv5mbl6Fo0bjhWdir4eLiTnDz8rTu85J8FxcXt8U9iyMpYTNxyYen4+LibuHmBeWuo5Reg4SLi/tt3PzodKZpuW6Ejt5bwcXFbXHztqS3laken0Q7Mlxc3C3c6gFqXvJ6m6Hh68PFxd3OrYKqcUYvfIlSHFxc3MXcaoSRX93oXeB40/zg4uIu5s7HnfeGJvkmCRcXdx33rrYnD0eSmcMVcHFxt3NnRh6vVAvcsJDh4uIu41aPP/PtyL0XNcpvDhcXd5qbhCM5K/8bvaNZXFzcndzqZiV5TDK/ujIuLu5T3OrnPAytXrwo7IBwcXFv4p7FkT84mV8OZHFxcbdwZyLRZspSTGuafwYXF3eamxevPObII9ekBcLFxX2KWy00VWiv+cHFxf0t7sxVjGqkUj71xcXF3c7tPeauNgkXF3cntxeS9g5o8/KHi4v7FHc+3FwXrEzlu7i4uJ2Zf0vGw0KkWYV0AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

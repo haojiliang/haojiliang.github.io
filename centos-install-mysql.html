@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Centos 离线安装 MySQL 详细步骤 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mysql">
+    <meta name="description" content="原文地址：https://blog.csdn.net/nemo____/article/details/72897455 可解决大部分常规安装遇到的问题； 首先说明下 ：1） Centos7将默认数据库mysql替换成了Mariadb，如果想继续使用mysql 需要卸载Mariadb 再安装mysql 2） mysql 5.7版本的密码问题搞得人很头疼，所以干脆选择mysql5.6了 安装MySQ">
+<meta name="keywords" content="mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos 离线安装 MySQL 详细步骤">
+<meta property="og:url" content="https://blog.iaiot.com/centos-install-mysql.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="原文地址：https://blog.csdn.net/nemo____/article/details/72897455 可解决大部分常规安装遇到的问题； 首先说明下 ：1） Centos7将默认数据库mysql替换成了Mariadb，如果想继续使用mysql 需要卸载Mariadb 再安装mysql 2） mysql 5.7版本的密码问题搞得人很头疼，所以干脆选择mysql5.6了 安装MySQ">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog.iaiot.com/images/20170607105750931.png">
+<meta property="og:image" content="https://blog.iaiot.com/images/20170607105812369.png">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos 离线安装 MySQL 详细步骤">
+<meta name="twitter:description" content="原文地址：https://blog.csdn.net/nemo____/article/details/72897455 可解决大部分常规安装遇到的问题； 首先说明下 ：1） Centos7将默认数据库mysql替换成了Mariadb，如果想继续使用mysql 需要卸载Mariadb 再安装mysql 2） mysql 5.7版本的密码问题搞得人很头疼，所以干脆选择mysql5.6了 安装MySQ">
+<meta name="twitter:image" content="https://blog.iaiot.com/images/20170607105750931.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Centos 离线安装 MySQL 详细步骤</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Centos 离线安装 MySQL 详细步骤</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-19T10:48:12.000Z" itemprop="datePublished" class="page-time">
+  2018-06-19
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装MySQL"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装MySQL</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置MySQL"><span class="post-toc-number">2.</span> <span class="post-toc-text">配置MySQL</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-centos-install-mysql"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Centos 离线安装 MySQL 详细步骤</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-06-19 18:48:12" datetime="2018-06-19T10:48:12.000Z"  itemprop="datePublished">2018-06-19</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>原文地址：<a href="https://blog.csdn.net/nemo____/article/details/72897455" target="_blank" rel="noopener">https://blog.csdn.net/nemo____/article/details/72897455</a></p>
+<p>可解决大部分常规安装遇到的问题；</p>
+<p>首先说明下 ：1） Centos7将默认数据库mysql替换成了Mariadb，如果想继续使用mysql 需要卸载Mariadb 再安装mysql</p>
+<p>2） mysql 5.7版本的密码问题搞得人很头疼，所以干脆选择mysql5.6了</p>
+<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><ol>
+<li>下载安装包 mysql-5.6.36-linux-glibc2.5-x86_64.tar.gz</li>
+</ol>
+<p>下载地址<a href="https://dev.mysql.com/downloads/mysql/5.6.html" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/5.6.html</a></p>
+<p>选择如下选项<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20170607105750931.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>下载这个版本：<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/20170607105812369.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<ol start="2">
+<li>卸载系统自带的Mariadb</li>
+</ol>
+<p>rpm -qa|grep mariadb         //查询出已安装的mariadb</p>
+<p>rpm -e –nodeps 文件名      //卸载,文件名为使用rpm -qa|grep mariadb 命令查出的所有文件</p>
+<ol start="3">
+<li><p>删除etc目录下的my.cnf文件</p>
+<pre><code>rm /etc/my.cnf
+</code></pre></li>
+<li><p>执行以下命令来创建mysql用户组</p>
+</li>
+</ol>
+<p>groupadd mysql</p>
+<ol start="5">
+<li>执行以下命令来创建一个用户名为mysql的用户并加入mysql用户组</li>
+</ol>
+<p>useradd -g mysql mysql</p>
+<ol start="6">
+<li><p>将下载的二进制压缩包放到/usr/local/目录下。</p>
+</li>
+<li><p>解压安装包</p>
+</li>
+</ol>
+<p>tar -zxvfmysql-5.6.36-linux-glibc2.5-x86_64.tar.gz</p>
+<ol start="8">
+<li><p>将解压好的文件夹重命名为mysql</p>
+</li>
+<li><p>在etc下新建配置文件my.cnf，并在该文件内添加以下代码：</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"></span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line"></span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"></span><br><span class="line">skip-name-resolve</span><br><span class="line"></span><br><span class="line">#设置3306端口</span><br><span class="line"></span><br><span class="line">port=3306</span><br><span class="line"></span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line"></span><br><span class="line"># 设置mysql的安装目录</span><br><span class="line"></span><br><span class="line">basedir=/usr/local/mysql</span><br><span class="line"></span><br><span class="line"># 设置mysql数据库的数据的存放目录</span><br><span class="line"></span><br><span class="line">datadir=/usr/local/mysql/data</span><br><span class="line"></span><br><span class="line"># 允许最大连接数</span><br><span class="line"></span><br><span class="line">max_connections=200</span><br><span class="line"></span><br><span class="line"># 服务端使用的字符集默认为8比特编码的latin1字符集</span><br><span class="line"></span><br><span class="line">character-set-server=utf8</span><br><span class="line"></span><br><span class="line"># 创建新表时将使用的默认存储引擎</span><br><span class="line"></span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line"></span><br><span class="line">lower_case_table_names=1</span><br><span class="line"></span><br><span class="line">max_allowed_packet=16M</span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li><p>创建步骤9中用到的目录并将其用户设置为mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir /var/lib/mysql</span><br><span class="line"></span><br><span class="line">mkdir /var/lib/mysql/mysql</span><br><span class="line"></span><br><span class="line">chown -R mysql:mysql /var/lib/mysql</span><br><span class="line"></span><br><span class="line">chown -R mysql:mysql /var/lib/mysql/mysql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入安装mysql软件目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mysql</span><br><span class="line"></span><br><span class="line">chown -R mysql:mysql ./　　                             #修改当前目录拥有者为mysql用户</span><br><span class="line"></span><br><span class="line">./scripts/mysql_install_db --user=mysql         #安装数据库</span><br><span class="line"></span><br><span class="line">chown -R mysql:mysql data                              #修改当前data目录拥有者为mysql用户</span><br><span class="line"></span><br><span class="line">（错：error while loading shared libraries: libnuma.so.1: cannot open shared object file: No such file or directory</span><br><span class="line"></span><br><span class="line">可能原因：yum 安装的libnuma.so.1，但安装时默认安装的是32的，但db2需要的是64位的</span><br><span class="line"></span><br><span class="line">解决：1.如果已经安装了libnuma.so.1，先yum remove libnuma.so.1</span><br><span class="line"></span><br><span class="line">2.yum -y install numactl.x86_64</span><br><span class="line"></span><br><span class="line">参考：https://blog.csdn.net/m0_37886429/article/details/78844358）</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>到此数据库安装完毕！</p>
+<h2 id="配置MySQL"><a href="#配置MySQL" class="headerlink" title="配置MySQL"></a>配置MySQL</h2><ol>
+<li>授予my.cnf的最大权限。</li>
+</ol>
+<p>chown 777 /etc/my.cnf</p>
+<p>设置开机自启动服务控制脚本：</p>
+<ol start="2">
+<li>复制启动脚本到资源目录</li>
+</ol>
+<p>cp ./support-files/mysql.server /etc/rc.d/init.d/mysqld</p>
+<ol start="3">
+<li>增加mysqld服务控制脚本执行权限</li>
+</ol>
+<p>chmod +x /etc/rc.d/init.d/mysqld</p>
+<ol start="4">
+<li>将mysqld服务加入到系统服务</li>
+</ol>
+<p>chkconfig –add mysqld</p>
+<ol start="5">
+<li>检查mysqld服务是否已经生效</li>
+</ol>
+<p>chkconfig –list mysqld</p>
+<p>命令输出类似下面的结果：</p>
+<p>mysqld 0:off 1:off 2:on 3:on 4:on 5:on 6:off</p>
+<p>表明mysqld服务已经生效，在2、3、4、5运行级别随系统启动而自动启动，以后可以使用service命令控制mysql的启动和停止。</p>
+<ol start="6">
+<li>启动msql（停止mysqld服务：service mysqld stop）</li>
+</ol>
+<p>service mysqld start</p>
+<ol start="7">
+<li>将mysql的bin目录加入PATH环境变量，编辑/etc/profile文件</li>
+</ol>
+<p>vi /etc/profile</p>
+<p>在文件最后添加如下信息：</p>
+<p>export PATH=$PATH:/usr/local/mysql/bin</p>
+<p>执行下面的命令使所做的更改生效：</p>
+<p>. /etc/profile</p>
+<ol start="8">
+<li>以root账户登陆mysql，默认是没有密码</li>
+</ol>
+<p>mysql -u root -p</p>
+<ol start="9">
+<li><p>设置root账户密码 注意下面的you password改成你的要修改的密码</p>
+<p>use mysql</p>
+</li>
+</ol>
+<p>update user set password=password(‘you password’) where user=’root’and host=’localhost’;</p>
+<ol start="10">
+<li>设置远程主机登录，注意下面的your username 和 your password改成你需要设置的用户和密码</li>
+</ol>
+<p>GRANT ALL PRIVILEGES ON <em>.</em> TO’your username‘@’%’ IDENTIFIED BY ‘your password’ WITH GRANT OPTION;</p>
+<p>FLUSH PRIVILEGES ;</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.451Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/centos-install-mysql.html" target="_blank" rel="external">https://blog.iaiot.com/centos-install-mysql.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/centos-install-mysql.html&title=《Centos 离线安装 MySQL 详细步骤》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/centos-install-mysql.html&title=《Centos 离线安装 MySQL 详细步骤》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/centos-install-mysql.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Centos 离线安装 MySQL 详细步骤》 — 郝继亮的笔记&url=https://blog.iaiot.com/centos-install-mysql.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/centos-install-mysql.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/mysql-notes.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">mysql笔记</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/jstorm-nimbus-Supervisor.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Jstorm 启动后 nimbus、Supervisor 自动停止</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/centos-install-mysql.html&title=《Centos 离线安装 MySQL 详细步骤》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/centos-install-mysql.html&title=《Centos 离线安装 MySQL 详细步骤》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/centos-install-mysql.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Centos 离线安装 MySQL 详细步骤》 — 郝继亮的笔记&url=https://blog.iaiot.com/centos-install-mysql.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/centos-install-mysql.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aQY6DMAwF0N7/0sx2pBHwbdORSF5WFaWQl4Xr2Pl84nH8GmdX/l7/+23vmY8NDAyM1zKOy5FMurcQ15h8bhgYGPswzl58ds/1r/LQeb1YydwwMDAwep/zUFtdPgwMDIwJI/+2lyZiYGBgJJvYPKV7aupf2YtjYGC8kJEXy/7/81f6GxgYGK9iHMVRTeOq4fJoDQwMjLUZeYB7KjnLMeWGKAYGxgaM661jdTuap3pJwyBaMgwMjKUZedkrx/dakr02AwYGxj6MPPjmobm6QHmz4YH/EAwMjJcwepvSSbux1yK9mTMGBsYGjLwoX00Kq8lf/qtPcu4DAwNjCUa1WJ+X8qvp4ORIGQYGxp6M6jGLvJ3wVDi+aWFiYGAsxPhGGO0V4KpvvzlmgYGBsShjUvTv1ed7TdBo+4qBgbEQo3ecq1qYmxwpKxwXw8DAWJSRT3p+tmHSHL2ZFQYGxgaMeTms11SobmJPr2NgYCzNSILdpHCWbIyryegNBgMDY1FGr3HYC4hJyK7yMDAw9mFUxyS8Xi9cLwRjYGDswEiSxd5Gd5IU5k/AwMBYldELskm4TO5/6pAHBgbG2oxqc3GewOWBO3lLGYOBgfFaxqTgVQ3ByYpWG6sYGBj7MPLAV21tJolj/g9wej8GBgZGwMjLZHkgLmS1GBgYGHEClyea1anfPAEDA2MDRrVYnzQs56H5sTMjGBgYL2fkW8f8ZdXG5yS5xMDAWJrxA+aa2xmFYcrIAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>NB-IOT LoRa Zigbee 无线组网方案对比 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="物联网,nb-iot,lora,zigbee">
+    <meta name="description" content="原文：https://www.adminiot.com.cn/news/3.html 物联网设备节点组网存在2种组网方式，无线组网和有线组网。无线组网我们常见到的有Zigbee,LoRa,NB-IOT等，其中Lora/NB-IOT属于LPWAN技术，LPWAN技术有覆盖广、连接多、速率低、成本低、功耗少等特点。   NB-IoT有个明显的优势是数据采集后可直接上传到云端，不需要通过网关，简化了现场">
+<meta name="keywords" content="物联网,nb-iot,lora,zigbee">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NB-IOT LoRa Zigbee 无线组网方案对比">
+<meta property="og:url" content="https://blog.iaiot.com/nbiot_lora_zigbee.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="原文：https://www.adminiot.com.cn/news/3.html 物联网设备节点组网存在2种组网方式，无线组网和有线组网。无线组网我们常见到的有Zigbee,LoRa,NB-IOT等，其中Lora/NB-IOT属于LPWAN技术，LPWAN技术有覆盖广、连接多、速率低、成本低、功耗少等特点。   NB-IoT有个明显的优势是数据采集后可直接上传到云端，不需要通过网关，简化了现场">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NB-IOT LoRa Zigbee 无线组网方案对比">
+<meta name="twitter:description" content="原文：https://www.adminiot.com.cn/news/3.html 物联网设备节点组网存在2种组网方式，无线组网和有线组网。无线组网我们常见到的有Zigbee,LoRa,NB-IOT等，其中Lora/NB-IOT属于LPWAN技术，LPWAN技术有覆盖广、连接多、速率低、成本低、功耗少等特点。   NB-IoT有个明显的优势是数据采集后可直接上传到云端，不需要通过网关，简化了现场">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">NB-IOT LoRa Zigbee 无线组网方案对比</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">NB-IOT LoRa Zigbee 无线组网方案对比</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-10T12:54:58.000Z" itemprop="datePublished" class="page-time">
+  2019-05-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-nbiot-lora-zigbee"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">NB-IOT LoRa Zigbee 无线组网方案对比</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-10 20:54:58" datetime="2019-05-10T12:54:58.000Z"  itemprop="datePublished">2019-05-10</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>原文：<a href="https://www.adminiot.com.cn/news/3.html" target="_blank" rel="noopener">https://www.adminiot.com.cn/news/3.html</a></p>
+<p>物联网设备节点组网存在2种组网方式，无线组网和有线组网。无线组网我们常见到的有Zigbee,LoRa,NB-IOT等，其中Lora/NB-IOT属于LPWAN技术，LPWAN技术有覆盖广、连接多、速率低、成本低、功耗少等特点。  </p>
+<p>NB-IoT有个明显的优势是数据采集后可直接上传到云端，不需要通过网关，简化了现场部署。通常要部署一个网关需要考虑位置，周围信号影响，考虑因素较多。  </p>
+<p>现在把这个三个无线组网方案做一个较全面对比，以供在做方案选择时候做参考：  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>NB-IOT</th>
+<th>LoRa</th>
+<th>Zigbee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>组网方式</td>
+<td>基于现有蜂窝组网</td>
+<td>基于LoRa网关</td>
+<td>基于Zigbee网关</td>
+</tr>
+<tr>
+<td>网络部署方式</td>
+<td>节点</td>
+<td>节点 + 网关（网关部署位置要求较高，需要考虑因素多）</td>
+<td>节点 + 网关</td>
+</tr>
+<tr>
+<td>传输距离</td>
+<td>远距离（可达十几公里，一般情况下10KM以上）</td>
+<td>远距离（可达十几公里，城市1~2公里,郊区可达20km）</td>
+<td>短距离（10米~百米级别）</td>
+</tr>
+<tr>
+<td>单网接入节点容量</td>
+<td>约20万</td>
+<td>约6万，实际受网关信道数量，节点发包频率，数据包大小等有关。一般有500~5000个不等</td>
+<td>理论6万多个，一般情况200~500个</td>
+</tr>
+<tr>
+<td>电池续航</td>
+<td>理论约10年/AA电池</td>
+<td>理论约10年/AA电池</td>
+<td>理论约2年/AA电池</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>模块5-10$，未来目标降到1$</td>
+<td>模块约5$</td>
+<td>模块约1~2$</td>
+</tr>
+<tr>
+<td>频段</td>
+<td>License频段，运营商频段</td>
+<td>unlicense频段，Sub-GHZ(433、868、915 MHz等)</td>
+<td>unlicense频段2.4G</td>
+</tr>
+<tr>
+<td>传输速度</td>
+<td>理论160kbp ~ 250Kbps，实际一般小于100kbps，受限低速通信接口UART</td>
+<td>0.3~50kbps</td>
+<td>理论250kps，实际一般小于100kbps，受限低速通信接口UART</td>
+</tr>
+<tr>
+<td>网络时延</td>
+<td>6s -10s</td>
+<td>TBD</td>
+<td>不到1S</td>
+</tr>
+<tr>
+<td>适合领域</td>
+<td>户外场景，LPWAN；大面积传感器应用</td>
+<td>户外场景，LPWAN；大面积传感器应用；可搭私有网网络，蜂窝网络覆盖不到地方</td>
+<td>常见于户内场景，户外也有,LPLAN；小范围传感器应用；可搭建私有网网络。</td>
+</tr>
+<tr>
+<td>联网方式</td>
+<td>终端设备本身就具备联网能力，直接接入网络</td>
+<td>终端设备本身不具备入网能力，需要在本地组网后，需要统一通过网关再接入到网络</td>
+<td>终端设备本身不具备入网能力，需要在本地组网后，需要统一通过网关再接入到网络</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/nbiot_lora_zigbee.html" target="_blank" rel="external">https://blog.iaiot.com/nbiot_lora_zigbee.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lora/">lora</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nb-iot/">nb-iot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zigbee/">zigbee</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/物联网/">物联网</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/nbiot_lora_zigbee.html&title=《NB-IOT LoRa Zigbee 无线组网方案对比》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/nbiot_lora_zigbee.html&title=《NB-IOT LoRa Zigbee 无线组网方案对比》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/nbiot_lora_zigbee.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《NB-IOT LoRa Zigbee 无线组网方案对比》 — 郝继亮的笔记&url=https://blog.iaiot.com/nbiot_lora_zigbee.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/nbiot_lora_zigbee.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/regexp.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">正则表达式笔记 优化 性能测试</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/es_cat_api.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">elasticsearch cat api 查询索引信息</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/nbiot_lora_zigbee.html&title=《NB-IOT LoRa Zigbee 无线组网方案对比》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/nbiot_lora_zigbee.html&title=《NB-IOT LoRa Zigbee 无线组网方案对比》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/nbiot_lora_zigbee.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《NB-IOT LoRa Zigbee 无线组网方案对比》 — 郝继亮的笔记&url=https://blog.iaiot.com/nbiot_lora_zigbee.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/nbiot_lora_zigbee.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3aQW7DMAwF0dz/0u42G6vzSbeAyfEqKFRHTwEIiuTng5/r6yFrvlfe/dfdyvO3tB4ZMmS8lnEdn/NXEion3X0+702GDBl7GPzVPHSSMJoe1u3fZciQIQOHWhIcydtkyJAh49mAW7sG1xJQGTJkbGaQS2zK5m8jl+fH7uIyZMh4IYOHy////Cf9DRkyZLyKcYVPeonttD+DXcmQIWM0gwe4c+HsXDJLRzeK+5EhQ8ZoxrOjDzyx40dQBMuQIWMEIw2jnUZjOpDBU1IZMmTsYZy3wiN3mtjVhslkyJCxh1Er0NfWP3UcqNwmQ4aMcYxagZ6EZpJ0PjUoJkOGjKmMtOlYGxertRaCy7MMGTIWMEiwqxXxeciuJY4yZMjYwOgUyNLcszZqFpT/ZMiQsYbBt8u3lbZCi+MXMmTIGMroJIL88pkmoPwX+CXDlSFDxggGL2+lg19PgdGYhQwZMpYx0nIYTx/5uAZvlKJhCxkyZIxg8C3WBrz6oxjo22XIkLGGQdI4PrxFCnDptfb2IGTIkLGA0Un4Oo2BFInaAzJkyFjAqI1KpLC08ofu3zJkyBjHuMInTez6h4ICtwwZMkYzasEuHYlIr8o8xWz1Y2XIkPEqRi3I9pFpWzQ+aRkyZIxj1EpgfJyi1vgMVsqQIUMGXpO2J0nYRcchQ4YMGeCyygtt6RvQShkyZCxg1Ir1adORh1devJMhQ8YGRr+WRQpzvCXZKefJkCFjHOMHFKOTYbFpGy8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

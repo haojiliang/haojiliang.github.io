@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>logstash 接收识别华为交换机 snmptrap 消息 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="logstash,snmptrap">
+    <meta name="description" content="先看效果                                                                                                             华为 MIB 获取华为设备 MIB 获取方法：http://support.huawei.com/onlinetoolweb/infoM/index.do?domain=1&amp;">
+<meta name="keywords" content="logstash,snmptrap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="logstash 接收识别华为交换机 snmptrap 消息">
+<meta property="og:url" content="https://blog.iaiot.com/logstash_snmptrap.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="先看效果                                                                                                             华为 MIB 获取华为设备 MIB 获取方法：http://support.huawei.com/onlinetoolweb/infoM/index.do?domain=1&amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog.iaiot.com/images/snmptrap.jpg">
+<meta property="og:image" content="https://blog.iaiot.com/images/huaweimib.jpg">
+<meta property="og:image" content="https://blog.iaiot.com/images/huaweioid.jpg">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="logstash 接收识别华为交换机 snmptrap 消息">
+<meta name="twitter:description" content="先看效果                                                                                                             华为 MIB 获取华为设备 MIB 获取方法：http://support.huawei.com/onlinetoolweb/infoM/index.do?domain=1&amp;">
+<meta name="twitter:image" content="https://blog.iaiot.com/images/snmptrap.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">logstash 接收识别华为交换机 snmptrap 消息</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">logstash 接收识别华为交换机 snmptrap 消息</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-28T06:55:35.000Z" itemprop="datePublished" class="page-time">
+  2019-06-28
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#先看效果"><span class="post-toc-number">1.</span> <span class="post-toc-text">先看效果</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#华为-MIB-获取"><span class="post-toc-number">2.</span> <span class="post-toc-text">华为 MIB 获取</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#logstash-接收"><span class="post-toc-number">3.</span> <span class="post-toc-text">logstash 接收</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#docker-部署"><span class="post-toc-number">4.</span> <span class="post-toc-text">docker 部署</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#相关概念"><span class="post-toc-number">5.</span> <span class="post-toc-text">相关概念</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-logstash-snmptrap"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">logstash 接收识别华为交换机 snmptrap 消息</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-28 14:55:35" datetime="2019-06-28T06:55:35.000Z"  itemprop="datePublished">2019-06-28</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="先看效果"><a href="#先看效果" class="headerlink" title="先看效果"></a>先看效果</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/snmptrap.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>  
+<h1 id="华为-MIB-获取"><a href="#华为-MIB-获取" class="headerlink" title="华为 MIB 获取"></a>华为 MIB 获取</h1><p>华为设备 MIB 获取方法：<a href="http://support.huawei.com/onlinetoolweb/infoM/index.do?domain=1&amp;lang=zh&amp;topicType=mib" target="_blank" rel="noopener">http://support.huawei.com/onlinetoolweb/infoM/index.do?domain=1&amp;lang=zh&amp;topicType=mib</a><br>导出 excel 后取出所需的 OID 列即可<br><img src="/images/huaweimib.jpg" alt>  </p>
+<p>这是我基于华为 S5700-V200R013C00 整理的 logstash 用的 OID 信息：<a href="https://download.csdn.net/download/iaiot/11263207" target="_blank" rel="noopener">https://download.csdn.net/download/iaiot/11263207</a><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/huaweioid.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>  </p>
+<h1 id="logstash-接收"><a href="#logstash-接收" class="headerlink" title="logstash 接收"></a>logstash 接收</h1><p>将上一步整理的 yaml 文件放到 logstash yamlmibdir 目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">input&#123;</span><br><span class="line">  snmptrap &#123;</span><br><span class="line">    type =&gt; &quot;snmptrap&quot;</span><br><span class="line">    id =&gt; &quot;my_snmptrap&quot;</span><br><span class="line">    community =&gt; &quot;***&quot;</span><br><span class="line">    port =&gt; &quot;162&quot;</span><br><span class="line">    yamlmibdir =&gt; &quot;/usr/share/logstash/vendor/bundle/jruby/1.9/gems/snmp-1.2.0/data/ruby/snmp/mibs&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="docker-部署"><a href="#docker-部署" class="headerlink" title="docker 部署"></a>docker 部署</h1><p>使用 docker 部署 logstash 映射端口时需注意设备发的是 udp 消息<br>compose.yml：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">  ports:</span><br><span class="line">     - &quot;9600:9600&quot;</span><br><span class="line">     - &quot;7777:7777&quot;</span><br><span class="line">     - &quot;2224:2224&quot;</span><br><span class="line">     - &quot;514:514/udp&quot;</span><br><span class="line">     - &quot;2223:2223&quot;</span><br><span class="line">     - &quot;162:162/udp&quot;</span><br><span class="line">……</span><br></pre></td></tr></table></figure></p>
+<h1 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h1><p><a href="http://blog.sina.com.cn/s/blog_4502d59c0101fcy2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_4502d59c0101fcy2.html</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/logstash_snmptrap.html" target="_blank" rel="external">https://blog.iaiot.com/logstash_snmptrap.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logstash/">logstash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/snmptrap/">snmptrap</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/logstash_snmptrap.html&title=《logstash 接收识别华为交换机 snmptrap 消息》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/logstash_snmptrap.html&title=《logstash 接收识别华为交换机 snmptrap 消息》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/logstash_snmptrap.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《logstash 接收识别华为交换机 snmptrap 消息》 — 郝继亮的笔记&url=https://blog.iaiot.com/logstash_snmptrap.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/logstash_snmptrap.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/regexp.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">正则表达式笔记 优化 性能测试</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/logstash_snmptrap.html&title=《logstash 接收识别华为交换机 snmptrap 消息》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/logstash_snmptrap.html&title=《logstash 接收识别华为交换机 snmptrap 消息》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/logstash_snmptrap.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《logstash 接收识别华为交换机 snmptrap 消息》 — 郝继亮的笔记&url=https://blog.iaiot.com/logstash_snmptrap.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/logstash_snmptrap.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aSW6FMBAFQO5/abKNlEDeM04i7PIK/QEoL1ru4TjidX5aXz+5+vbrdX7P4zcWBgbGaxnn7bp/5P1rtaSr6/t3w8DA2IfR3vrqMfcblDylZWNgYGC0v0mOekngxsDAwHjOyINjjvyHgIuBgfEqRl4+S4JpW4xLkudpuTgGBsYLGXnV/e+vf6W/gYGB8SrGWa78aNg2Js8HCwMDY21GHuDaw1nSDCgS1OQOGBgYizLy1LFtSQ7uaNAq+OYTDAyMpRlj5fg27OZHybGSHwYGxg6M5MHtKFh70BxLfY92/zAwMF7ImDWSlR8W23tGd8PAwFiakQfQfPDiyTDZo+EzDAyMDRhPAm4bKGeV5y77GxgYGAsx2gGIWeW5scPlDy1MDAyMpRntY563NseK/kX6ioGBsRBjrNHYVuOftDnzZgMGBsYOjFkjXwmvHbOoZ0YwMDCWY4w1LGdFv7bZWQ9eYGBgvJwxllK2Zbj2EFmPnWFgYCzNyIct8nQ0P1bmoxXJ1mBgYOzAOIZWno4mQXasRYqBgbEPI29Ptm2DPH3NWwUYGBh7MsaC7/M0eFZZEAMDY1XGWa6x1LdtG9Rbg4GBsTRjVmCd29QcG0TDwMBYmzGrQNaOboyF8sv/YmBgbMAYK4G1jcl8+KxulGJgYGBMKo2NJcnR+2BgYGDkR7Q4UCavng9kYGBg7MDIi/XtmMVYeK23DwMDY2nGrENeTsoDfdsqwMDAWI7xAU3lA/Ej0NsfAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

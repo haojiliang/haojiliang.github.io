@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="郝继亮">
+    <meta name="description" content="郝继亮">
+<meta name="keywords" content="郝继亮">
+<meta property="og:type" content="website">
+<meta property="og:title" content="郝继亮的笔记">
+<meta property="og:url" content="https://blog.iaiot.com/page/2/index.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="郝继亮">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="郝继亮的笔记">
+<meta name="twitter:description" content="郝继亮">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">郝继亮的笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header index-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">郝继亮的笔记</h1>
+        <h5 class="subtitle">
+            
+                
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+<div class="container body-wrap">
+
+    <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-Kubernetes-notes"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-01-12 15:59:33" datetime="2019-01-12T07:59:33.000Z"  itemprop="datePublished">2019-01-12</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Kubernetes-notes.html">Kubernetes 笔记</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        
+对于一个容器来说，它的 IP 地址等信息不是固定的，那么 Web 应用又怎么找到数据库容器的 Pod 呢？所以，Kubernetes 项目的做法是给 Pod 绑定一个 Service 服务，而 Service 服务声明的 IP 地址等信息是“终生不变”的。这个Service 服务的主要作用，就是作为 Pod 的代理入口（Portal），从而代替 Pod 对外暴露一个固定的网络地址。这样，对...
+    
+
+        <a href="/Kubernetes-notes.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-openresty-lua-nginx-module"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-01-12 15:36:34" datetime="2019-01-12T07:36:34.000Z"  itemprop="datePublished">2019-01-12</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/openresty-lua-nginx-module.html">openresty（Nginx+lua-nginx-module）中各个阶段执行的指令解释及其执行顺序</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        执行顺序
+                
+                    
+                    
+                
+                
+            
+图片来源：https://github.com/openresty/lua-nginx-module#directives
+指令解释init_by_lua*：初始化 ngi...
+    
+
+        <a href="/openresty-lua-nginx-module.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openresty/">openresty</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-fastJson-ref"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-01-09 09:53:25" datetime="2019-01-09T01:53:25.000Z"  itemprop="datePublished">2019-01-09</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/fastJson-ref.html">解决 fastJson 出现重复引用的问题 &#34;$ref&#34;:&#34;$[0].layout[0].....&#34;</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        123JSONObject.put("k", jsonv);→JSONObject.put("k", jsonv.clone());
+或1String returnJson = JSON.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
+
+    
+
+        <a href="/fastJson-ref.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-docker-volume-device-or-resource-busy"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-01-04 17:52:08" datetime="2019-01-04T09:52:08.000Z"  itemprop="datePublished">2019-01-04</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/docker-volume-device-or-resource-busy.html">docker volume 挂载文件后，容器内更新此文件，就报 Device or resource busy 不能保存文件</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        问题Error moving temp DB file temp-1.rdb on the final destination dump.rdb (in server root dir /usr/local/redis/data): Device or resource busy
+原因挂载路径改为目录，而不是文件
+解决如：/root/compose/data-volumes/redis/du...
+    
+
+        <a href="/docker-volume-device-or-resource-busy.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Jmeter-webSocket"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-25 20:56:51" datetime="2018-12-25T12:56:51.000Z"  itemprop="datePublished">2018-12-25</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Jmeter-webSocket.html">Jmeter 发送 webSocket 请求</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        下载 Jmeter 插件管理插件：http://search.maven.org/remotecontent?filepath=kg/apc/jmeter-plugins-manager/1.3/jmeter-plugins-manager-1.3.jar
+放到 JMeter 安装目录 lib/ext 下重启
+                
+                    
+   ...
+    
+
+        <a href="/Jmeter-webSocket.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JMeter/">JMeter</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webSocket/">webSocket</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-pyspark-spark-shell-sparkDriver-failed"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-23 22:32:25" datetime="2018-12-23T14:32:25.000Z"  itemprop="datePublished">2018-12-23</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/pyspark-spark-shell-sparkDriver-failed.html">pyspark spark-shell无法指定被请求的地址:Service &#39;sparkDriver&#39; failed after 16 retries (on a random free port)</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        原文：https://stackoverflow.com/questions/49654050/could-not-bind-on-a-random-free-port-error-while-trying-to-connect-to-spark-mast
+spark bin/pyspark 和 bin/spark-shell 报 无法指定被请求的地址: Service ‘sparkDriv...
+    
+
+        <a href="/pyspark-spark-shell-sparkDriver-failed.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/">spark</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-k8s-6443-was-refused"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-22 22:11:22" datetime="2018-12-22T14:11:22.000Z"  itemprop="datePublished">2018-12-22</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/undefined.html">Mac Kubernetes 报 The connection to the server localhost:6443 was refused</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        原文：https://github.com/kubernetes/kubernetes/issues/23726
+Deleted the old config from ~/.kube and then restarted docker (for macos) and it rebuilt the config folder.
+All good now when I do ‘kubectl ...
+    
+
+        <a href="/undefined.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kubernetes/">kubernetes</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-select-concat-group_concat"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-22 17:52:16" datetime="2018-12-22T09:52:16.000Z"  itemprop="datePublished">2018-12-22</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/select-concat-group_concat.html">MySQL 查询结果返回数组或 JSON XML 等自定义格式 SELECT CONCAT GROUP_CONCAT</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        12345678910SELECT sub_name,  CONCAT('[',  GROUP_CONCAT(  CONCAT('&#123;"name":"', sub_name, '",'),  CONCAT('"id":"', id, '"&#125;')),  ']') AS childFROM secretWHERE 1 = 1GROUP BY sub_namelimit 0, 1...
+    
+
+        <a href="/select-concat-group_concat.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-windows-miss-dll"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-18 12:50:46" datetime="2018-12-18T04:50:46.000Z"  itemprop="datePublished">2018-12-18</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/windows-miss-dll.html">windows 提示缺少各种 dll 文件</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        下载安装 MSVBCRT_AIO_2018.05.13_X86 X64.exe（微软常用运行库合集）即可
+https://download.csdn.net/download/iaiot/10858125
+
+    
+
+        <a href="/windows-miss-dll.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dll/">dll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-docker-compose-custom-network"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-13 23:29:18" datetime="2018-12-13T15:29:18.000Z"  itemprop="datePublished">2018-12-13</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/docker-compose-custom-network.html">docker-compose 配置自定义网络和静态 ip 示例</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        1234567891011121314151617181920212223242526272829303132333435363738394041424344454647version: '3.1' services:   web:    image: haojiliang/nginx-php-fpm-alpine:v1.15.7    container_name: "web_contai...
+    
+
+        <a href="/docker-compose-custom-network.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-mybaits-int"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-13 19:15:54" datetime="2018-12-13T11:15:54.000Z"  itemprop="datePublished">2018-12-13</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/mybaits-int.html">mybaits int 类型的字段不能 &lt;if test=&#34;sub_name != null and &#39;&#39; != field_name&#34;&gt; Java 移除 JSONObject 空值字段</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        mybaits int 类型的字段不能 
+只能 
+如果 &lt;if ‘’ != field_name”&gt; ，值为 0 时 if 条件为 false
+可以直接在代码中移除空值字段12345678910111213141516171819/** * 移除空值字段 * * @param json json */public static void rmEmptyField(JSONObje...
+    
+
+        <a href="/mybaits-int.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mybaits/">mybaits</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-nginx-php-fpm-alpine"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-05 08:10:19" datetime="2018-12-05T00:10:19.000Z"  itemprop="datePublished">2018-12-05</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/nginx-php-fpm-alpine.html">nginx-php 的 docker 镜像 nginx1.15.7 php7.0.33 php-fpm alpine3.7，测试 wordpress 完美运行</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        获取镜像：docker pull haojiliang/nginx-php-fpm-alpine:v1.15.7
+nginx 1.15.7php 7.0.33php-fpmalpine 3.7
+镜像大小：83.9MB
+文件路径及端口等配置都和 nginx 官方镜像一样，在 php 官方镜像基础上加了 php 扩展和 nginx
+Dockerfile：https://github.com/ha...
+    
+
+        <a href="/nginx-php-fpm-alpine.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-filebeat-error1"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-03 17:37:43" datetime="2018-12-03T09:37:43.000Z"  itemprop="datePublished">2018-12-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/filebeat-error1.html">filebeat 作为服务启动，而非命令行启动时，传输一批数据后便停止工作 CRIT Unable to publish events to console</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        filebeat 作为服务启动，而非命令行启动时，传输一批数据后便停止工作，日志中输出如下信息：
+2018-12-03T17:07:29+08:00 CRIT Unable to publish events to console: write /dev/stdout: The handle is invalid.2018-12-03T17:07:29+08:00 INFO Error bu...
+    
+
+        <a href="/filebeat-error1.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/filebeat/">filebeat</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-Windows-PowerShell-ExecutionPolicy"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-03 15:53:49" datetime="2018-12-03T07:53:49.000Z"  itemprop="datePublished">2018-12-03</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/Windows-PowerShell-ExecutionPolicy.html">Windows PowerShell 执行策略 ExecutionPolicy</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        获取当前执行策略：Get-ExecutionPolicy
+获取影响当前会话的所有执行策略，并按优先顺序显示：Get-ExecutionPolicy -List
+获取当前用户作用域的执行策略：Get-ExecutionPolicy -Scope CurrentUser
+更改执行策略：Set-ExecutionPolicy -ExecutionPolicy 
+例：Set-ExecutionPol...
+    
+
+        <a href="/Windows-PowerShell-ExecutionPolicy.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-docker-compose-move-wordpress"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-02 20:46:12" datetime="2018-12-02T12:46:12.000Z"  itemprop="datePublished">2018-12-02</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/docker-compose-move-wordpress.html">docker-compose 迁移部署 wordpress 站点、创建自定义网络、设置容器为静态 ip</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        附：nginx1.15.7 + php7.0.33 + php-fpm + alpine3.7 镜像已完成：https://blog.csdn.net/iaiot/article/details/8481419
+因为一个 wordpress 容器里同时有移动站和 pc 站，并且是通过二级域名区分的，所以只能配置了自定义网络，在 nginx 容器里配置 host 这样了。
+由于站点代码本身问题...
+    
+
+        <a href="/docker-compose-move-wordpress.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wordpress/">wordpress</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-docker-daemon"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-12-01 23:26:55" datetime="2018-12-01T15:26:55.000Z"  itemprop="datePublished">2018-12-01</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/docker-daemon.html">docker daemon（dockerd） 配置文件 daemon.json</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        原文：https://docs.docker.com/engine/reference/commandline/dockerd/1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071...
+    
+
+        <a href="/docker-daemon.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-docker-v-inode"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-24 10:29:40" datetime="2018-11-24T02:29:40.000Z"  itemprop="datePublished">2018-11-24</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/docker-v-inode.html">修改docker -v 挂载的文件遇到的问题。inode 软链接 硬链接 docker volume</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        原文地址：https://lrita.github.io/2017/08/18/mount-volume-to-docker-and-modify-from-host/
+在启动docker容器时，为了保证一些基础配置与宿主机保持同步，通常需要将这些配置文件挂载进docker容器，例如/etc/resolv.conf//etc/hosts//etc/localtime等。
+当这些配置变化时，我...
+    
+
+        <a href="/docker-v-inode.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-bash-ng-command-not-found"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-22 14:49:13" datetime="2018-11-22T06:49:13.000Z"  itemprop="datePublished">2018-11-22</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/bash-ng-command-not-found.html">ng不是内部或外部命令，也不是可运行的程序或批处理文件 或 bash:ng:command not found</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        重新以管理员权限运行 npm install -g @angular/cli
+如果报错，就先删掉 C:\Users\adminstrator\AppData\Roaming\npm\node_modules\@angular\cli\node_modules 目录，然后再运行 npm install -g @angular/cli
+等安装完成后 ng version 就可以了
+       ...
+    
+
+        <a href="/bash-ng-command-not-found.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-npm-angular-4058"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-22 14:43:36" datetime="2018-11-22T06:43:36.000Z"  itemprop="datePublished">2018-11-22</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/npm-angular-4058.html">npm install -g @angular/cli 报 Missing write access to... -4058 ENOENT:no such file or directory</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        删掉 C:\Users\adminstrator\AppData\Roaming\npm\node_modules\@angular\cli\node_modules 目录重新运行 npm install -g @angular/cli 就可以了
+                
+                    
+                    
+              ...
+    
+
+        <a href="/npm-angular-4058.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
+            <article id="post-node-modules-codelyzer"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2018-11-22 14:11:36" datetime="2018-11-22T06:11:36.000Z"  itemprop="datePublished">2018-11-22</time>
+
+        
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/node_modules_codelyzer.html">webstorm 下 angular 英雄指南 报 Tslint Error:Could not find custom rule directory:node_modules/codelyzer</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        package.json 中 devDependencies 下添加 “codelyzer”: “~4.5.0” 
+然后 npm install 即可
+
+    
+
+        <a href="/node_modules_codelyzer.html" class="post-more waves-effect waves-button">
+            阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+    </ul>
+
+    
+<nav id="page-nav">
+    <div class="inner">
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    </div>
+</nav>
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/page/2/&title=郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/page/2/&title=郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/page/2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=郝继亮的笔记&url=https://blog.iaiot.com/page/2/&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/page/2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxklEQVR42u3aQU4DMQwF0N7/0sMWCTr9tpNoVL2sUAvJCwvLsf16xev6tf5+fv9X+W7LFi4u7ph73a53B1SPfLdDbsDFxT3PvQ9Dydbz34xCIS4u7iO5vU+SsIiLi/tN3PukJHk44eLiPpO7Kh3p7bPlrYaLizvg5kWNfT9vqe/i4uK2uFdxVQugk8D3z+m4uLhHuHlAuU848utV2zC4uLjnuXljNfl2MmYR7YyLi3uQO2+dzh9OUXEEFxf3IDd53iTXyC/WvCQuLu5BbnUkIjmg2iyJii+4uLjHuffoJKFJCiK9jskryYlwcXE3cHsPnh1llAVxFxcXd8ydP2/yoate0MTFxT3JzZugvRGK3kMoasbg4uJu5s7HJqpN1uQR9SGE4eLiHuHm9OQC+dhW/qDCxcU9z02arL0Biyr0Q4KFi4t7nFs9OE+PeoMXhU4LLi7uIu5VXIW2x6SZWs2VcHFxl3InIxHVS+Ytmcm/ABcXdxV3ctiqJmuh1IKLi3uQOy929BKjUSsFFxf3Ydwk6OSNmfL4BS4u7iO5G4sa91kNLi7uQW7eEK2mMr3yR6HJiouLu4FbDiXF5KY3qrWgvouLi9vh/gCZTWfWmWcVrgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

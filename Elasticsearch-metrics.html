@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="elasticsearch">
+    <meta name="description" content="Elasticsearch 的 metrics（度量）包含 count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）  count（数量）：1SELECT count(log_date.d) AS Coun">
+<meta name="keywords" content="elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值">
+<meta property="og:url" content="https://blog.iaiot.com/Elasticsearch-metrics.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="Elasticsearch 的 metrics（度量）包含 count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）  count（数量）：1SELECT count(log_date.d) AS Coun">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值">
+<meta name="twitter:description" content="Elasticsearch 的 metrics（度量）包含 count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）  count（数量）：1SELECT count(log_date.d) AS Coun">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-27T02:43:07.000Z" itemprop="datePublished" class="page-time">
+  2017-12-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-Elasticsearch-metrics"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-27 10:43:07" datetime="2017-12-27T02:43:07.000Z"  itemprop="datePublished">2017-12-27</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Elasticsearch 的 metrics（度量）包含 count、sum、avg、max、min、percentiles (百分位数)、Unique count（基数 || 去重计数）、Median（中位数）、扩展度量（含方差、平方和、标准差、标准差界限）、Percentile ranks（百分位等级）</p>
+<ol>
+<li>count（数量）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(log_date.d) <span class="keyword">AS</span> <span class="keyword">Count</span> <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;COUNT&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;Count&quot; : &#123;</span><br><span class="line">      &quot;value_count&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>sum（和）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">sum</span>(log_date.d) <span class="keyword">AS</span> <span class="keyword">SUM</span> <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;SUM&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;SUM&quot; : &#123;</span><br><span class="line">      &quot;sum&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>avg（平均数）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">avg</span>(log_date.d) <span class="keyword">AS</span> <span class="keyword">AVG</span> <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;AVG&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;AVG&quot; : &#123;</span><br><span class="line">      &quot;avg&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>max（最大值）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(log_date.d) <span class="keyword">AS</span> <span class="keyword">MAX</span> <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;MAX&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;MAX&quot; : &#123;</span><br><span class="line">      &quot;max&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>min（最小值）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">min</span>(log_date.d) <span class="keyword">AS</span> <span class="keyword">MIN</span> <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;MIN&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;MIN&quot; : &#123;</span><br><span class="line">      &quot;min&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>percentiles（百分位数）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> percentiles(log_date.d,<span class="number">1.0</span>,<span class="number">15.0</span>,<span class="number">31.0</span>) <span class="keyword">AS</span> Percentiles <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;percentiles&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;Percentiles&quot; : &#123;</span><br><span class="line">      &quot;percentiles&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;,</span><br><span class="line">        &quot;percents&quot; : [ 1.0, 15.0, 31.0 ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>Unique count（基数 || 去重计数，就是 SQL 中的 distinct ）：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">count</span>(<span class="keyword">distinct</span>(log_date.d)) <span class="keyword">AS</span> UniqueCount <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;COUNT&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;UniqueCount&quot; : &#123;</span><br><span class="line">      &quot;cardinality&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;,</span><br><span class="line">        &quot;precision_threshold&quot; : 40000</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>Median（中位数）：<br>中位数没找到单独的获取方法，不过在 Kibana 中看到获取中位数时请求中的参数，其实就是获取的某个字段50的百分位数，所以可能有：中位数=50的百分位数<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> percentiles(log_date.d,<span class="number">50.0</span>) <span class="keyword">AS</span> percentiles <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;percentiles&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;percentiles&quot; : &#123;</span><br><span class="line">      &quot;percentiles&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;,</span><br><span class="line">        &quot;percents&quot; : [ 50.0 ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li>方差、平方和、标准差、标准差界限：<br>这几个度量没有单独方法去获取，都是用 EXTENDED_STATS 一个请求全部获取下来，然后从中取自己需要的结果<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> EXTENDED_STATS(log_date.d) <span class="keyword">AS</span> EXTENDED_STATS <span class="keyword">FROM</span> <span class="keyword">INDEX</span><span class="number">-2017</span><span class="number">-12</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;from&quot; : 0,</span><br><span class="line">  &quot;size&quot; : 0,</span><br><span class="line">  &quot;_source&quot; : &#123;</span><br><span class="line">    &quot;includes&quot; : [ &quot;EXTENDED_STATS&quot; ],</span><br><span class="line">    &quot;excludes&quot; : [ ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;aggregations&quot; : &#123;</span><br><span class="line">    &quot;EXTENDED_STATS&quot; : &#123;</span><br><span class="line">      &quot;extended_stats&quot; : &#123;</span><br><span class="line">        &quot;field&quot; : &quot;log_date.d&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>EXTENDED_STATS 查询结果包含：方差、平方和、标准差、标准差界限以及最大值、平均数等基础度量，具体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&quot;aggregations&quot;: &#123;</span><br><span class="line">    &quot;1&quot;: &#123;</span><br><span class="line">      &quot;count&quot;: 15304326,</span><br><span class="line">      &quot;min&quot;: 1,</span><br><span class="line">      &quot;max&quot;: 31,</span><br><span class="line">      &quot;avg&quot;: 15.068216202399244,</span><br><span class="line">      &quot;sum&quot;: 230608893,</span><br><span class="line">      &quot;sum_of_squares&quot;: 4588588661,</span><br><span class="line">      &quot;variance&quot;: 72.7718426201877,</span><br><span class="line">      &quot;std_deviation&quot;: 8.530641395591992,</span><br><span class="line">      &quot;std_deviation_bounds&quot;: &#123;</span><br><span class="line">        &quot;upper&quot;: 32.129498993583226,</span><br><span class="line">        &quot;lower&quot;: -1.9930665887847407</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="10">
+<li>Percentile ranks（百分位等级）<br>暂时没找到求百分位等级的 SQL 语句，只能用原生 ES 查询语句获取了；<br>ES原生查询语句如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;size&quot;: 0,</span><br><span class="line">  ......</span><br><span class="line">  &quot;aggs&quot;: &#123;</span><br><span class="line">    &quot;1&quot;: &#123;</span><br><span class="line">      &quot;percentile_ranks&quot;: &#123;</span><br><span class="line">        &quot;field&quot;: &quot;log_date.d&quot;,</span><br><span class="line">        &quot;values&quot;: [</span><br><span class="line">          6,</span><br><span class="line">          15,</span><br><span class="line">          31</span><br><span class="line">        ],</span><br><span class="line">        &quot;keyed&quot;: false</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Histogram、Date Histogram、Range、Date Range、Terms、IPv4 Range、Significant Terms 等各种 buckets 桶查询：<a href="https://blog.iaiot.com/20171228/Elasticsearch-buckets.html">https://blog.iaiot.com/20171228/Elasticsearch-buckets.html</a></p>
+<p>附 elasticsearch-sql 的 GitHub 地址：<a href="https://github.com/NLPchina/elasticsearch-sql" target="_blank" rel="noopener">https://github.com/NLPchina/elasticsearch-sql</a><br>Elasticsearch 官方文档（中文版）地址：<a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/aggregations.html" target="_blank" rel="noopener">https://www.elastic.co/guide/cn/elasticsearch/guide/cn/aggregations.html</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.451Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/Elasticsearch-metrics.html" target="_blank" rel="external">https://blog.iaiot.com/Elasticsearch-metrics.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/elasticsearch/">elasticsearch</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/Elasticsearch-metrics.html&title=《通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/Elasticsearch-metrics.html&title=《通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/Elasticsearch-metrics.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值》 — 郝继亮的笔记&url=https://blog.iaiot.com/Elasticsearch-metrics.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/Elasticsearch-metrics.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/Elasticsearch-buckets.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 buckets 桶</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/could-NOT-be-bound.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Angular4配置host后执行ng serve报Provided host a.api.***.com could NOT be bound...</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/Elasticsearch-metrics.html&title=《通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/Elasticsearch-metrics.html&title=《通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/Elasticsearch-metrics.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过 elasticsearch-sql 使用 SQL 语句聚合查询 Elasticsearch 获取各种 metrics 度量值》 — 郝继亮的笔记&url=https://blog.iaiot.com/Elasticsearch-metrics.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/Elasticsearch-metrics.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aQY7DIBAEwPz/015pr1FIN3hXMhSnyLHAxWE0zPB6xeP6He3z93+vtzF+fvPAwMB4LOMajvfPTZYZvz9+MuZ9pGJgYBzAaD9lHFiTIJvMVgR6DAwMjGEyN5c+tsEXAwMDYyW9G4fUKx4YGBgYY0Yy9fjJSvhOVrntLI6BgfFARtsY+M/ff9jfwMDAeAjjunWMk8g8aNbrYmBgbM3Ii/tzxbi5GxHtnBgYGCcw8ryrLfSvtArylicGBsbejPWifNswaFeM9hsDA2NrRpIg5mlc+36eXBZNCAwMjAMYeTNyvfTftkWjwzYGBsYBjDaNy6n5xq1c9cDAwNiP0bYE1q+CtSW2KOnEwMA4jDF3kSI/oLYhO1oXAwNja8ZKdb29qHHX5YnJAy0GBsZjGevXs+aaoG0B7svMGBgYBzDy4LhyiG0xRdMCAwNja8ZKo7ENx23jod4gDAyMTRl3pYNzIXV99S/9DQwMjC0YcwX69lOS99tmAAYGxpmMtjHZHkfbbcoDNAYGxjmMvPQ2VybLt2byTQwMjK0ZK5iVJLK4/ZE3GzAwMLZjXOVI0rWc2rZLPwZcDAyMrRn5yD80b47mZbX15gQGBsbTGe01iLlrE3MtzCJ8Y2BgHMBow2V7HG2TyGQLokM6BgbGkYxk0vXMNE8lMTAwMPJ0cH0jVsIxBgbGCYy8GZAniMkxda5FioGBcRrjrhJ/Hg/nehRtuMfAwNiC8QO5VkupTIJYewAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

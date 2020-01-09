@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Linux、CentOS、Windows、零散笔记 | 郝继亮的笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="windows,linux">
+    <meta name="description" content="一、Linux相关(以下均在CentOS中操作)0.shell中引号的区别                                                                                                            1.安装sz/rz：yum install lrzsz 2.新建的.sh文件不能执行：chmod +x a.s">
+<meta name="keywords" content="windows,linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux、CentOS、Windows、零散笔记">
+<meta property="og:url" content="https://blog.iaiot.com/linux-notes.html">
+<meta property="og:site_name" content="郝继亮的笔记">
+<meta property="og:description" content="一、Linux相关(以下均在CentOS中操作)0.shell中引号的区别                                                                                                            1.安装sz/rz：yum install lrzsz 2.新建的.sh文件不能执行：chmod +x a.s">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog.iaiot.com/images/shell.jpg">
+<meta property="og:updated_time" content="2020-01-09T01:56:35.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux、CentOS、Windows、零散笔记">
+<meta name="twitter:description" content="一、Linux相关(以下均在CentOS中操作)0.shell中引号的区别                                                                                                            1.安装sz/rz：yum install lrzsz 2.新建的.sh文件不能执行：chmod +x a.s">
+<meta name="twitter:image" content="https://blog.iaiot.com/images/shell.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="郝继亮的笔记" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/haojiliang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">郝继亮</h5>
+          <a href="mailto:hjl669@qq.com" title="hjl669@qq.com" class="mail">hjl669@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/haojiliang" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/hjl369" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linux、CentOS、Windows、零散笔记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Linux、CentOS、Windows、零散笔记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-09-18T09:48:19.000Z" itemprop="datePublished" class="page-time">
+  2017-09-18
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-linux-notes"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linux、CentOS、Windows、零散笔记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-09-18 17:48:19" datetime="2017-09-18T09:48:19.000Z"  itemprop="datePublished">2017-09-18</time>
+
+            
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>一、Linux相关(以下均在CentOS中操作)<br>0.shell中引号的区别<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/shell.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure> </p>
+<p>1.安装sz/rz：yum install lrzsz</p>
+<p>2.新建的.sh文件不能执行：chmod +x a.sh</p>
+<p>3.创建目录：mkdir -p /data/nginx/{conf,conf.d,html,logs}</p>
+<p>4.cat &lt;&lt; EOF &gt; EOF</p>
+<p>新建或覆盖<br>cat &lt;&lt; EOF &gt; /root/xxx.txt<br>aaa<br>bbb<br>EOF<br>新建或文尾追加<br>cat &lt;&lt; EOF &gt;&gt; /root/xxx.txt<br>aaa<br>bbb<br>EOF</p>
+<p>5.linux swap（磁盘缓存）：当系统的物理内存不够用的时候，就需要将物理内存中的一部分空间释放出来，以供当前运行的程序使用。那些被释放的空间可能来自一些很长时间没有什么操作的程序，这些被释放的空间被临时保存到Swap空间中，等到那些程序要运行时，再从Swap中恢复保存的数据到内存中。这样，系统总是在物理内存不够时，才进行Swap交换。</p>
+<p>6.查看目录大小：du -h –max-depth=1 /</p>
+<p>du -sh /*</p>
+<p>7.linux 定时任务：service crond status (start、stop、restart、reload、status)<br>cat &lt;<eof>  /root/cleanlog.cron<br>25,35 <em> </em> <em> </em> cd /root/cron/ &amp;&amp; ./cleanlog.sh<br>EOF<br>添加任务：crontab cleanlog.cron<br>查看任务：crontab -l</eof></p>
+<p>删除修改添加任务：crontab -e<br>(minute) (hour) (day of month) (month) (day of week)<br>minute (0 - 59)<br>hour (0 - 23)<br>day of month (1 - 31)<br>month (1 - 12)<br>day of week (0 - 6) (Sunday=0 or 7)</p>
+<p>8.查看前后几行<br>前后5行：cat access.log | grep -5 “Exception”<br>前后5行：cat access.log | grep -C 5 “Exception”<br>后5行：cat access.log | grep -A 5 “Exception”<br>前5行：cat access.log | grep -B 5 “Exception”</p>
+<p>10.查找文件：find / -name <em>my.cnf</em></p>
+<p>11.Linux杀死进程(以关闭Elasticsearch为例)：<br>ps -ef | grep elastic</p>
+<p>kill -9 进程号</p>
+<p>或 kill $(ps -ef | grep elastic | awk ‘{print $2}’)</p>
+<p>原型：kill $(jps | awk ‘{print $1}’)</p>
+<p>$1：表示jps出来的第一个参数</p>
+<p>12.hosts配置文件路径：/etc/hosts</p>
+<p>13.查看和修改计算机名<br>查看：hostname</p>
+<p>CentOS6修改：/etc/sysconfig/network中修改hostname=destname(目标名字)</p>
+<p>CentOS7修改：/etc/hostname</p>
+<p>14.resin日志<br>目录：/home/admin/resin/log<br>显示实时日志：tail -f jvm-app-0.log</p>
+<p>15.查看文件实时更新：tail -f  aaaaa.log</p>
+<p>16.Storm启停<br>启动：例：jstorm jar /home/admin/stormmy-0.1-jar-with-dependencies.jar com.iaiot.Topology.MyTopo /home/admin/conf.yaml<br>关闭：例：jstorm kill mytopo(拓扑名)</p>
+<p>18.用户管理<br>添加用户：useradd admin<br>设置密码：passwd admin(回车设密码)<br>删除用户：userdel -rf admin<br>创建用户参数解释：useradd -s /sbin/nologin -M -g admin admin<br>        -s表示指定用户所用的shell，此处为/sbin/nologin，表示不登录<br>        -M表示不创建用户主目录<br>        -g表示指定用户的组名为admin<br>        最后的admin表示用户名</p>
+<p>22.tar压缩解压<br>压缩：tar -zcvf /home/aa.tar.gz /aa/<br>解压：tar -zxvf aa.tar.gz<br>      tar -xvf  aa.tar</p>
+<p>23.查看内存使用情况</p>
+<p>free -h</p>
+<p>free -m<br>其中-m是指以M为单位显示已用的和空闲的内存<br>详细可参考：<a href="http://www.cnblogs.com/zhaoyl/p/4325811.html" target="_blank" rel="noopener">http://www.cnblogs.com/zhaoyl/p/4325811.html</a><br>附查看所有文件系统使用情况：df -h<br>查看文件及文件夹的大小：du -h<br>查看文件夹大小：du -h –max-depth=1 /usr/local/tomcat/logs/<br>查看文件夹下所有文件及文件夹大小：du -h –max-depth=1 /usr/local/tomcat/logs/*<br>–max-depth表示要查询目录的深度<br>参考：<a href="https://www.cnblogs.com/benio/archive/2010/10/13/1849946.html" target="_blank" rel="noopener">https://www.cnblogs.com/benio/archive/2010/10/13/1849946.html</a></p>
+<p>24.chown<br>给指定用户授权指定目录：chown admin:admin -R /home/resin<br>查看指定用户所属用户组：groups admin<br>admin:admin ： 用户所属用户组：用户名</p>
+<p>26.复制目录<br>cp -r dir1/ dir2/</p>
+<p>28.resin启停（resin根目录下）<br>启动：java -jar lib/resin.jar start<br>停止：java -jar lib/resin.jar stop</p>
+<p>29.vsftpd相关<br>安装：<a href="http://blog.csdn.net/the_victory/article/details/52192085" target="_blank" rel="noopener">http://blog.csdn.net/the_victory/article/details/52192085</a><br>设置开机启动：chkconfig vsftpd on<br>注意：还要给ftp用户所访问的目录设置权限 例：chmod -R 777 /mnt/sites</p>
+<p>30.用户与用户组相关操作<br>参考文章：<a href="http://www.cnblogs.com/jackyyou/p/5498083.html" target="_blank" rel="noopener">http://www.cnblogs.com/jackyyou/p/5498083.html</a><br>          <a href="https://jingyan.baidu.com/article/a681b0de159b093b184346a7.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/a681b0de159b093b184346a7.html</a></p>
+<p>31.查看系统时间命令：date</p>
+<p>32.返回上一目录：cd -</p>
+<p>33.找出包含某字符串的文件<br>grep -r vn_static_root /opt/verynginx/<br>参考：<a href="http://www.runoob.com/linux/linux-comm-grep.html" target="_blank" rel="noopener">http://www.runoob.com/linux/linux-comm-grep.html</a></p>
+<p>34.查看系统信息<br>版本：cat /etc/redhat-release<br>位数：getconf LONG_BIT</p>
+<p>35.源码安装node.js<br>准备命令：yum -y install gcc make gcc-c++ openssl-devel wget<br>下载源码及解压：wget <a href="http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz" target="_blank" rel="noopener">http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz</a><br>tar -zvxf node-v0.10.26.tar.gz<br>编译及安装：cd node-v0.10.26<br>make &amp;&amp; make install<br>验证是否安装配置成功：node -v<br>参考地址：<a href="http://www.jianshu.com/p/783906f10d58" target="_blank" rel="noopener">http://www.jianshu.com/p/783906f10d58</a></p>
+<p>37.命令行下粘贴：Shift+Insert (Windows下也适用)</p>
+<p>38.易读方式显示目录下文件大小：ll -h</p>
+<p>39.查看登陆记录：last<br>参考：<a href="https://www.cnblogs.com/lizhaoxian/p/5981029.html" target="_blank" rel="noopener">https://www.cnblogs.com/lizhaoxian/p/5981029.html</a></p>
+<p>41.查看机器负载：<br>uptime<br>w<br>实时监控：top<br>参考：<a href="http://blog.csdn.net/szchtx/article/details/38455385" target="_blank" rel="noopener">http://blog.csdn.net/szchtx/article/details/38455385</a></p>
+<p>43.scp 远程复制<br>远程到本地：scp <a href="mailto:root@192.168.1.5" target="_blank" rel="noopener">root@192.168.1.5</a>:/home/admin/storm.jar /home/<br>本地到远程：scp /home/storm.jar <a href="mailto:root@192.168.1.5" target="_blank" rel="noopener">root@192.168.1.5</a>:/home/admin/</p>
+<p>递归复制目录：scp -r /data/nginx/ <a href="mailto:root@192.168.153.150" target="_blank" rel="noopener">root@192.168.153.150</a>:/data/<br>参考：<a href="http://www.runoob.com/linux/linux-comm-scp.html" target="_blank" rel="noopener">http://www.runoob.com/linux/linux-comm-scp.html</a></p>
+<p>44.安装vim<br>yum install vim</p>
+<p>47.查看 linux 网络状态：netstat</p>
+<p>例：查看 FastDFS 运行状态：netstat -unltp|grep fdfs</p>
+<p>48.查看端口占用：netstat -tunlp|grep 80</p>
+<p>51.XenServer</p>
+<p>xe console-list</p>
+<p>xe console uuid=7089a098-ed7a-4f9e-bd88-a916da2fd700</p>
+<p>53.查看某个进程或者服务是否存在</p>
+<p>ps -aux ｜ grep xxx</p>
+<p>57.resin 配置到一个地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;host id=&quot;message.api.mardi.com&quot; root-directory=&quot;.&quot;&gt;</span><br><span class="line">            &lt;host-alias&gt;message.api.mardi.com&lt;/host-alias&gt;</span><br><span class="line">            &lt;host-alias&gt;message.api.iaiot.com&lt;/host-alias&gt;</span><br><span class="line">            &lt;web-app id=&quot;/&quot; root-directory=&quot;webapps/mardi_api&quot; /&gt;</span><br><span class="line">   &lt;/host&gt;</span><br></pre></td></tr></table></figure></p>
+<p>58.查看centos内核版本</p>
+<p>uname -r</p>
+<p>59.CentOS 安装 jdk<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 下载java的jar包解压后在 /etc/profile 文尾添加如下配置</span><br><span class="line">JAVA_HOME=/usr/java/jdk1.8.0_101</span><br><span class="line">PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export PATH JAVA_HOME CLASSPATH</span><br><span class="line"># 添加上述配置后执行 source /etc/profile 使配置即时生效</span><br></pre></td></tr></table></figure></p>
+<p>二、Windows相关：<br>1.Windows下查找某目录下包含某字符串的文件方法<br>findstr -s -i “listener” <em>.</em><br>-s:遍历当前目录及子目录<br>-i:忽略大小写<br>其他参数说明请参考：<a href="http://blog.csdn.net/zhiqiangzhan/article/details/5828533" target="_blank" rel="noopener">http://blog.csdn.net/zhiqiangzhan/article/details/5828533</a></p>
+<p>3.Windows自动关机命令<br>3600秒后自动关机：shutdown -f -s -t 3600<br>撤销自动关机：shutdown -a</p>
+<p>5.查看WinSCP记住的密码：</p>
+<p>用winscppwd.exe，百度winscppwd</p>
+<p>命令：winscppwd WINSCP.INI</p>
+<p>三、Windows软件推荐：<br>1.本地全局文件搜索：Everything<br>2.Java class反编译工具：jd-gui、luyten<br>3.hosts管理工具：SwitchHosts</p>
+<p>四、Note<br>1.代码中用空格代替tab<br>2.word2016不显示换行符：文件-选项-显示-段落标记-取消勾选<br>3.正则表达式(“[]”和“{}”可以实现大部分常规的表达式)<br>[]：表示其中的任何一个字符 [a-z],[0-9]<br>{}：表示出现的次数 a{3}<br>{m}：正好出现m次<br>{m,n}：最少m次，最多n次<br>{m,}：最少m次，没有上限<br>例：手机号码：1[34578][0-9]{9}</p>
+<p>4.使用MyBatis Generator自动创建代码 命令：</p>
+<p>java -jar mybatis-generator-core-1.3.2.jar -configfile generatorConfig.xml -overwrite</p>
+<p>参考地址：<a href="https://blog.csdn.net/zhshulin/article/details/23912615" target="_blank" rel="noopener">https://blog.csdn.net/zhshulin/article/details/23912615</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-01-09T01:56:35.455Z" itemprop="dateUpdated">2020-01-09 09:56:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/linux-notes.html" target="_blank" rel="external">https://blog.iaiot.com/linux-notes.html</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://blog.iaiot.com">
+            <img src="/img/haojiliang.jpg" alt="郝继亮">
+            郝继亮
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/linux-notes.html&title=《Linux、CentOS、Windows、零散笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/linux-notes.html&title=《Linux、CentOS、Windows、零散笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/linux-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux、CentOS、Windows、零散笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/linux-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/linux-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/JMeter-URISyntaxException.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JMeter java.net.URISyntaxException</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/resin.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">resin安全配置,ip黑白名单,只允许指定ip访问resin-admin,拒绝某些ip访问webapp</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "MvVAcHuImbRDRD3kyvUeFmH4-gzGzoHsz",
+            appKey: "hGps6FrlE0llixdToaGeqmyR",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>郝继亮 &copy; 2013 - 2020</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">鲁ICP备19033572号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://blog.iaiot.com/linux-notes.html&title=《Linux、CentOS、Windows、零散笔记》 — 郝继亮的笔记&pic=https://blog.iaiot.com/img/haojiliang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.iaiot.com/linux-notes.html&title=《Linux、CentOS、Windows、零散笔记》 — 郝继亮的笔记&source=郝继亮" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.iaiot.com/linux-notes.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux、CentOS、Windows、零散笔记》 — 郝继亮的笔记&url=https://blog.iaiot.com/linux-notes.html&via=https://blog.iaiot.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://blog.iaiot.com/linux-notes.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxklEQVR42u3aQW7DMAwEQP//0+m1QFtlSVqqA4xPRmLIIx8IcaXriq/X8vr+zM/79WjXjgsXF3fMzSlr0PqXZHprAy4u7nnuXxUjKVLJJHuFDxcX97O4+QR6I+Di4n4WtzqZdReDi4v7ZG6+HOmVs3/o1XBxcQfcPKXcd78l38XFxW1xX8XrXlb57bi4uEe4eUGpLj6qsUhhOxYXF3czN29Xei/IFzHrRuiqdle4uLgDbi/mqB60mmzWRlkOLi7urdxm+9FqXaqByC/P4+LiHudOQtJkUTL/KLi4uGe41eMU1QlMtm2i5gcXF3cbd2N4UfxmUSHDxcXdzF0HH9VDWvMw5c0bcXFxH8OdB6B5y3RDIcPFxR1zk2hjgsg3aQqfDBcX9yC3uqzpLVmqk3nTq+Hi4h7nNluUOBBpjoyLi3uc2xuousmax7LR37i4uLdy58eq1nFG/lGi7RxcXNwj3PmRiElhqi6PcHFxT3KrxasXjvSaokK+i4uLu4Fb3UzNj24U+rBqYIqLi/sY7l3NTB6p3LBiwsXFPcLNR5gHHzcUMlxc3BY3PySRHNksNDNBy4SLi3ueWy4lxc2YZALVRgsXF3cb9wtRMnGwaDQuiAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
