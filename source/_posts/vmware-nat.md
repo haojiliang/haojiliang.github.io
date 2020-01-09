@@ -45,5 +45,3 @@ DNS2=202.102.134.68 # DNS2
 
 此外：Ubuntu16 和 Ubuntu18 配置静态 ip 参考：https://blog.csdn.net/iaiot/article/details/86366225
 
-
-一直想买个 dell R740，可是好贵。正好有一台闲置电脑装了vmware，按照上述配置桥接模式，先当服务器用着，一台旧电脑又可以发挥价值了，哈哈哈~
